@@ -1,25 +1,17 @@
-# ReduxSimpleStarter
+# Lore Tracker
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+##  About
 
-### Getting Started
+> Sometimes D&D campaigns can go for months, and sometimes there can be long gaps in those campaign. During those gaps its not uncommon for players to forget certain NPC's and forget what their player does and doesn't know. With Dungeons & Data, that won't be a problem anymore.
 
-There are two methods for getting started with this repo.
+## How it Works
 
-#### Familiar with Git?
-Checkout this repo, install dependencies, then start the gulp process with the following:
-
-```
-> git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
-> cd ReduxSimpleStarter
-> npm install
-> npm start
-```
-
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
-> npm install
-> npm start
-```
+1. User creates on account
+2. If the user is a DM
+    * The DM will create a campaign
+    * The DM will add any information about the campaign that they feel is imortant such as NPC Bio's, an image of the NPC, etc.
+    * The DM will invite players to the campaign
+    * The DM will be able to share with either the team or just single players any information they feel the players should know.
+3. If the user a player
+    * The player will wait for and accept an invite from the DM
+    * The player will just sit back and wait for the DM the share the information that the DM feels needs to be shared.
