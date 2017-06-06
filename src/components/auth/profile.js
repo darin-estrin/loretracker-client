@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 class Profile extends Component {
+  componentWillMount() {
+    this.props.fetchMessage();
+  }
+
   render() {
     return(
       <div>
-        Profile Page
+        {this.props.message}
       </div>
     )
   }
 }
 
-export default Profile;
+function mapStateToProps(state) {
+  return { message: state.auth.message };
+}
+
+export default connect(mapStateToProps, actions)(Profile);

@@ -22,7 +22,6 @@ const store = createStoreWithMiddleware(reducers);
 const token = localStorage.getItem('token');
 
 if (token) {
-  console.log(token);
   store.dispatch({ type: AUTH_USER });
 }
 
