@@ -12,7 +12,7 @@ class Header extends Component {
     if (this.props.authenticated) {
       return (
         <li className='nav-item'>
-          <Link className='nav-link' to='/' onClick={this.onSignoutClick}>Signout</Link>
+          <Link className='nav-link' to='/' onClick={this.onSignoutClick}>Sign Out</Link>
         </li>
       )
     } else {

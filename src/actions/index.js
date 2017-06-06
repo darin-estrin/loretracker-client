@@ -14,11 +14,23 @@ export function signinUser({ email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/feature');
+        browserHistory.push('/profile');
       })
       .catch((err) => {
         dispatch(authError('Email or password are incorrect'));
       });
+  }
+}
+
+export function signupUser({ email, password }) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signup`, { email, password })
+      .then(response => {
+        dispatch({ type: AUTH_USER });
+        localStorage.setItem('token', response.data.token);
+        browserHistory.push('/profile');
+      })
+      .catch(error => dispatch(authError(error.response.data.error)));
   }
 }
 
