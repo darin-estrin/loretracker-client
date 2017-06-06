@@ -4,8 +4,7 @@ import {
   AUTH_USER,
   AUTH_ERROR,
   UNAUTH_USER,
-  FETCH_MESSAGE,
-  GET_USER
+  FETCH_MESSAGE
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
