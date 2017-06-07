@@ -7,3 +7,13 @@ body {
   background-position-x: center;
   background-attachment: fixed;
 }
+
+label {
+  font-size: 2vw;
+  @media screen and (max-width: 750px) {
+    font-size: 3vw;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 5vw;
+  }
+}

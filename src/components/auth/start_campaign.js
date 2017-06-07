@@ -30,7 +30,7 @@ class StartCampaign extends Component {
             {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
-            <label>Add Player Email *</label>
+            <label>Add Player Email</label>
             <input className='form-control' placeholder='Uktar@email.com' {...email1} />
             {email1.touched && email1.error && <div className='alert alert-danger'><strong>{email1.error}</strong></div>}
           </fieldset>
@@ -75,7 +75,7 @@ function validate(formProps) {
     errors.name = 'Please enter the name of the campaign';
   }
 
-  if (!validator.validate(email1)) {
+  if (!validator.validate(email1) && email1 !== undefined) {
     errors.email1 = 'Please enter a valid player email address';
   }
 
@@ -97,10 +97,6 @@ function validate(formProps) {
 
   if (!validator.validate(email6) && email2 !== undefined) {
     errors.email6 = 'Please enter a valid player email address';
-  }
-
-  if (!email1) {
-    errors.email1 = 'Please add at least one player';
   }
 
   return errors;
