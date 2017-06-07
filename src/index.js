@@ -13,6 +13,7 @@ import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Profile from './components/auth/profile';
 import PageNotFound from './components/pageNotFound';
+import StartCampaign from './components/auth/start_campaign';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path='signin' component={Signin} />
         <Route path='signup' component={Signup} />
         <Route path='profile' component={RequireAuth(Profile)} />
+        <Route path='startcampaign' component={RequireAuth(StartCampaign)} />
         <Route path='*' component={PageNotFound} />
       </Route>      
     </Router>

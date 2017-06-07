@@ -4,8 +4,8 @@ import {
   AUTH_USER,
   AUTH_ERROR,
   UNAUTH_USER,
-  FETCH_MESSAGE,
-  GET_USER
+  GET_USER,
+  CLEAR_ERRORS
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
@@ -44,23 +44,15 @@ export function authError(error) {
   };
 }
 
+export function clearError() {
+  return {
+    type: CLEAR_ERRORS
+  }
+}
+
 export function signoutUser(){
   localStorage.removeItem('token');
   return { type: UNAUTH_USER }
-}
-
-export function fetchMessage() {
-  return function(dispatch) {
-    axios.get(ROOT_URL, {
-      headers: { authorization: localStorage.getItem('token') }
-    })
-    .then(response => {
-      dispatch({
-        type: FETCH_MESSAGE,
-        payload: response.data.message
-      })
-    });
-  }
 }
 
 export function getUserData() {
