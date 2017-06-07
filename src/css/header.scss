@@ -1,11 +1,27 @@
 $mainColor: black;
+$font: red;
+$mobile: 500px;
 
-#header {
-  background-color: $mainColor;
-  height: 15vh;
-  width: 100%;
+.navbar {
+  padding: 1%;
+  max-height: 8vh;
 
-  .logo {
-    height: 100%;
+  .brand {
+    font-family: MedivalSharp;
+  }
+
+  a {
+    color: $font !important;
+  }
+
+  .logo-left {
+    max-height:5vh;
+    float: left;
+    // position: absolute;
+    // top:10%;
+    // left:1%;
+    @media screen and (max-width: 300px) {
+      display: none;
+    }
   }
 }

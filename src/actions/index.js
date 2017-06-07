@@ -4,10 +4,12 @@ import {
   AUTH_USER,
   AUTH_ERROR,
   UNAUTH_USER,
-  FETCH_MESSAGE
+  FETCH_MESSAGE,
+  GET_USER
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
+//const token = localStorage.getItem('token');
 
 export function signinUser({ email, password }) {
   return (dispatch) => {
@@ -15,7 +17,6 @@ export function signinUser({ email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userID', response.data.userID);
         browserHistory.push('/profile');
       })
       .catch((err) => {
@@ -24,13 +25,12 @@ export function signinUser({ email, password }) {
   }
 }
 
-export function signupUser({ email, password }) {
+export function signupUser({ name, email, password }) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}/signup`, { name, email, password })
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userID', response.data.userID);
         browserHistory.push('/profile');
       })
       .catch(error => dispatch(authError(error.response.data.error)));
@@ -60,5 +60,19 @@ export function fetchMessage() {
         payload: response.data.message
       })
     });
+  }
+}
+
+export function getUserData() {
+  return function(dispatch) {
+    axios.get(`${ROOT_URL}/user`,{
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: GET_USER,
+        payload: response.data
+      })
+    })
   }
 }

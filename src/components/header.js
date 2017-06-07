@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../actions';
+require('../css/header.scss');
 
 class Header extends Component {
+
+  // componentWillMount() {
+  //   if (token) {
+  //     this.props.getUserData();
+  //   }
+  // }
+
   onSignoutClick = () => {
     this.props.signoutUser()
   }
@@ -29,12 +37,26 @@ class Header extends Component {
 
   render() {
     return(
-      <nav className='navbar navbar-light'>
-        <Link to='/' className='navbar-brand'>LoreTracker</Link>
-        <ul className='nav navbar-nav'>
-          {this.renderLinks()}
-        </ul>
-      </nav>
+      <nav className="navbar navbar-inverse">
+      <img className='img-responsive logo-left' src={require('../images/logo.png')} />
+      <div className="container">
+        <div className="navbar-header">
+          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+          <Link className="navbar-brand brand" to="/">Lore Tracker</Link>
+        </div>
+        <div id="navbar" className="collapse navbar-collapse">
+          <ul className="nav navbar-nav">
+            <li className='nav-item'><Link to="/profile">Home</Link></li>
+            {this.renderLinks()}
+          </ul>
+        </div>
+      </div>
+    </nav>
     );
   }
 }
