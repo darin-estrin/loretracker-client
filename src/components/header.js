@@ -4,13 +4,19 @@ import { Link } from 'react-router';
 import * as actions from '../actions';
 require('../css/header.scss');
 
-class Header extends Component {
+const token = localStorage.getItem('token');
 
-  // componentWillMount() {
-  //   if (token) {
-  //     this.props.getUserData();
-  //   }
-  // }
+class Header extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
+  componentWillMount() {
+    const currentRoute = this.context.router.createLocation(location);
+    if (token && currentRoute.pathname === '/') {
+      this.context.router.push('/profile');
+    }
+  }
 
   onSignoutClick = () => {
     this.props.signoutUser()
@@ -18,11 +24,14 @@ class Header extends Component {
 
   renderLinks() {
     if (this.props.authenticated) {
-      return (
-        <li className='nav-item'>
+      return [
+        <li className='nav-item' key={1}>
+          <Link className='nav-link' to='/profile'>Profile</Link>
+        </li>,
+        <li className='nav-item' key={2}>
           <Link className='nav-link' to='/' onClick={this.onSignoutClick}>Sign Out</Link>
         </li>
-      )
+      ]
     } else {
       return [
         <li className='nav-item' key={1}>
@@ -51,7 +60,6 @@ class Header extends Component {
         </div>
         <div id="navbar" className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
-            <li className='nav-item'><Link to="/profile">Home</Link></li>
             {this.renderLinks()}
           </ul>
         </div>
