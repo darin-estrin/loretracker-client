@@ -8,6 +8,15 @@ export default () => (
     <h2>or any other table top RPG?</h2>
     <br />
     <h3>Playing Dungeons & Dragons is always a great time, but sometimes keeping track of everything can leave encumbered. With Lore Tracker you can easily look up the information you need. So why Lore Tracker?</h3>
+    <div className="jumbotron visible-lg">
+      <img className='img-responsive col-lg-6' src={require('../images/minis.jpg')} />
+      <img className='img-responsive col-lg-6' src={require('../images/table_top.jpg')} />
+    </div>
+    <div className="jumbotron visible-md">
+      <img className='img-responsive col-lg-12' src={require('../images/minis.jpg')} />
+      <br />
+      <img className='img-responsive col-lg-12' src={require('../images/table_top.jpg')} />
+    </div>
     <div className="row">
       <div className="col-md-6 col-xs-12 well dm-pro">
         <h4>Dungeon Masters</h4>
@@ -28,6 +37,6 @@ export default () => (
         </ul>
       </div>
     </div>
-    <h5>To get started either <Link to='/signin'>Sign in</Link> or <Link to='/signup'>Sign up</Link>!</h5>
+    <h4>To get started either <Link to='/signin'>Sign in</Link> or <Link to='/signup'>Sign up</Link>!</h4>
   </div>
 );
