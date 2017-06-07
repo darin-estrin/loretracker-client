@@ -1,11 +1,20 @@
+$mobile: 991px;
+
 .col-md-6 {
   height: 20vh;
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: $mobile) {
     height: auto;
   }
 
   ul {
     list-style: none;
+  }
+
+  .bullet {
+    height: 15px;
+    @media screen and (max-width: $mobile) {
+      display: none;
+    }
   }
 }
 

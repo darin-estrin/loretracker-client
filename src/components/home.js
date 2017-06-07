@@ -12,19 +12,19 @@ export default () => (
       <div className="col-md-6 col-xs-12 well dm-pro">
         <h4>Dungeon Masters</h4>
         <ul>
-          <li>- Store all data in one easy location</li>
-          <li>- Access it through you phone (mobile app coming soon)</li>
-          <li>- Store data for multiple campaigns</li>
-          <li>- Easily share information with the party of just specific players</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Store all data in one easy location</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Access it through you phone (mobile app coming soon)</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Store data for multiple campaigns</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Easily share information with the party of just specific players</li>
         </ul>
       </div>
       <div className="col-md-6 col-xs-12 well pc-pro">
         <h4>Players</h4>
         <ul>
-          <li>- Store all data in one easy location</li>
-          <li>- Access it through you phone (mobile app coming soon)</li>
-          <li>- Never worry about taking extended breaks and forgetting vital information</li>
-          <li>- Add your own data or modify existing data</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Store all data in one easy location</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Access it through you phone (mobile app coming soon)</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Never worry about taking extended breaks and forgetting vital information</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Add your own data or modify existing data</li>
         </ul>
       </div>
     </div>

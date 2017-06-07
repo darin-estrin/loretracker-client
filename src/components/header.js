@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../actions';
+import { Navbar, Nav, Image } from 'react-bootstrap';
 require('../css/header.scss');
 
 const token = localStorage.getItem('token');
@@ -46,25 +47,20 @@ class Header extends Component {
 
   render() {
     return(
-      <nav className="navbar navbar-inverse">
-      <img className='img-responsive logo-left' src={require('../images/logo.png')} />
-      <div className="container">
-        <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-          </button>
-          <Link className="navbar-brand brand" to="/">Lore Tracker</Link>
-        </div>
-        <div id="navbar" className="collapse navbar-collapse">
-          <ul className="nav navbar-nav">
+      <Navbar inverse collapseOnSelect>
+        <Image className='logo-left' src={require('../images/logo.png')} />
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to="/">Lore Tracker</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
             {this.renderLinks()}
-          </ul>
-        </div>
-      </div>
-    </nav>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }

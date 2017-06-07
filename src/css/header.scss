@@ -4,7 +4,6 @@ $mobile: 500px;
 
 .navbar {
   padding: 1%;
-  max-height: 8vh;
 
   .brand {
     font-family: MedivalSharp;
@@ -17,9 +16,7 @@ $mobile: 500px;
   .logo-left {
     max-height:5vh;
     float: left;
-    // position: absolute;
-    // top:10%;
-    // left:1%;
+    padding-right: 2%;
     @media screen and (max-width: 300px) {
       display: none;
     }
