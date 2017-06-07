@@ -68,3 +68,7 @@ export function getUserData() {
     })
   }
 }
+
+export function startCampaign(formProps){
+  
+}

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 const validator = require('email-validator');
-require('../../css/form.scss');
 
 class Signup extends Component {
   handleFormSubmit = (formProps) => {
@@ -27,25 +26,25 @@ class Signup extends Component {
         <fieldset className='form-group'>
             <label>Name:</label>
             <input className='form-control' {...name} />
-            {name.touched && name.error && <div className='error'>{name.error}</div>}
+            {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
             <label>Email:</label>
             <input className='form-control' {...email} />
-            {email.touched && email.error && <div className='error'>{email.error}</div>}
+            {email.touched && email.error && <div className='alert alert-danger'><strong>{email.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
             <label>Password:</label>
             <input type='password' className='form-control' {...password} />
-            {password.touched && password.error && <div className='error'>{password.error}</div>}
+            {password.touched && password.error && <div className='alert alert-danger'><strong>{password.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
             <label>Confirm Password:</label>
             <input type='password' className='form-control' {...passwordConfirm} />
-            {passwordConfirm.touched && passwordConfirm.error && <div className='error'>{passwordConfirm.error}</div>}
+            {passwordConfirm.touched && passwordConfirm.error && <div className='alert alert-danger'><strong>{passwordConfirm.error}</strong></div>}
           </fieldset>
           {this.renderAlert()}
-          <button className='btn btn-primary'>Sign Up</button>
+          <button action='submit' className='btn btn-primary'>Sign Up</button>
         </form>
       </div>
     );
