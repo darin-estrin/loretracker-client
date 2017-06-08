@@ -5,7 +5,7 @@ export default function(state= {}, action) {
     case GET_USER:
       return { ...state, name: action.payload.name, DMCampaigns: action.payload.campaigns.DM, PCCampaigns: action.payload.campaigns.PC }
     case START_CAMPAIGN:
-      return { ...state, DMCampaigns: action.payload }
+      return { ...state, DMCampaigns: action.payload.campaigns.DM }
     default:
       return { ...state };
   }
