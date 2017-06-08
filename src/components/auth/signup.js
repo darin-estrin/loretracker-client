@@ -19,29 +19,34 @@ class Signup extends Component {
   }
 
   render() {
-    const { handleSubmit, fields: { name, email, password, passwordConfirm }} = this.props;
+    const { handleSubmit, fields: { name, email, password, passwordConfirm, phone }} = this.props;
     return (
       <div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        <form className='signup' onSubmit={handleSubmit(this.handleFormSubmit)}>
         <fieldset className='form-group'>
-            <label>Name:</label>
+            <label>* Name:</label>
             <input className='form-control' {...name} />
             {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
-            <label>Email:</label>
+            <label>* Email:</label>
             <input className='form-control' {...email} />
             {email.touched && email.error && <div className='alert alert-danger'><strong>{email.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
-            <label>Password:</label>
+            <label>* Password:</label>
             <input type='password' className='form-control' {...password} />
             {password.touched && password.error && <div className='alert alert-danger'><strong>{password.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
-            <label>Confirm Password:</label>
+            <label>* Confirm Password:</label>
             <input type='password' className='form-control' {...passwordConfirm} />
             {passwordConfirm.touched && passwordConfirm.error && <div className='alert alert-danger'><strong>{passwordConfirm.error}</strong></div>}
+          </fieldset>
+          <fieldset className='form-group'>
+            <label>Phone Number:</label>
+            <input type='password' className='form-control' {...phone} />
+            {phone.touched && phone.error && <div className='alert alert-danger'><strong>{passwordConfirm.error}</strong></div>}
           </fieldset>
           {this.renderAlert()}
           <button action='submit' className='btn btn-primary'>Sign Up</button>
@@ -75,6 +80,10 @@ function validate(formProps) {
     errors.password = 'Password must match';
   }
 
+  // if (!phoneRegex.test(phone)) {
+  //   errors.phone = 'Please enter a valid phone number';
+  // }
+
   return errors;
 }
 
@@ -84,6 +93,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'signup',
-  fields: [ 'name', 'email', 'password', 'passwordConfirm' ],
+  fields: [ 'name', 'email', 'password', 'passwordConfirm', 'phone' ],
   validate
 }, mapStateToProps, actions)(Signup);

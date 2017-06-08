@@ -22,9 +22,10 @@ export default () => (
         <h4>Dungeon Masters</h4>
         <ul>
           <li><img className='bullet' src={require('../images/dice.png')}/> Store all data in one easy location</li>
-          <li><img className='bullet' src={require('../images/dice.png')}/> Access it through you phone (mobile app coming soon)</li>
           <li><img className='bullet' src={require('../images/dice.png')}/> Store data for multiple campaigns</li>
           <li><img className='bullet' src={require('../images/dice.png')}/> Easily share information with the party of just specific players</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Access it through you phone (mobile app coming soon)</li>
+          <li><img className='bullet' src={require('../images/dice.png')}/> Send players information through text (Planned feature in upcoming mobile app)</li>
         </ul>
       </div>
       <div className="col-md-6 col-xs-12 well pc-pro">

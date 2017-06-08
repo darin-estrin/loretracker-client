@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import _ from 'lodash';
 import { 
   AUTH_USER,
   AUTH_ERROR,
   UNAUTH_USER,
   GET_USER,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  START_CAMPAIGN
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
@@ -70,5 +72,15 @@ export function getUserData() {
 }
 
 export function startCampaign(formProps){
-  
+  return function(dispatch) {
+    axios.put(`${ROOT_URL}/startCampaign`, formProps, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: START_CAMPAIGN,
+        payload: response.data
+      })
+    })
+  }
 }

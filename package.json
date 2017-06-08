@@ -30,7 +30,7 @@
     "axios": "^0.16.1",
     "babel-preset-stage-1": "^6.1.18",
     "email-validator": "^1.0.7",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.4",
     "react": "^0.14.3",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^0.14.3",
