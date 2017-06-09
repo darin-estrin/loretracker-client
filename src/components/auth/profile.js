@@ -26,7 +26,7 @@ class Profile extends Component {
       return campaigns.map(function(name) {
       return (
         <li className='list-group-item' key={name}>
-          <h4><Link to={`/profile/${userType}/${name.toLowerCase()}`}>{name}</Link></h4>
+          <h4><Link to={`/profile/${userType}/${name}`}>{name}</Link></h4>
         </li>
       )
     });
@@ -88,6 +88,7 @@ class Profile extends Component {
   }
 
   render() {
+    const { fields: { name }} = this.props;
     return(
       <div>
         <h1 className='greeting'>Welcome {this.props.name}</h1>
@@ -104,6 +105,22 @@ class Profile extends Component {
   }
 }
 
+function validate(formProps) {
+  const errors = {}
+  const regex = new RegExp(/^\s*|\s*$/g);
+  const regex2 = new RegExp(/\s{2,}/g);
+
+  if (formProps.name && formProps.name.length > 1) {
+    formProps.name = formProps.name.replace(regex, '', regex2, ' ');
+  }
+
+  if (!formProps.name || formProps.name.length < 4) {
+    errors.name = 'Campaign name shoulde be at least four character long';
+  }
+
+  return errors;
+}
+
 function mapStateToProps(state) {
   return {
     name: state.user.name,
@@ -114,5 +131,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form:'start_campaign',
-  fields: ['name']
+  fields: ['name'],
+  validate
 }, mapStateToProps, { getUserData, startCampaign })(Profile);
