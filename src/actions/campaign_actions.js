@@ -17,3 +17,23 @@ export function startCampaign(formProps){
     })
   }
 }
+
+export function addPlayer() {
+
+}
+
+export function addNPC() {
+  
+}
+
+export function addLocation() {
+
+}
+
+export function addLore() {
+
+}
+
+export function getCampaignData() {
+  
+}
