@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash'
 import { reduxForm } from 'redux-form';
-import { getUserData } from '../../actions';
+import { getUserData, startCampaign } from '../../actions';
 require('../../css/greeting.scss');
 
 const token = localStorage.getItem('token');
 
 class Profile extends Component {
   componentWillMount() {
-    console.log(this.props)
     this.props.getUserData();
   }
 
@@ -18,12 +17,12 @@ class Profile extends Component {
     this.props.startCampaign(formProps);
   }
 
-  renderCampaignList(campaignListToRender){
+  renderCampaignList(userType ,campaignListToRender){
     const campaigns = _.map(campaignListToRender, 'campaignName');
       return campaigns.map(function(name) {
       return (
         <li className='list-group-item' key={name}>
-          <h4><Link to={`/profile/${name}`}>{name}</Link></h4>
+          <h4><Link to={`/profile/${userType}/${name}`}>{name}</Link></h4>
         </li>
       )
     });
@@ -48,7 +47,7 @@ class Profile extends Component {
         <div>
           <h3>Select a Campaign To Edit</h3>
           <ul className='list-group'>
-            {this.renderCampaignList(DMCampaigns)}
+            {this.renderCampaignList('DM', DMCampaigns)}
           </ul>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <fieldset className='form-group'>
@@ -71,7 +70,7 @@ class Profile extends Component {
         <div>
           <h3>Select a Campaign To View</h3>
           <ul className='list-group'>
-            {this.renderCampaignList(PCCampaigns)}
+            {this.renderCampaignList('PC', PCCampaigns)}
           </ul>
         </div>
       )
@@ -112,4 +111,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form:'start_campaign',
   fields: ['name']
-}, mapStateToProps, { getUserData })(Profile);
+}, mapStateToProps, { getUserData, startCampaign })(Profile);

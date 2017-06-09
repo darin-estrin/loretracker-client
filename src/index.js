@@ -37,7 +37,7 @@ ReactDOM.render(
         <Route path='signup' component={Signup} />
         <Route path='profile' component={RequireAuth(Profile)} />
         <Route path='startcampaign' component={RequireAuth(StartCampaign)} />
-        <Route path='profile/:id' component={RequireAuth(Campaign)} />
+        <Route path='profile/:userType/:name' component={RequireAuth(Campaign)} />
         <Route path='*' component={PageNotFound} />
       </Route>      
     </Router>
