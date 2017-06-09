@@ -13,13 +13,28 @@ export function startCampaign(formProps){
       dispatch({
         type: START_CAMPAIGN,
         payload: response.data
-      })
+      });
     })
   }
 }
 
-export function addPlayer() {
-
+export function addPlayer(request) {
+  console.log(request);
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/addPlayer`, request, {
+      headers: {authorization: localStorage.getItem('token') }
+    })
+    .then(repsonse => {
+      console.log(response);
+      dispatch({
+        type: ADD_PLAYER,
+        payload: response
+      });
+    })
+    .catch(error => {
+      console.log(error.response.data);
+    })
+  }
 }
 
 export function addNPC() {
