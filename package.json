@@ -1,7 +1,7 @@
 {
   "name": "lore_tracker",
   "version": "1.0.0",
-  "description": "front-end client for loretracker.com",
+  "description": "An app for Dungeons & Dragons(or any table top rpg) that allows DM's to share import information with players easily and stores in a secure location",
   "main": "index.js",
   "repository": "git@github.com:darin-estrin/loretracker.git",
   "scripts": {
@@ -10,7 +10,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "author": "Darin Estrin",
-  "license": "",
+  "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
