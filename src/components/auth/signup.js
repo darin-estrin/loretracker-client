@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import * as actions from '../../actions';
+import { signupUser } from '../../actions';
 const validator = require('email-validator');
 
 class Signup extends Component {
@@ -95,4 +95,4 @@ export default reduxForm({
   form: 'signup',
   fields: [ 'name', 'email', 'password', 'passwordConfirm', 'phone' ],
   validate
-}, mapStateToProps, actions)(Signup);
+}, mapStateToProps, { signupUser })(Signup);

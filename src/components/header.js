@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import * as actions from '../actions';
+import { signoutUser } from '../actions';
 import { Navbar, Nav, Image } from 'react-bootstrap';
 require('../css/header.scss');
 
@@ -74,4 +74,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(Header);
+export default connect(mapStateToProps, { signoutUser })(Header);

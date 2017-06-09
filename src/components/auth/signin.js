@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import * as actions from '../../actions';
+import { clearError, signinUser } from '../../actions';
 
 class Signin extends Component {
 
@@ -49,4 +49,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'signin',
   fields: ['email', 'password']
-}, mapStateToProps, actions)(Signin);
+}, mapStateToProps, {clearError, signinUser})(Signin);

@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash'
 import { reduxForm } from 'redux-form';
-import * as actions from '../../actions';
+import { getUserData } from '../../actions';
 require('../../css/greeting.scss');
 
 const token = localStorage.getItem('token');
 
 class Profile extends Component {
   componentWillMount() {
+    console.log(this.props)
     this.props.getUserData();
   }
 
@@ -111,4 +112,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form:'start_campaign',
   fields: ['name']
-}, mapStateToProps, actions)(Profile);
+}, mapStateToProps, { getUserData })(Profile);

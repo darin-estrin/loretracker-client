@@ -14,7 +14,7 @@ import Signup from './components/auth/signup';
 import Profile from './components/auth/profile';
 import PageNotFound from './components/pageNotFound';
 import StartCampaign from './components/auth/start_campaign';
-import Campaign from './components/auth/campaign_name';
+import Campaign from './components/auth/campaign_show';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
