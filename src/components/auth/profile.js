@@ -9,6 +9,10 @@ require('../../css/greeting.scss');
 const token = localStorage.getItem('token');
 
 class Profile extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
   componentWillMount() {
     this.props.getUserData();
   }
@@ -22,7 +26,7 @@ class Profile extends Component {
       return campaigns.map(function(name) {
       return (
         <li className='list-group-item' key={name}>
-          <h4><Link to={`/profile/${userType}/${name}`}>{name}</Link></h4>
+          <h4><Link to={`/profile/${userType}/${name.toLowerCase()}`}>{name}</Link></h4>
         </li>
       )
     });
@@ -47,7 +51,7 @@ class Profile extends Component {
         <div>
           <h3>Select a Campaign To Edit</h3>
           <ul className='list-group'>
-            {this.renderCampaignList('DM', DMCampaigns)}
+            {this.renderCampaignList('dm', DMCampaigns)}
           </ul>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <fieldset className='form-group'>
@@ -70,7 +74,7 @@ class Profile extends Component {
         <div>
           <h3>Select a Campaign To View</h3>
           <ul className='list-group'>
-            {this.renderCampaignList('PC', PCCampaigns)}
+            {this.renderCampaignList('pc', PCCampaigns)}
           </ul>
         </div>
       )

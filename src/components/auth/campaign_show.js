@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { addPlayer, addLore, addLocation, addNPC} from '../../actions';
+import { addPlayer, addLore, addLocation, addNPC, getCampaignData } from '../../actions';
 
 class Campaign extends Component {
   componentWillMount() {
+    console.log(this.props);
     const { name, userType } = this.props.params;
     console.log(name, userType);
+
   }
 
   render() {
@@ -17,7 +19,19 @@ class Campaign extends Component {
   }
 }
 
+function mapStateToProps() {
+  return {
+
+  }
+}
+
 export default reduxForm({
   form: 'UpdateCampaign',
   fields: ['player', 'lore', 'npc', 'locations']
-}, null, null)(Campaign);
+}, mapStateToProps, {
+  addLore,
+  addLocation,
+  addNPC,
+  addPlayer,
+  getCampaignData
+})(Campaign);
