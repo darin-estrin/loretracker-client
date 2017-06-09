@@ -17,52 +17,84 @@ class Profile extends Component {
     this.props.startCampaign(formProps);
   }
 
-  renderDMCampaigns(){
-    const campaigns =  _.map(this.props.DMCampaigns, 'campaignName');
-    return campaigns.map(function(name) {
+  renderCampaignList(campaignListToRender){
+    const campaigns = _.map(campaignListToRender, 'campaignName');
+      return campaigns.map(function(name) {
       return (
         <li className='list-group-item' key={name}>
-          <h2>{name}</h2>
+          <h4><Link to={`/profile/${name}`}>{name}</Link></h4>
         </li>
       )
-    }) 
+    });
   }
 
-  renderPage() {
-    const { handleSubmit, fields: { name }} = this.props;
-    if (!this.props.DMCampaigns || this.props.PCCampaigns) {
+  renderDMCampaigns(){
+    const { handleSubmit, fields: { name } , DMCampaigns } = this.props;
+    const campaigns =  _.map(DMCampaigns, 'campaignName');
+    if (campaigns.length < 1){
       return(
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+          <fieldset className='form-group'>
+            <label>* Campaign Name:</label>
+            <input className='form-control' placeholder='Princes of the Apocalypse' {...name} />
+            {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
+          </fieldset>
+          <button action='submit' className='btn btn-primary'>Start Campaign</button>
+        </form>
+      )
+    } else {
+      return (
         <div>
-          <h1 className='greeting'>Welcome {this.props.name}</h1>
-          <h3>To get started either start a campaign or ask your Dungeon Master to invite you to theirs.</h3>
+          <h3>Select a Campaign To Edit</h3>
+          <ul className='list-group'>
+            {this.renderCampaignList(DMCampaigns)}
+          </ul>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <fieldset className='form-group'>
               <label>* Campaign Name:</label>
               <input className='form-control' placeholder='Princes of the Apocalypse' {...name} />
               {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
             </fieldset>
-            <button action='submit' className='btn btn-primary'>Start Campaign</button>
+            <button action='submit' className='btn btn-primary'>Start a New Campaign</button>
           </form>
         </div>
       )
     }
-     else {
-       return (
-         <div className='row'>
-          <div className='col-lg-4 col-md-6 col-xs-12'>
-            <h2>Campaigns you are Running</h2>
-            {this.renderDMCampaigns()}
-            <button className='btn btn-primary'>Create New Campaign</button>
-          </div>
-         </div>
-     )
+  }
+
+  renderPCCampaigns() {
+    const { PCCampaigns } = this.props;
+    const campaigns =  _.map(PCCampaigns, 'campaignName');
+    if (campaigns.length >= 1) {
+      return (
+        <div>
+          <h3>Select a Campaign To View</h3>
+          <ul className='list-group'>
+            {this.renderCampaignList(PCCampaigns)}
+          </ul>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          You are not playing in any campaigns
+        </div>
+      )
     }
   }
 
   render() {
     return(
       <div>
-       {this.renderPage()} 
+        <h1 className='greeting'>Welcome {this.props.name}</h1>
+          <div className='row'>
+            <div className='col-md-6 col-xs-12'>
+            {this.renderDMCampaigns()}
+            </div>
+            <div className='col-md-6 col-xs-12'>
+            {this.renderPCCampaigns()}
+            </div>
+          </div>
       </div>
     )
   }

@@ -31,6 +31,9 @@ class Header extends Component {
         </li>,
         <li className='nav-item' key={2}>
           <Link className='nav-link' to='/' onClick={this.onSignoutClick}>Sign Out</Link>
+        </li>,
+        <li className='nav-item' key={3}>
+          <Link className='nav-link' to='/editProfile'>Edit Profile</Link>
         </li>
       ]
     } else {
