@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { START_CAMPAIGN } from './types';
+import { START_CAMPAIGN, ADD_PLAYER } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
 
@@ -24,16 +24,13 @@ export function addPlayer(request) {
     axios.put(`${ROOT_URL}/addPlayer`, request, {
       headers: {authorization: localStorage.getItem('token') }
     })
-    .then(repsonse => {
-      console.log(response);
+    .then(response => {
+      console.log('player added', response);
       dispatch({
         type: ADD_PLAYER,
-        payload: response
+        payload: response.data
       });
-    })
-    .catch(error => {
-      console.log(error.response.data);
-    })
+    });
   }
 }
 

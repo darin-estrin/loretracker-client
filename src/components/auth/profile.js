@@ -21,14 +21,14 @@ class Profile extends Component {
     this.props.startCampaign(formProps);
   }
 
-  renderCampaignList(userType ,campaignListToRender){
-    const campaigns = _.map(campaignListToRender, 'campaignName');
-      return campaigns.map(function(name) {
+  renderCampaignList(userType, campaignListToRender){
+    const campaigns = _.map(campaignListToRender,'campaignName');
+    return campaigns.map(function(name) {
       return (
         <li className='list-group-item' key={name}>
           <h4><Link to={`/profile/${userType}/${name}`}>{name}</Link></h4>
         </li>
-      )
+      );
     });
   }
 

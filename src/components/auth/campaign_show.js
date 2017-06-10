@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { addPlayer, addLore, addLocation, addNPC, getCampaignData } from '../../actions';
+import { addPlayer, addLore, addLocation, addNPC, getCampaignData, getUserData } from '../../actions';
 
 class Campaign extends Component {
   componentWillMount() {
-    //console.log(this.props);
-    // const { name, userType } = this.props.params;
-    // console.log(name, userType);
-    //this.props.getCampaignData();
+    console.log(this.props);
   }
 
   handleFormSubmit = ({ email }) => {
@@ -69,16 +66,17 @@ class Campaign extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-
-//   }
-// }
+function mapStateToProps(state) {
+  return {
+    name: state.user.name,
+    DMCampaigns: state.user.DMCampaigns
+  }
+}
 
 export default reduxForm({
   form: 'UpdateCampaign',
   fields: [ 'name', 'email', 'phone', 'image', 'bio', 'description' ]
-}, null, {
+}, mapStateToProps, {
   addLore,
   addLocation,
   addNPC,
