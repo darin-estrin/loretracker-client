@@ -19,6 +19,7 @@ class Profile extends Component {
 
   handleFormSubmit = (formProps) => {
     this.props.startCampaign(formProps);
+    this.props.resetForm();
   }
   
   renderCampaignList(campaignListToRender, type){

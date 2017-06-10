@@ -14,6 +14,7 @@ class Campaign extends Component {
   addPlayerSubmit = ({ email }) => {
     const { id } = this.props.params;
     this.props.addPlayer({ email, campaignId: id });
+    this.props.resetForm();
   }
 
   renderFields(type) {
