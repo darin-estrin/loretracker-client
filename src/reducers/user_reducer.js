@@ -13,7 +13,7 @@ export default function(state= {}, action) {
     case START_CAMPAIGN:
       return { ...state, DMCampaigns: action.payload.campaigns.DM, error: '' }
     case ADD_PLAYER:
-      return { ...state, DMCampaigns: action.payload.campaigns.DM, error: '' };
+      return { ...state, DMCampaign: action.payload, error: '' };
     case ADD_ERROR:
       return { ...state, error: action.payload };
     case FETCH_CAMPAIGN:

@@ -10,17 +10,17 @@ class Campaign extends Component {
   componentWillMount() {
     this.props.getCampaignData(this.props.params.id);
   }
-  
-  handleFormSubmit = ({ email }) => {
-    const { name } = this.props.params;
-    this.props.addPlayer({ email, campaignName: name });
+
+  addPlayerSubmit = ({ email }) => {
+    const { id } = this.props.params;
+    this.props.addPlayer({ email, campaignId: id });
   }
 
   renderFields(type) {
     const { handleSubmit, fields : { name, email, phone, image, bio, description }} = this.props;
     if (type === 'pc') {
       return (
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        <form onSubmit={handleSubmit(this.addPlayerSubmit)}>
           <fieldset className='form-group'>
             <label>* Add Player Email:</label>
             <input placeholder='Uktar@email.com'className='form-control' {...email} />
