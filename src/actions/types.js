@@ -5,3 +5,5 @@ export const GET_USER = 'get_user';
 export const CLEAR_ERRORS = 'clear_errors';
 export const START_CAMPAIGN = 'start_campaign';
 export const ADD_PLAYER = 'add_player';
+export const ADD_ERROR = 'add_error';
+export const FETCH_CAMPAIGN = 'fetch_campaign';

@@ -20,13 +20,12 @@ class Profile extends Component {
   handleFormSubmit = (formProps) => {
     this.props.startCampaign(formProps);
   }
-
-  renderCampaignList(userType, campaignListToRender){
-    const campaigns = _.map(campaignListToRender,'campaignName');
-    return campaigns.map(function(name) {
+  
+  renderCampaignList(campaignListToRender, type){
+    return campaignListToRender.map(function(object){
       return (
-        <li className='list-group-item' key={name}>
-          <h4><Link to={`/profile/${userType}/${name}`}>{name}</Link></h4>
+        <li className='list-group-item' key={object._id}>
+          <h4><Link to={`/profile/${type}/${object._id}`}>{object.campaignName}</Link></h4>
         </li>
       );
     });
@@ -34,8 +33,7 @@ class Profile extends Component {
 
   renderDMCampaigns(){
     const { handleSubmit, fields: { name } , DMCampaigns } = this.props;
-    const campaigns =  _.map(DMCampaigns, 'campaignName');
-    if (campaigns.length < 1){
+    if (DMCampaigns.length < 1){
       return(
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <fieldset className='form-group'>
@@ -51,7 +49,7 @@ class Profile extends Component {
         <div>
           <h3>Select a Campaign To Edit</h3>
           <ul className='list-group'>
-            {this.renderCampaignList('dm', DMCampaigns)}
+            {this.renderCampaignList(DMCampaigns, 'dm')}
           </ul>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <fieldset className='form-group'>
@@ -68,22 +66,17 @@ class Profile extends Component {
 
   renderPCCampaigns() {
     const { PCCampaigns } = this.props;
-    const campaigns =  _.map(PCCampaigns, 'campaignName');
-    if (campaigns.length >= 1) {
+    if (PCCampaigns.length >= 1) {
       return (
         <div>
           <h3>Select a Campaign To View</h3>
           <ul className='list-group'>
-            {this.renderCampaignList('pc', PCCampaigns)}
+            {this.renderCampaignList(PCCampaigns, 'pc')}
           </ul>
         </div>
       )
     } else {
-      return (
-        <div>
-          You are not playing in any campaigns
-        </div>
-      )
+      return;
     }
   }
 
@@ -122,11 +115,12 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state) {
+  const { name, DMCampaigns, PCCampaigns } = state.user;
   return {
-    name: state.user.name,
-    DMCampaigns: state.user.DMCampaigns,
-    PCCampaigns: state.user.PCCampaigns
-  };
+    name: name,
+    DMCampaigns: _.map(DMCampaigns, _.partial(_.ary(_.pick, 2), _, ['campaignName', '_id'])),
+    PCCampaigns: _.map(PCCampaigns, _.partial(_.ary(_.pick, 2), _, ['campaignName', '_id']))
+  }
 }
 
 export default reduxForm({

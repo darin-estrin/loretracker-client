@@ -1,13 +1,19 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { START_CAMPAIGN, ADD_PLAYER } from './types';
+import {
+  START_CAMPAIGN,
+  FETCH_CAMPAIGN,
+  ADD_PLAYER,
+  ADD_ERROR
+} from './types';
 
 const ROOT_URL = 'http://localhost:3090';
+const token = localStorage.getItem('token');
 
 export function startCampaign(formProps){
   return function(dispatch) {
     axios.put(`${ROOT_URL}/startCampaign`, formProps, {
-      headers: { authorization: localStorage.getItem('token') }
+      headers: { authorization: token }
     })
     .then(response => {
       dispatch({
@@ -18,17 +24,35 @@ export function startCampaign(formProps){
   }
 }
 
-export function addPlayer(request) {
-  console.log(request);
-  return (dispatch) => {
-    axios.put(`${ROOT_URL}/addPlayer`, request, {
-      headers: {authorization: localStorage.getItem('token') }
+export function getCampaignData(id) {
+  return function(dispatch) {
+    axios.get(`${ROOT_URL}/campaigndata`, {
+      headers: { authorization: token, id: id }
     })
     .then(response => {
-      console.log('player added', response);
+      dispatch({
+        type: FETCH_CAMPAIGN,
+        payload: response.data
+      })
+    })
+  }
+}
+
+export function addPlayer(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/addPlayer`, request, {
+      headers: { authorization: token }
+    })
+    .then(response => {
       dispatch({
         type: ADD_PLAYER,
         payload: response.data
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: ADD_ERROR,
+        payload: err.response.data.error
       });
     });
   }
@@ -44,8 +68,4 @@ export function addLocation() {
 
 export function addLore() {
 
-}
-
-export function getCampaignData() {
-  
 }
