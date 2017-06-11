@@ -9,7 +9,6 @@ import {
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
-const token = localStorage.getItem('token');
 
 export function signinUser({ email, password }) {
   return (dispatch) => {
@@ -58,7 +57,7 @@ export function signoutUser(){
 export function getUserData() {
   return function(dispatch) {
     axios.get(`${ROOT_URL}/user`, {
-      headers: { authorization: token }
+      headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
       dispatch({

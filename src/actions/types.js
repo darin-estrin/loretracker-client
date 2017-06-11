@@ -7,3 +7,4 @@ export const START_CAMPAIGN = 'start_campaign';
 export const ADD_PLAYER = 'add_player';
 export const ADD_ERROR = 'add_error';
 export const FETCH_CAMPAIGN = 'fetch_campaign';
+export const FETCH_ERROR = 'fetch_error';

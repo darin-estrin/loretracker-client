@@ -4,7 +4,7 @@ import {
   START_CAMPAIGN,
   FETCH_CAMPAIGN,
   ADD_PLAYER,
-  ADD_ERROR
+  FETCH_ERROR
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
@@ -47,14 +47,9 @@ export function addPlayer(request) {
       dispatch({
         type: ADD_PLAYER,
         payload: response.data
-      });
+      })
     })
-    .catch((err) => {
-      dispatch({
-        type: ADD_ERROR,
-        payload: err.response.data.error
-      });
-    });
+    .catch(error => dispatch(fetchError(error.response.data.error)));
   }
 }
 
@@ -68,4 +63,11 @@ export function addLocation() {
 
 export function addLore() {
 
+}
+
+export function fetchError(error) {
+  return {
+    type: FETCH_ERROR,
+    payload: error
+  };
 }
