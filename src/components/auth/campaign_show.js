@@ -11,9 +11,9 @@ class Campaign extends Component {
     this.props.getCampaignData(this.props.params.id);
   }
 
-  addPlayerSubmit = ({ email }) => {
+  addPlayerSubmit = ({ email, name }) => {
     const { id } = this.props.params;
-    this.props.addPlayer({ email, campaignId: id });
+    this.props.addPlayer({ email, campaignId: id, name });
     this.props.resetForm();
   }
 
@@ -23,8 +23,12 @@ class Campaign extends Component {
       return (
         <form onSubmit={handleSubmit(this.addPlayerSubmit)}>
           <fieldset className='form-group'>
-            <label>* Add Player Email:</label>
+            <label>* Player Email:</label>
             <input placeholder='Uktar@email.com'className='form-control' {...email} />
+          </fieldset>
+          <fieldset className='form-group'>
+            <label>Character Name:</label>
+            <input placeholder='Uktar'className='form-control' {...name} />
           </fieldset>
           {this.renderAlert()}
           <button action='submit' className='btn btn-primary'>Add Player</button>
