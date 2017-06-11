@@ -25,12 +25,12 @@ class Signup extends Component {
         <form className='signup' onSubmit={handleSubmit(this.handleFormSubmit)}>
         <fieldset className='form-group'>
             <label>* Name:</label>
-            <input className='form-control' {...name} />
+            <input placeholder='Mark' className='form-control' {...name} />
             {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
             <label>* Email:</label>
-            <input className='form-control' {...email} />
+            <input placeholder='Uktar@email.com' className='form-control' {...email} />
             {email.touched && email.error && <div className='alert alert-danger'><strong>{email.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
@@ -45,7 +45,7 @@ class Signup extends Component {
           </fieldset>
           <fieldset className='form-group'>
             <label>Phone Number:</label>
-            <input type='password' className='form-control' {...phone} />
+            <input placeholder='555-555-5555' className='form-control' {...phone} />
             {phone.touched && phone.error && <div className='alert alert-danger'><strong>{passwordConfirm.error}</strong></div>}
           </fieldset>
           {this.renderAlert()}
