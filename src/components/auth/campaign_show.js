@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { addPlayer, addLore, addLocation, addNPC, getCampaignData } from '../../actions';
+import { Link } from 'react-router';
+import { addPlayer, addNPC, getCampaignData } from '../../actions';
 
 class Campaign extends Component {
   static contextTypes = {
@@ -17,24 +18,46 @@ class Campaign extends Component {
     this.props.resetForm();
   }
 
-  renderFields(type) {
-    const { handleSubmit, fields : { name, email, phone, image, bio, description }} = this.props;
-    if (type === 'pc') {
-      return (
-        <form onSubmit={handleSubmit(this.addPlayerSubmit)}>
+  addnpcSubmit = ({ npcName,  npcImage }) => {
+    const { id } = this.props.params;
+    this.props.addNPC({ npcName, npcImage, id});
+    this.props.resetForm();
+  }
+
+  renderAddPlayer() {
+    const { handleSubmit, fields : { name, email }} = this.props;
+    return (
+      <form onSubmit={handleSubmit(this.addPlayerSubmit)}>
+        <fieldset className='form-group'>
+          <label>* Player Email:</label>
+          <input placeholder='Uktar@email.com' className='form-control' {...email} />
+        </fieldset>
+        <fieldset className='form-group'>
+          <label>Character Name:</label>
+          <input placeholder='Uktar' className='form-control' {...name} />
+        </fieldset>
+        {this.renderAlert()}
+        <button action='submit' className='btn btn-primary'>Add Player</button>
+      </form>
+    );
+  }
+
+  renderAddNpc() {
+    const { handleSubmit, fields: { npcName ,npcImage }} = this.props;
+    return (
+        <form onSubmit={handleSubmit(this.addnpcSubmit)}>
           <fieldset className='form-group'>
-            <label>* Player Email:</label>
-            <input placeholder='Uktar@email.com'className='form-control' {...email} />
+            <label>* NPC Name:</label>
+            <input placeholder='Jor' className='form-control' {...npcName} />
           </fieldset>
           <fieldset className='form-group'>
-            <label>Character Name:</label>
-            <input placeholder='Uktar'className='form-control' {...name} />
+            <label>Link to Image:</label>
+            <input placeholder='imgur.com/urlforcharacterimage' className='form-control' {...npcImage} />
           </fieldset>
           {this.renderAlert()}
           <button action='submit' className='btn btn-primary'>Add Player</button>
         </form>
-      )
-    }
+      );
   }
 
   renderAlert() {
@@ -60,37 +83,36 @@ class Campaign extends Component {
     });
   }
 
+  renderNpcs() {
+    const campaign  = this.props.DMCampaign;
+    if (!campaign) { return; }
+    const npcs = campaign.NPCs
+    return npcs.map(function(object){
+      return (
+        <li className='list-group-item' key={object.npcName}>
+          <h4>{object.npcName}</h4>
+        </li>
+      );
+    });
+  }
+
   render() {
     return (
       <div>
         <div className='row'>
-          <div className='col-lg-3 col-md-6 col-xs-12'>
+          <div className='col-md-6 col-xs-12'>
             <h2>Players</h2>
+            {this.renderAddPlayer()}
             <ul className='list-group'>
               {this.renderPlayers()}
             </ul>
-            {this.renderFields('pc')}
           </div>
-          <div className='col-lg-3 col-md-6 col-xs-12'>
+          <div className='col-md-6 col-xs-12'>
             <h2>NPC's</h2>
+            {this.renderAddNpc()}
             <ul className='list-group'>
-            
+              {this.renderNpcs()}
             </ul>
-            {this.renderFields('npc')}
-          </div>
-          <div className='col-lg-3 col-md-6 col-xs-12'>
-            <h2>Locations</h2>
-            <ul className='list-group'>
-            
-            </ul>
-            {this.renderFields('location')}
-          </div>
-          <div className='col-lg-3 col-md-6 col-xs-12'>
-            <h2>Lore</h2>
-            <ul className='list-group'>
-            
-            </ul>
-            {this.renderFields('lore')}
           </div>
         </div>
       </div>
@@ -109,10 +131,8 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'UpdateCampaign',
-  fields: [ 'name', 'email', 'phone', 'image', 'bio', 'description' ]
+  fields: [ 'name', 'email', 'npcName', 'npcImage' ]
 }, mapStateToProps, {
-  addLore,
-  addLocation,
   addNPC,
   addPlayer,
   getCampaignData

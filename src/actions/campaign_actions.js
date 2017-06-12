@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import {
   START_CAMPAIGN,
   FETCH_CAMPAIGN,
-  ADD_PLAYER,
+  ADD_CAMPAIGN_DATA,
   FETCH_ERROR
 } from './types';
 
@@ -45,16 +45,28 @@ export function addPlayer(request) {
     })
     .then(response => {
       dispatch({
-        type: ADD_PLAYER,
+        type: ADD_CAMPAIGN_DATA,
         payload: response.data
-      })
+      });
     })
     .catch(error => dispatch(fetchError(error.response.data.error)));
   }
 }
 
-export function addNPC() {
-  
+export function addNPC(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/addnpc`, request, {
+      headers: { authorization: token }
+    })
+    .then(response => {
+      console.log(response);
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    })
+    .catch(error => console.log(error));
+  }
 }
 
 export function addLocation() {

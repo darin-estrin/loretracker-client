@@ -1,7 +1,7 @@
 import {
   GET_USER,
   START_CAMPAIGN,
-  ADD_PLAYER,
+  ADD_CAMPAIGN_DATA,
   FETCH_ERROR,
   FETCH_CAMPAIGN,
   UNAUTH_USER
@@ -13,7 +13,7 @@ export default function(state= {}, action) {
       return { ...state, name: action.payload.name, DMCampaigns: action.payload.campaigns.DM, PCCampaigns: action.payload.campaigns.PC, error: '' }
     case START_CAMPAIGN:
       return { ...state, DMCampaigns: action.payload.campaigns.DM, error: '' }
-    case ADD_PLAYER:
+    case ADD_CAMPAIGN_DATA:
       return { ...state, DMCampaign: action.payload, error: '' };
     case FETCH_ERROR:
       return { ...state, error: action.payload };
