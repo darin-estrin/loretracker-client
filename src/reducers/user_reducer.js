@@ -14,13 +14,13 @@ export default function(state= {}, action) {
     case START_CAMPAIGN:
       return { ...state, DMCampaigns: action.payload.campaigns.DM, error: '' }
     case ADD_CAMPAIGN_DATA:
-      return { ...state, DMCampaign: action.payload, error: '' };
+      return { ...state, Campaign: action.payload, error: '' };
     case FETCH_ERROR:
       return { ...state, error: action.payload };
     case FETCH_CAMPAIGN:
-      return { ...state, DMCampaign: action.payload, error: '' };
+      return { ...state, Campaign: action.payload, error: '' };
     case UNAUTH_USER:
-      return { ...state, name: '', DMCampaigns: '', PCCampaigns: '', error: ''}
+      return { ...state, name: '', DMCampaigns: '', PCCampaigns: '', error: '', Campaign: '' }
     default:
       return { ...state };
   }

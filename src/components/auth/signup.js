@@ -35,12 +35,12 @@ class Signup extends Component {
           </fieldset>
           <fieldset className='form-group'>
             <label>* Password:</label>
-            <input type='password' className='form-control' {...password} />
+            <input type='password' placeholder='Password' className='form-control' {...password} />
             {password.touched && password.error && <div className='alert alert-danger'><strong>{password.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>
             <label>* Confirm Password:</label>
-            <input type='password' className='form-control' {...passwordConfirm} />
+            <input type='password' placeholder='Confirm Password' className='form-control' {...passwordConfirm} />
             {passwordConfirm.touched && passwordConfirm.error && <div className='alert alert-danger'><strong>{passwordConfirm.error}</strong></div>}
           </fieldset>
           <fieldset className='form-group'>

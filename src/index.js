@@ -11,9 +11,9 @@ import App from './components/app';
 import Home from './components/home';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
-import Profile from './components/auth/profile';
+import Campaigns from './components/auth/campaigns';
 import PageNotFound from './components/pageNotFound';
-import Campaign from './components/auth/campaign_show';
+import Roster from './components/auth/roster';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -34,8 +34,8 @@ ReactDOM.render(
         <IndexRoute component={Home} />
         <Route path='signin' component={Signin} />
         <Route path='signup' component={Signup} />
-        <Route path='profile' component={RequireAuth(Profile)} />
-        <Route path='profile/:type/:id' component={RequireAuth(Campaign)} />
+        <Route path='campaigns' component={RequireAuth(Campaigns)} />
+        <Route path='campaigns/:type/:id' component={RequireAuth(Roster)} />
         <Route path='*' component={PageNotFound} />
       </Route>      
     </Router>

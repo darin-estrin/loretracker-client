@@ -15,7 +15,7 @@ class Header extends Component {
   componentWillMount() {
     const currentRoute = this.context.router.createLocation(location);
     if (token && currentRoute.pathname === '/') {
-      this.context.router.push('/profile');
+      this.context.router.push('/campaigns');
     }
   }
 
@@ -30,10 +30,10 @@ class Header extends Component {
           <Link className='nav-link' to='/profile'>Profile</Link>
         </li>,
         <li className='nav-item' key={2}>
-          <Link className='nav-link' to='/' onClick={this.onSignoutClick}>Sign Out</Link>
+          <Link className='nav-link' to='campaigns'>View Campaigns</Link>
         </li>,
         <li className='nav-item' key={3}>
-          <Link className='nav-link' to='/editProfile'>Edit Profile</Link>
+          <Link className='nav-link' to='/' onClick={this.onSignoutClick}>Sign Out</Link>
         </li>
       ]
     } else {

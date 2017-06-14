@@ -10,7 +10,7 @@ class PageNotFound extends Component{
     if (token) {
       return (
         <div className='page-not-found'>
-          <h1>Sorry Hero, the location you are looking for does not exist in this realm. <Link to='/profile'>Click Here</Link> to go back to your home town.</h1>
+          <h1>Sorry Hero, the location you are looking for does not exist in this realm. <Link to='/campaigns'>Click Here</Link> to go back to your home town.</h1>
         </div>
       )
     }

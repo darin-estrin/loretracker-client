@@ -16,7 +16,7 @@ export function signinUser({ email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/profile');
+        browserHistory.push('/campaigns');
       })
       .catch((err) => {
         dispatch(authError('Email or password are incorrect'));
@@ -24,13 +24,13 @@ export function signinUser({ email, password }) {
   }
 }
 
-export function signupUser({ name, email, password }) {
+export function signupUser({ name, email, password, phone }) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { name, email, password })
+    axios.post(`${ROOT_URL}/signup`, { name, email, password, phone })
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/profile');
+        browserHistory.push('/campaigns');
       })
       .catch(error => dispatch(authError(error.response.data.error)));
   }

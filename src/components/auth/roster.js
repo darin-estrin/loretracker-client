@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import { addPlayer, addNPC, getCampaignData } from '../../actions';
+import { addPlayer, getCampaignData } from '../../actions';
 
-class Campaign extends Component {
+class Roster extends Component {
   static contextTypes = {
     router: React.PropTypes.object
   }
   
   componentWillMount() {
-    this.props.getCampaignData(this.props.params.id);
+    const { type, id } = this.props.params;
+    if (type === 'dm') {
+      this.props.getCampaignData(id, type);
+    } else if (type === 'pc') {
+      this.props.getCampaignData(this.props.params.id, type);
+    }    
   }
 
   addPlayerSubmit = ({ email, name }) => {
     const { id } = this.props.params;
     this.props.addPlayer({ email, campaignId: id, name });
-    this.props.resetForm();
-  }
-
-  addnpcSubmit = ({ npcName,  npcImage }) => {
-    const { id } = this.props.params;
-    this.props.addNPC({ npcName, npcImage, id});
     this.props.resetForm();
   }
 
@@ -38,26 +37,9 @@ class Campaign extends Component {
         </fieldset>
         {this.renderAlert()}
         <button action='submit' className='btn btn-primary'>Add Player</button>
+        <Link className='btn btn-danger pull-right' to='/campaigns'>Back to Campaigns</Link>
       </form>
     );
-  }
-
-  renderAddNpc() {
-    const { handleSubmit, fields: { npcName ,npcImage }} = this.props;
-    return (
-        <form onSubmit={handleSubmit(this.addnpcSubmit)}>
-          <fieldset className='form-group'>
-            <label>* NPC Name:</label>
-            <input placeholder='Jor' className='form-control' {...npcName} />
-          </fieldset>
-          <fieldset className='form-group'>
-            <label>Link to Image:</label>
-            <input placeholder='imgur.com/urlforcharacterimage' className='form-control' {...npcImage} />
-          </fieldset>
-          {this.renderAlert()}
-          <button action='submit' className='btn btn-primary'>Add Player</button>
-        </form>
-      );
   }
 
   renderAlert() {
@@ -71,7 +53,7 @@ class Campaign extends Component {
   }
 
   renderPlayers() {
-    const campaign  = this.props.DMCampaign;
+    const campaign  = this.props.Campaign;
     if (!campaign) { return; }
     const players = campaign.players
     return players.map(function(object){
@@ -83,36 +65,20 @@ class Campaign extends Component {
     });
   }
 
-  renderNpcs() {
-    const campaign  = this.props.DMCampaign;
-    if (!campaign) { return; }
-    const npcs = campaign.NPCs
-    return npcs.map(function(object){
-      return (
-        <li className='list-group-item' key={object.npcName}>
-          <h4>{object.npcName}</h4>
-        </li>
-      );
-    });
-  }
-
   render() {
     return (
       <div>
         <div className='row'>
+          {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
           <div className='col-md-6 col-xs-12'>
             <h2>Players</h2>
-            {this.renderAddPlayer()}
             <ul className='list-group'>
               {this.renderPlayers()}
             </ul>
+            {this.props.params.type ==='dm' ? this.renderAddPlayer() : <Link className='btn btn-danger pull right' to='/campaigns'>Back To Campaigns</Link>}
           </div>
-          <div className='col-md-6 col-xs-12'>
-            <h2>NPC's</h2>
-            {this.renderAddNpc()}
-            <ul className='list-group'>
-              {this.renderNpcs()}
-            </ul>
+          <div className='col-md-6 col hidden-xs'>
+
           </div>
         </div>
       </div>
@@ -123,17 +89,15 @@ class Campaign extends Component {
 function mapStateToProps(state) {
   return {
     name: state.user.name,
-    DMCampaign: state.user.DMCampaign,
-    PCCampaign: state.user.PCCampaign,
+    Campaign: state.user.Campaign,
     errorMessage: state.user.error
   }
 }
 
 export default reduxForm({
-  form: 'UpdateCampaign',
-  fields: [ 'name', 'email', 'npcName', 'npcImage' ]
+  form: 'add_player',
+  fields: [ 'name', 'email' ]
 }, mapStateToProps, {
-  addNPC,
   addPlayer,
   getCampaignData
-})(Campaign);
+})(Roster);

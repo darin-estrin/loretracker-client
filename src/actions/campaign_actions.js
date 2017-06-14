@@ -24,10 +24,11 @@ export function startCampaign(formProps){
   }
 }
 
-export function getCampaignData(id) {
+export function getCampaignData(id, type) {
   return function(dispatch) {
+    console.log(id, type);
     axios.get(`${ROOT_URL}/campaigndata`, {
-      headers: { authorization: token, id: id }
+      headers: { authorization: token, id, type }
     })
     .then(response => {
       dispatch({
@@ -35,6 +36,9 @@ export function getCampaignData(id) {
         payload: response.data
       })
     })
+    .catch((error) => {
+      browserHistory.push('/campaigns');
+    });
   }
 }
 
