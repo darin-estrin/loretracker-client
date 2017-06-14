@@ -13,7 +13,7 @@ const token = localStorage.getItem('token');
 export function startCampaign(formProps){
   return function(dispatch) {
     axios.put(`${ROOT_URL}/startCampaign`, formProps, {
-      headers: { authorization: token }
+      headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
       dispatch({
@@ -27,7 +27,7 @@ export function startCampaign(formProps){
 export function getCampaignData(id, type) {
   return function(dispatch) {
     axios.get(`${ROOT_URL}/campaigndata`, {
-      headers: { authorization: token, id, type }
+      headers: { authorization: localStorage.getItem('token'), id, type }
     })
     .then(response => {
       dispatch({
@@ -44,7 +44,7 @@ export function getCampaignData(id, type) {
 export function addPlayer(request) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/addPlayer`, request, {
-      headers: { authorization: token }
+      headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
       dispatch({
@@ -59,7 +59,7 @@ export function addPlayer(request) {
 export function addNPC(request) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/addnpc`, request, {
-      headers: { authorization: token }
+      headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
       dispatch({

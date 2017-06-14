@@ -54,18 +54,20 @@ class Roster extends Component {
 
   renderPlayers() {
     const campaign  = this.props.Campaign;
+    const { type, id } = this.props.params;
     if (!campaign) { return; }
     const players = campaign.players
     return players.map(function(object){
       return (
         <li className='list-group-item' key={object.email}>
-          <h4>{object.name}</h4>
+          <Link to={`/campaigns/${type}/${id}/roster/${object.name}`}><h4>{object.name}</h4></Link>
         </li>
       );
     });
   }
 
   render() {
+    const {id, type} = this.props.params;
     return (
       <div>
         <div className='row'>

@@ -9,7 +9,8 @@ class Npcs extends Component {
   }
 
   componentWillMount() {
-
+    const { type, id } = this.props.params
+    this.props.getCampaignData(id, type);
   }
 
   addnpcSubmit = ({ name,  image }) => {
@@ -62,13 +63,21 @@ class Npcs extends Component {
   render() {
     return (
       <div>
-
+        <h1>Hi</h1>
       </div>
     );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    name: state.user.name,
+    Campaign: state.user.Campaign,
+    errorMessage: state.user.error
   }
 }
 
 export default reduxForm({
   form: "Add_npc",
   fields: [ 'name', 'image' ]
-}, null, addNPC, getCampaignData)(Npcs);
+}, mapStateToProps, addNPC, getCampaignData)(Npcs);
