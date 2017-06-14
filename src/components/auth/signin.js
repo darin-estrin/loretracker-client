@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import {  Field, reduxForm } from 'redux-form';
+import { TextField, RaisedButton } from 'material-ui';
+import { grey900, grey50 } from 'material-ui/styles/colors';
 import { clearError, signinUser } from '../../actions';
 
+const styles = {
+  underlineStyle: {
+    borderColor: grey900
+  },
+  floatingLabelStyle: {
+    color: grey900
+  }
+}
+
 class Signin extends Component {
+
 
   componentWillUnmount() {
     this.props.clearError();
@@ -10,6 +23,25 @@ class Signin extends Component {
 
   handleFormSubmit = ({email, password}) => {
     this.props.signinUser({ email, password });
+  }
+
+  renderFields({
+    input,
+    label,
+    meta: { touched, error },
+    ...custom
+  }) {
+    return (
+      <TextField
+        hintText={label}
+        underlineStyle={styles.underlineStyle}
+        floatingLabelStyle={styles.floatingLabelStyle}
+        floatingLabelText={label}
+        fullWidth={true}
+        {...input}
+        {...custom}
+      />
+    );
   }
 
   renderAlert = () => {
@@ -23,20 +55,17 @@ class Signin extends Component {
   }
 
   render() {
-    const { handleSubmit, fields: { email, password }} = this.props;
-
+    const { handleSubmit } = this.props;
     return(
       <form className='signin' onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <fieldset className='form-group'>
-          <label>Email:</label>
-          <input {...email} className='form-control' />
-        </fieldset>
-        <fieldset className='form-group'>
-          <label>Password:</label>
-          <input {...password} type='password' className='form-control' />
-        </fieldset>
+        <div>
+          <Field name='email' label='Email' component={this.renderFields} />
+        </div>
+        <div>
+          <Field name='password' label='Password' type='password' component={this.renderFields} />
+        </div>
         {this.renderAlert()}
-        <button action='submit' className='btn btn-primary'>Sign In</button>
+        <RaisedButton label='Sign In' type='submit' primary={true}/>
       </form>
     );  
   }
@@ -47,6 +76,5 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'signin',
-  fields: ['email', 'password']
-}, mapStateToProps, {clearError, signinUser})(Signin);
+  form: 'signin'
+})(connect(mapStateToProps, {clearError, signinUser})(Signin));

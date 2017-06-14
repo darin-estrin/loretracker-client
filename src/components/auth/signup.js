@@ -1,11 +1,45 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { TextField, RaisedButton }  from 'material-ui';
+import { grey900, grey50 } from 'material-ui/styles/colors';
 import { signupUser } from '../../actions';
 const validator = require('email-validator');
+
+const styles = {
+  underlineStyle: {
+    borderColor: grey900
+  },
+  floatingLabelStyle: {
+    color: grey900
+  }
+}
+
+
 
 class Signup extends Component {
   handleFormSubmit = (formProps) => {
     this.props.signupUser(formProps)
+  }
+
+  renderField({
+    input,
+    label,
+    meta: {touched, error },
+    ...custom
+  }) {
+    return (
+      <TextField
+        hintText={label}
+        floatingLabelText={label}
+        underlineStyle={styles.underlineStyle}
+        floatingLabelStyle={styles.floatingLabelStyle}
+        errorText={touched && error}
+        fullWidth={true}
+        {...input}
+        {...custom}
+      />
+    )
   }
 
   renderAlert() {
@@ -19,37 +53,27 @@ class Signup extends Component {
   }
 
   render() {
-    const { handleSubmit, fields: { name, email, password, passwordConfirm, phone }} = this.props;
+    const { handleSubmit } = this.props;
     return (
       <div>
         <form className='signup' onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <fieldset className='form-group'>
-            <label>* Name:</label>
-            <input placeholder='Mark' className='form-control' {...name} />
-            {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
-          </fieldset>
-          <fieldset className='form-group'>
-            <label>* Email:</label>
-            <input placeholder='Uktar@email.com' className='form-control' {...email} />
-            {email.touched && email.error && <div className='alert alert-danger'><strong>{email.error}</strong></div>}
-          </fieldset>
-          <fieldset className='form-group'>
-            <label>* Password:</label>
-            <input type='password' placeholder='Password' className='form-control' {...password} />
-            {password.touched && password.error && <div className='alert alert-danger'><strong>{password.error}</strong></div>}
-          </fieldset>
-          <fieldset className='form-group'>
-            <label>* Confirm Password:</label>
-            <input type='password' placeholder='Confirm Password' className='form-control' {...passwordConfirm} />
-            {passwordConfirm.touched && passwordConfirm.error && <div className='alert alert-danger'><strong>{passwordConfirm.error}</strong></div>}
-          </fieldset>
-          <fieldset className='form-group'>
-            <label>Phone Number:</label>
-            <input placeholder='555-555-5555' className='form-control' {...phone} />
-            {phone.touched && phone.error && <div className='alert alert-danger'><strong>{passwordConfirm.error}</strong></div>}
-          </fieldset>
+          <div>
+            <Field name='name' label='Name' component={this.renderField} />
+          </div>
+          <div>
+            <Field name='email' label='Email' component={this.renderField} />
+          </div>
+        <div>
+          <Field name='password' label='Password' component={this.renderField} />
+        </div>
+          <div>
+            <Field name='passwordConfirm' label='Confirm Password' component={this.renderField} />
+          </div>
+          <div>
+            <Field name='phone' label='Phone Number' component={this.renderField} />
+          </div>
+          <RaisedButton label='Sign Up' primary={true} type='submit' />
           {this.renderAlert()}
-          <button action='submit' className='btn btn-primary'>Sign Up</button>
         </form>
       </div>
     );
@@ -93,6 +117,5 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'signup',
-  fields: [ 'name', 'email', 'password', 'passwordConfirm', 'phone' ],
   validate
-}, mapStateToProps, { signupUser })(Signup);
+})(connect(mapStateToProps, { signupUser })(Signup));

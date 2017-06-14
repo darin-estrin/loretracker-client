@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { TextField, RaisedButton } from 'material-ui';
+import { grey900, grey50 } from 'material-ui/styles/colors';
 import _ from 'lodash'
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { getUserData, startCampaign } from '../../actions';
 require('../../css/greeting.scss');
+
+const styles = {
+  underlineStyle: {
+    borderColor: grey900
+  },
+  floatingLabelStyle: {
+    color: grey900
+  }
+}
 
 class Campaigns extends Component {
   static contextTypes = {
@@ -20,18 +31,24 @@ class Campaigns extends Component {
     this.props.resetForm();
   }
 
-  renderFields() {
-    const { handleSubmit, fields: { name }} = this.props;
+  renderField({
+    input,
+    label,
+    meta: { touched, error },
+    custom
+  }) {
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <fieldset className='form-group'>
-          <label>* Campaign Name:</label>
-          <input className='form-control' placeholder='Princes of the Apocalypse' {...name} />
-          {name.touched && name.error && <div className='alert alert-danger'><strong>{name.error}</strong></div>}
-        </fieldset>
-        <button action='submit' className='btn btn-primary'>Start A New Campaign</button>
-      </form>
-    )
+        <TextField
+          hintText={label}
+          floatingLabelText={label}
+          underlineStyle={styles.underlineStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
+          errorText={touched && error}
+          fullWidth={true}
+          {...input}
+          {...custom}
+        />
+    );
   }
   
   renderCampaignList(campaignListToRender, type){
@@ -77,7 +94,7 @@ class Campaigns extends Component {
   }
 
   render() {
-    const { fields: { name }} = this.props;
+    const { handleSubmit } = this.props;
     return(
       <div>
         <h1 className='greeting'>Welcome {this.props.name}</h1>
@@ -85,7 +102,12 @@ class Campaigns extends Component {
             <div className='col-md-6 col-xs-12'>
             {this.renderDMCampaigns()}
             {this.renderPCCampaigns()}
-            {this.renderFields()}
+            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+              <div>
+                <Field label='Campaign Name' name='name' component={this.renderField} />
+              </div>
+              <RaisedButton label='Start A New Campaign' type='submit' primary={true} />
+            </form>
             </div>
             <div className='col-md-6 col-xs-12'>
             
@@ -123,6 +145,5 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form:'start_campaign',
-  fields: ['name'],
   validate
-}, mapStateToProps, { getUserData, startCampaign })(Campaigns);
+})(connect(mapStateToProps, { getUserData, startCampaign })(Campaigns));

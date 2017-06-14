@@ -32,13 +32,15 @@
     "email-validator": "^1.0.7",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
-    "react": "^0.14.3",
+    "material-ui": "^0.18.3",
+    "react": "^15.4.0",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^0.14.3",
-    "react-redux": "4.3.0",
+    "react-dom": "^15.4.0",
+    "react-redux": "^5.0.5",
     "react-router": "^2.0.1",
-    "redux": "^3.0.4",
-    "redux-form": "^5.3.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
+    "redux-form": "^6.8.0",
     "redux-thunk": "^2.2.0"
   }
 }

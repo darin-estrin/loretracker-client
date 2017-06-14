@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { TextField, RaisedButton }  from 'material-ui';
+import { grey900, grey50 } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 import { addPlayer, getCampaignData } from '../../actions';
+
+const styles = {
+  underlineStyle: {
+    borderColor: grey900
+  },
+  floatingLabelStyle: {
+    color: grey900
+  }
+}
 
 class Roster extends Component {
   static contextTypes = {
@@ -23,21 +35,39 @@ class Roster extends Component {
     this.props.resetForm();
   }
 
+  renderField({
+    input,
+    label,
+    meta: {touched, error },
+    ...custom
+  }) {
+    return(
+      <TextField
+        hintText={label}
+        floatingLabelText={label}
+        underlineStyle={styles.underlineStyle}
+        floatingLabelStyle={styles.floatingLabelStyle}
+        errorText={touched && error}
+        fullWidth={true}
+        {...input}
+        {...custom}
+      />
+    );
+  }
+
   renderAddPlayer() {
     const { handleSubmit, fields : { name, email }} = this.props;
     return (
       <form onSubmit={handleSubmit(this.addPlayerSubmit)}>
-        <fieldset className='form-group'>
-          <label>* Player Email:</label>
-          <input placeholder='Uktar@email.com' className='form-control' {...email} />
-        </fieldset>
-        <fieldset className='form-group'>
-          <label>Character Name:</label>
-          <input placeholder='Uktar' className='form-control' {...name} />
-        </fieldset>
+        <div>
+          <Field label='Player Email' name='email' component={this.renderField} />
+        </div>
+        <div>
+          <Field label='Character Name' name='name' component={this.renderField} />
+        </div>
         {this.renderAlert()}
-        <button action='submit' className='btn btn-primary'>Add Player</button>
-        <Link className='btn btn-danger pull-right' to='/campaigns'>Back to Campaigns</Link>
+        <RaisedButton label='Add Player' type='submit' primary={true} />
+        <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true} /></Link>
       </form>
     );
   }
@@ -99,7 +129,8 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'add_player',
   fields: [ 'name', 'email' ]
-}, mapStateToProps, {
+})(connect(mapStateToProps, {
   addPlayer,
   getCampaignData
-})(Roster);
+})(Roster)
+);
