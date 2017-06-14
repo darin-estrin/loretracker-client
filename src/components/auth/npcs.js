@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { addNPC, getCampaignData } from '../../actions'
 
@@ -9,7 +10,7 @@ class Npcs extends Component {
   }
 
   componentWillMount() {
-    const { type, id } = this.props.params
+    const { type, id } = this.props.params;
     this.props.getCampaignData(id, type);
   }
 
@@ -58,7 +59,7 @@ class Npcs extends Component {
         </li>
       );
     });
-  }
+   }
 
   render() {
     return (
@@ -79,5 +80,4 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: "Add_npc",
-  fields: [ 'name', 'image' ]
-}, mapStateToProps, addNPC, getCampaignData)(Npcs);
+})(connect(mapStateToProps, { addNPC, getCampaignData})(Npcs));

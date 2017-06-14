@@ -120,12 +120,6 @@ class Campaigns extends Component {
 
 function validate(formProps) {
   const errors = {}
-  const regex = new RegExp(/^\s*|\s*$/g);
-  const regex2 = new RegExp(/\s{2,}/g);
-
-  if (formProps.name && formProps.name.length > 1) {
-    formProps.name = formProps.name.replace(regex, '', regex2, ' ');
-  }
 
   if (!formProps.name || formProps.name.length < 4) {
     errors.name = 'Campaign name shoulde be at least four character long';
