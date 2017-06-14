@@ -38,7 +38,7 @@ class Campaigns extends Component {
     return campaignListToRender.map(function(object){
       return (
         <li className='list-group-item' key={object._id}>
-          <h4><Link to={`/campaigns/${type}/${object._id}`}>{object.campaignName}</Link></h4>
+          <h4><Link to={`/campaigns/${type}/${object._id}/roster`}>{object.campaignName}</Link></h4>
         </li>
       );
     });

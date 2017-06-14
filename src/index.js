@@ -14,6 +14,7 @@ import Signup from './components/auth/signup';
 import Campaigns from './components/auth/campaigns';
 import PageNotFound from './components/pageNotFound';
 import Roster from './components/auth/roster';
+import Npcs from './components/auth/npcs';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -35,7 +36,8 @@ ReactDOM.render(
         <Route path='signin' component={Signin} />
         <Route path='signup' component={Signup} />
         <Route path='campaigns' component={RequireAuth(Campaigns)} />
-        <Route path='campaigns/:type/:id' component={RequireAuth(Roster)} />
+        <Route path='campaigns/:type/:id/roster' component={RequireAuth(Roster)} />
+        <Route path='campaigns/:type/:id/npcs' component={RequireAuth(Npcs)} />
         <Route path='*' component={PageNotFound} />
       </Route>      
     </Router>

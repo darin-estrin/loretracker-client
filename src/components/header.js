@@ -30,7 +30,7 @@ class Header extends Component {
           <Link className='nav-link' to='/profile'>Profile</Link>
         </li>,
         <li className='nav-item' key={2}>
-          <Link className='nav-link' to='campaigns'>View Campaigns</Link>
+          <Link className='nav-link' to='/campaigns'>View Campaigns</Link>
         </li>,
         <li className='nav-item' key={3}>
           <Link className='nav-link' to='/' onClick={this.onSignoutClick}>Sign Out</Link>
