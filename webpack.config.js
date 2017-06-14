@@ -38,7 +38,7 @@ module.exports = {
             options:{
               name:'[name].[ext]',
               outputPath: 'images/',
-              //publicPath: './src/images/'
+              publicPath: './src/'
             }
           }
         ]
