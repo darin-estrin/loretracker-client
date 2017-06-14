@@ -26,7 +26,6 @@ export function startCampaign(formProps){
 
 export function getCampaignData(id, type) {
   return function(dispatch) {
-    console.log(id, type);
     axios.get(`${ROOT_URL}/campaigndata`, {
       headers: { authorization: token, id, type }
     })
@@ -63,7 +62,6 @@ export function addNPC(request) {
       headers: { authorization: token }
     })
     .then(response => {
-      console.log(response);
       dispatch({
         type: ADD_CAMPAIGN_DATA,
         payload: response.data
