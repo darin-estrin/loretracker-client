@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { addNPC, getCampaignData } from '../../actions'
+import CampaignNav from './campaign_nav';
 
 class Npcs extends Component {
   static contextTypes = {
@@ -21,7 +22,7 @@ class Npcs extends Component {
   }
 
   renderAddNpc() {
-    const { handleSubmit, fields: { name, image }} = this.props;
+    const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.addnpcSubmit)}>
         <fieldset className='form-group'>
@@ -63,8 +64,11 @@ class Npcs extends Component {
 
   render() {
     return (
-      <div className='container'>
-        <h1>Hi</h1>
+      <div>
+        <CampaignNav index={1} />
+        <div className='container'>
+          <h1>Hi</h1>
+        </div>
       </div>
     );
   }

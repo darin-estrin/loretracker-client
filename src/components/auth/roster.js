@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { TextField, RaisedButton }  from 'material-ui';
+import { TextField, RaisedButton, Paper }  from 'material-ui';
 import { grey900, grey50 } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 import { addPlayer, getCampaignData } from '../../actions';
@@ -104,7 +104,7 @@ class Roster extends Component {
     const {id, type} = this.props.params;
     return (
       <div>
-        <CampaignNav />
+        <CampaignNav index={0} />
         <div className='container'>
           <div className='row'>
             {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
