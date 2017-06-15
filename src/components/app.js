@@ -9,7 +9,6 @@ require('../css/app.scss');
 injectTapEventPlugin();
 
 darkBaseTheme.fontFamily = 'Medival Sharp, Roboto';
-console.log(darkBaseTheme)
 
 export default class App extends Component {
   render() {

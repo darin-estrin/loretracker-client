@@ -1,27 +1,55 @@
-$mobile: 991px;
+$mobile: 800px;
 
-.col-md-6 {
-  height: 20vh;
+.greeting {
+  text-align: center;
+}
+
+.main-paper {
+  .main {
+  flex: auto;
+
+    img {
+      width: 48%;
+      margin: .5vw;
+    }
+  }
+
   @media screen and (max-width: $mobile) {
-    height: auto;
+    display: none !important;
+  }
+}
+
+.pros {
+  h4 {
+    text-align: center;
+    font-size: 3vmax;
   }
 
   ul {
-    list-style: none;
+    list-style-type: none;
+  }
+
+  .pc-pro {
+    border-left: 2px solid black;
+
+    @media screen and (max-width: $mobile) {
+      border-left: none;
+      border-top: 2px solid black;
+    }
   }
 
   .bullet {
-    height: 15px;
+    height: 20px;
     @media screen and (max-width: $mobile) {
       display: none;
     }
   }
+
+  @media screen and (max-width: $mobile) {
+    flex-direction: column;
+  }
 }
 
-h1, h2, h3, h4, h5 {
+.get-started {
   text-align: center;
-}
-
-.jumbotron.visible-lg {
-  height: 50vh;
 }

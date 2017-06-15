@@ -1,24 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Paper } from 'material-ui';
+import { grey900 } from 'material-ui/styles/colors';
 require('../css/home.scss');
+
+const paperStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  padding: '2%',
+  color: grey900,
+  display: 'flex',
+  margin: '1vh'
+}
 
 export default () => (
   <div>
-    <h1>Do you play Dungeons & Dragons</h1>
-    <h2>or any other table top RPG?</h2>
+    <h1 className='greeting'>Do you play Dungeons & Dragons</h1>
+    <h2 className='greeting'>or any other table top RPG?</h2>
     <br />
     <h3>Playing Dungeons & Dragons is always a great time, but sometimes keeping track of everything can leave encumbered. With Lore Tracker you can easily look up the information you need. So why Lore Tracker?</h3>
-    <div className="jumbotron visible-lg">
-      <img className='img-responsive col-lg-6' src={require('../images/minis.jpg')} />
-      <img className='img-responsive col-lg-6' src={require('../images/table_top.jpg')} />
-    </div>
-    <div className="jumbotron visible-md">
-      <img className='img-responsive col-lg-12' src={require('../images/minis.jpg')} />
-      <br />
-      <img className='img-responsive col-lg-12' src={require('../images/table_top.jpg')} />
-    </div>
-    <div className="row">
-      <div className="col-md-6 col-xs-12 well dm-pro">
+    
+    <Paper className='main-paper' style={paperStyle} zDepth={4}>
+      <div className='main'>
+        <img className='char-model' src={require('../images/minis.jpg')} />
+        <img clasName='dungeon-model' src={require('../images/table_top.jpg')} />
+      </div>
+    </Paper>
+    
+    <Paper className='pros' style={paperStyle} zDepth={4}>
+      <div className="dm-pro">
         <h4>Dungeon Masters</h4>
         <ul>
           <li><img className='bullet' src={require('../images/dice.png')}/> Store all data in one easy location</li>
@@ -28,7 +37,7 @@ export default () => (
           <li><img className='bullet' src={require('../images/dice.png')}/> Send players information through text (Planned feature in upcoming mobile app)</li>
         </ul>
       </div>
-      <div className="col-md-6 col-xs-12 well pc-pro">
+      <div className="pc-pro">
         <h4>Players</h4>
         <ul>
           <li><img className='bullet' src={require('../images/dice.png')}/> Store all data in one easy location</li>
@@ -37,7 +46,7 @@ export default () => (
           <li><img className='bullet' src={require('../images/dice.png')}/> Add your own data or modify existing data</li>
         </ul>
       </div>
-    </div>
-    <h4>To get started either <Link to='/signin'>Sign in</Link> or <Link to='/signup'>Sign up</Link>!</h4>
+    </Paper>
+    <h4 className='get-started'>To get started either <Link to='/signin'>Sign in</Link> or <Link to='/signup'>Sign up</Link>!</h4>
   </div>
 );
