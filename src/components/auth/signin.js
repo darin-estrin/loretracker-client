@@ -65,7 +65,7 @@ class Signin extends Component {
           <Field name='password' label='Password' type='password' component={this.renderFields} />
         </div>
         {this.renderAlert()}
-        <RaisedButton label='Sign In' type='submit' primary={true}/>
+        <RaisedButton label='Sign In' type='submit' />
       </form>
     );  
   }

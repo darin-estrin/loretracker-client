@@ -56,7 +56,7 @@ class Roster extends Component {
   }
 
   renderAddPlayer() {
-    const { handleSubmit, fields : { name, email }} = this.props;
+    const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.addPlayerSubmit)}>
         <div>
@@ -66,7 +66,7 @@ class Roster extends Component {
           <Field label='Character Name' name='name' component={this.renderField} />
         </div>
         {this.renderAlert()}
-        <RaisedButton label='Add Player' type='submit' primary={true} />
+        <RaisedButton label='Add Player' type='submit' />
         <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true} /></Link>
       </form>
     );
@@ -107,7 +107,7 @@ class Roster extends Component {
             <ul className='list-group'>
               {this.renderPlayers()}
             </ul>
-            {this.props.params.type ==='dm' ? this.renderAddPlayer() : <Link className='btn btn-danger pull right' to='/campaigns'>Back To Campaigns</Link>}
+            {this.props.params.type ==='dm' ? this.renderAddPlayer() : <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true} /></Link>}
           </div>
           <div className='col-md-6 col hidden-xs'>
 
@@ -127,8 +127,7 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'add_player',
-  fields: [ 'name', 'email' ]
+  form: 'add_player'
 })(connect(mapStateToProps, {
   addPlayer,
   getCampaignData

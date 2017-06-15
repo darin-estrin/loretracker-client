@@ -106,7 +106,7 @@ class Campaigns extends Component {
               <div>
                 <Field label='Campaign Name' name='name' component={this.renderField} />
               </div>
-              <RaisedButton label='Start A New Campaign' type='submit' primary={true} />
+              <RaisedButton label='Start A New Campaign' type='submit' />
             </form>
             </div>
             <div className='col-md-6 col-xs-12'>
