@@ -5,6 +5,7 @@ import { TextField, RaisedButton }  from 'material-ui';
 import { grey900, grey50 } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 import { addPlayer, getCampaignData } from '../../actions';
+import CampaignNav from './campaign_nav';
 
 const styles = {
   underlineStyle: {
@@ -103,17 +104,20 @@ class Roster extends Component {
     const {id, type} = this.props.params;
     return (
       <div>
-        <div className='row'>
-          {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
-          <div className='col-md-6 col-xs-12'>
-            <h2>Players</h2>
-            <ul className='list-group'>
-              {this.renderPlayers()}
-            </ul>
-            {this.props.params.type ==='dm' ? this.renderAddPlayer() : <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true} /></Link>}
-          </div>
-          <div className='col-md-6 col hidden-xs'>
+        <CampaignNav />
+        <div className='container'>
+          <div className='row'>
+            {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
+            <div className='col-md-6 col-xs-12'>
+              <h2>Players</h2>
+              <ul className='list-group'>
+                {this.renderPlayers()}
+              </ul>
+              {this.props.params.type ==='dm' ? this.renderAddPlayer() : <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true} /></Link>}
+            </div>
+            <div className='col-md-6 col hidden-xs'>
 
+            </div>
           </div>
         </div>
       </div>

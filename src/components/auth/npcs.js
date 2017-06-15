@@ -63,7 +63,7 @@ class Npcs extends Component {
 
   render() {
     return (
-      <div>
+      <div className='container'>
         <h1>Hi</h1>
       </div>
     );

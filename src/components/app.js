@@ -16,7 +16,7 @@ export default class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div>
           <Header />
-          <div className='container'>
+          <div>
             {this.props.children}
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {  Field, reduxForm } from 'redux-form';
-import { TextField, RaisedButton } from 'material-ui';
+import { TextField, RaisedButton, Paper } from 'material-ui';
 import { grey900, grey50 } from 'material-ui/styles/colors';
 import { clearError, signinUser } from '../../actions';
 
@@ -12,6 +12,15 @@ const styles = {
   floatingLabelStyle: {
     color: grey900
   }
+}
+
+const paperStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  padding: '2%',
+  marginTop: '10vh',
+  display: 'flex',
+  height: '40vh',
+  flexDirection: 'column'
 }
 
 class Signin extends Component {
@@ -41,7 +50,7 @@ class Signin extends Component {
           floatingLabelStyle={styles.floatingLabelStyle}
           errorText={touched && error}
           fullWidth
-          inputStyle={{color:grey900}}
+          inputStyle={{color:grey900, fontSize: '2vmax'}}
           {...input}
           {...custom}
         />
@@ -61,16 +70,19 @@ class Signin extends Component {
   render() {
     const { handleSubmit } = this.props;
     return(
-      <form className='signin' onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <div>
-          <Field name='email' label='Email' component={this.renderFields} />
-        </div>
-        <div>
-          <Field name='password' label='Password' type='password' component={this.renderFields} />
-        </div>
-        {this.renderAlert()}
-        <RaisedButton label='Sign In' type='submit' />
-      </form>
+      <Paper style={paperStyle} zDepth={4} className='container'>
+        <form className='signin' onSubmit={handleSubmit(this.handleFormSubmit)}>
+          <div>
+            <Field name='email' label='Email' component={this.renderFields} />
+          </div>
+          <div>
+            <Field name='password' label='Password' type='password' component={this.renderFields} />
+          </div>
+          {this.renderAlert()}
+          <RaisedButton label='Sign In' type='submit' />
+        </form>
+      </Paper>
+      
     );  
   }
 }

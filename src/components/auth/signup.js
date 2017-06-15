@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { TextField, RaisedButton }  from 'material-ui';
+import { TextField, RaisedButton, Paper }  from 'material-ui';
 import { grey900, grey50 } from 'material-ui/styles/colors';
 import { signupUser } from '../../actions';
 const validator = require('email-validator');
@@ -13,6 +13,15 @@ const styles = {
   floatingLabelStyle: {
     color: grey900
   }
+}
+
+const paperStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  padding: '2%',
+  marginTop: '10vh',
+  display: 'flex',
+  height: '50vh',
+  flexDirection: 'column'
 }
 
 
@@ -38,7 +47,7 @@ class Signup extends Component {
           floatingLabelStyle={styles.floatingLabelStyle}
           errorText={touched && error}
           fullWidth
-          inputStyle={{color:grey900}}
+          inputStyle={{color:grey900, fontSize: '2vmax'}}
           {...input}
           {...custom}
         />
@@ -58,27 +67,30 @@ class Signup extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
-        <form className='signup' onSubmit={handleSubmit(this.handleFormSubmit)}>
-          <div>
-            <Field name='name' label='Name' component={this.renderField} />
-          </div>
-          <div>
-            <Field name='email' label='Email' component={this.renderField} />
-          </div>
+      <Paper style={paperStyle} zDepth={4} className='container'>
         <div>
-          <Field name='password' label='Password' component={this.renderField} />
+          <form className='signup' onSubmit={handleSubmit(this.handleFormSubmit)}>
+            <div>
+              <Field name='name' label='Name' component={this.renderField} />
+            </div>
+            <div>
+              <Field name='email' label='Email' component={this.renderField} />
+            </div>
+          <div>
+            <Field name='password' label='Password' component={this.renderField} />
+          </div>
+            <div>
+              <Field name='passwordConfirm' label='Confirm Password' component={this.renderField} />
+            </div>
+            <div>
+              <Field name='phone' label='Phone Number' component={this.renderField} />
+            </div>
+            <RaisedButton label='Sign Up' type='submit' />
+            {this.renderAlert()}
+          </form>
         </div>
-          <div>
-            <Field name='passwordConfirm' label='Confirm Password' component={this.renderField} />
-          </div>
-          <div>
-            <Field name='phone' label='Phone Number' component={this.renderField} />
-          </div>
-          <RaisedButton label='Sign Up' type='submit' />
-          {this.renderAlert()}
-        </form>
-      </div>
+      </Paper>
+      
     );
   }
 }

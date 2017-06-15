@@ -59,7 +59,7 @@ class Header extends Component {
           iconStyle={{fill: redA400}}
         >
           <Link to='/signin'><MenuItem primaryText='Sign In'/></Link>
-          <Link to='/signin'><MenuItem primaryText='Sign Out'/></Link>
+          <Link to='/signup'><MenuItem primaryText='Sign Up'/></Link>
         </IconMenu>
       );
     }
@@ -69,7 +69,6 @@ class Header extends Component {
     return(
       <AppBar
         title='Lore Tracker'
-        zDepth={4}
         style={appBarStyles}
         titleStyle={{color: redA400}}
         iconElementRight={this.renderIcon()}

@@ -13,7 +13,7 @@ const paperStyle = {
 }
 
 export default () => (
-  <div  className='greeting'>
+  <div  className='greeting container'>
     <h1>Do you play Dungeons & Dragons</h1>
     <h2>or any other table top RPG?</h2>
     <br />
@@ -22,7 +22,7 @@ export default () => (
     <Paper className='main-paper' style={paperStyle} zDepth={4}>
       <div className='main'>
         <img className='char-model' src={require('../images/minis.jpg')} />
-        <img clasName='dungeon-model' src={require('../images/table_top.jpg')} />
+        <img className='dungeon-model' src={require('../images/table_top.jpg')} />
       </div>
     </Paper>
     

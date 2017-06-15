@@ -57,7 +57,7 @@ class Campaigns extends Component {
           floatingLabelStyle={styles.floatingLabelStyle}
           errorText={touched && error}
           fullWidth
-          inputStyle={{color:grey900}}
+          inputStyle={{color:grey900, fontSize: '2vmax'}}
           {...input}
           {...custom}
         />
@@ -109,7 +109,7 @@ class Campaigns extends Component {
   render() {
     const { handleSubmit } = this.props;
     return(
-      <div>
+      <div className='container'>
         <h1 className='greeting'>Welcome {this.props.name}</h1>
             <Paper zDepth={4} style={paperStyle}>
               <div className='campaigns'>
