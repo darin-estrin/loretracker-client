@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { signoutUser } from '../actions';
 import { grey900, redA400 } from 'material-ui/styles/colors';
-import { AppBar, IconButton, IconMenu, MenuItem } from 'material-ui';
+import { AppBar, IconButton, IconMenu, MenuItem, FontIcon } from 'material-ui';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const token = localStorage.getItem('token');
@@ -17,10 +17,23 @@ const menuItemStyle = {
   color: redA400
 }
 
+const menuIcon = {
+  color: redA400,
+  marginTop: '12px'
+}
+
 class Header extends Component {
 
   onSignoutClick = () => {
     this.props.signoutUser()
+  }
+
+  homeIcon() {
+    return (
+      <Link to='/'>
+        <FontIcon style={menuIcon} className='material-icons'>home</FontIcon>
+      </Link>
+    );
   }
 
   renderIcon() {
@@ -28,24 +41,25 @@ class Header extends Component {
       return(
         <IconMenu
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-          targetOrigin={{horizontal: 'left', vertical: 'top'}}
-          anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+          targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           iconStyle={{fill: redA400}}
         >
-          <Link to='/profile'><MenuItem primaryText='Profile' style={menuItemStyle} /></Link>
-          <Link to='/campaigns'><MenuItem primaryText='View Campaigns' style={menuItemStyle} /></Link>
-          <Link onClick={this.onSignoutClick}><MenuItem primaryText='Sign Out' style={menuItemStyle} /></Link>
+          <Link to='/profile'><MenuItem primaryText='Profile' /></Link>
+          <Link to='/campaigns'><MenuItem primaryText='View Campaigns' /></Link>
+          <Link onClick={this.onSignoutClick}><MenuItem primaryText='Sign Out' /></Link>
         </IconMenu>
       )
     } else {
       return(
         <IconMenu
           iconButtonElement={<IconButton><MoreVertIcon/></IconButton>}
-          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          targetOrigin={{horizontal: 'right', vertical: 'top'}}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          iconStyle={{fill: redA400}}
         >
-          <Link to='/signin'><MenuItem primaryText='Sign In' style={menuItemStyle} /></Link>
-          <Link to='/signin'><MenuItem primaryText='Sign Out' style={menuItemStyle} /></Link>
+          <Link to='/signin'><MenuItem primaryText='Sign In'/></Link>
+          <Link to='/signin'><MenuItem primaryText='Sign Out'/></Link>
         </IconMenu>
       );
     }
@@ -59,7 +73,7 @@ class Header extends Component {
         style={appBarStyles}
         titleStyle={{color: redA400}}
         iconElementRight={this.renderIcon()}
-        showMenuIconButton={false}
+        iconElementLeft={this.homeIcon()}
       />
     );
   }

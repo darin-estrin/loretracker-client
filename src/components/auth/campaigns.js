@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { TextField, RaisedButton } from 'material-ui';
+import { TextField, RaisedButton, Paper } from 'material-ui';
 import { grey900, grey50 } from 'material-ui/styles/colors';
 import _ from 'lodash'
 import { Field, reduxForm } from 'redux-form';
 import { getUserData, startCampaign } from '../../actions';
-require('../../css/greeting.scss');
+require('../../css/form.scss');
 
 const styles = {
   underlineStyle: {
@@ -17,18 +17,28 @@ const styles = {
   }
 }
 
+const paperStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  color: grey900,
+  padding: '2%',
+  minHeight: '50vh',
+  display: 'flex',
+  flexDirection: 'column'
+}
+
 class Campaigns extends Component {
   static contextTypes = {
     router: React.PropTypes.object
   }
 
   componentWillMount() {
+    console.log(this.props);
     this.props.getUserData();
   }
 
   handleFormSubmit = (formProps) => {
     this.props.startCampaign(formProps);
-    this.props.resetForm();
+    this.props.reset();
   }
 
   renderField({
@@ -40,11 +50,14 @@ class Campaigns extends Component {
     return (
         <TextField
           hintText={label}
+          hintStyle={{color:grey900}}
           floatingLabelText={label}
+          floatingLabelFocusStyle={{color:'#0097A7'}}
           underlineStyle={styles.underlineStyle}
           floatingLabelStyle={styles.floatingLabelStyle}
           errorText={touched && error}
-          fullWidth={true}
+          fullWidth
+          inputStyle={{color:grey900}}
           {...input}
           {...custom}
         />
@@ -98,21 +111,20 @@ class Campaigns extends Component {
     return(
       <div>
         <h1 className='greeting'>Welcome {this.props.name}</h1>
-          <div className='row'>
-            <div className='col-md-6 col-xs-12'>
-            {this.renderDMCampaigns()}
-            {this.renderPCCampaigns()}
-            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-              <div>
-                <Field label='Campaign Name' name='name' component={this.renderField} />
+            <Paper zDepth={4} style={paperStyle}>
+              <div className='campaigns'>
+                {this.renderDMCampaigns()}
+                {this.renderPCCampaigns()}
               </div>
-              <RaisedButton label='Start A New Campaign' type='submit' />
-            </form>
-            </div>
-            <div className='col-md-6 col-xs-12'>
-            
-            </div>
-          </div>
+              <div className='campaign-add'>
+                <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+                  <div>
+                    <Field label='Campaign Name' name='name' component={this.renderField} />
+                  </div>
+                  <RaisedButton label='Start A New Campaign' type='submit' />
+                </form>
+              </div>           
+            </Paper>
       </div>
     )
   }

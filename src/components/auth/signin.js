@@ -33,14 +33,18 @@ class Signin extends Component {
   }) {
     return (
       <TextField
-        hintText={label}
-        underlineStyle={styles.underlineStyle}
-        floatingLabelStyle={styles.floatingLabelStyle}
-        floatingLabelText={label}
-        fullWidth={true}
-        {...input}
-        {...custom}
-      />
+          hintText={label}
+          hintStyle={{color:grey900}}
+          floatingLabelText={label}
+          floatingLabelFocusStyle={{color:'#0097A7'}}
+          underlineStyle={styles.underlineStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
+          errorText={touched && error}
+          fullWidth
+          inputStyle={{color:grey900}}
+          {...input}
+          {...custom}
+        />
     );
   }
 
