@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { TextField, RaisedButton, Paper }  from 'material-ui';
-import { grey900, grey50 } from 'material-ui/styles/colors';
+import { TextField, RaisedButton, Paper, List, ListItem }  from 'material-ui';
+import { grey900, grey800 } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 import { addPlayer, getCampaignData } from '../../actions';
 import CampaignNav from './campaign_nav';
@@ -14,6 +14,26 @@ const styles = {
   floatingLabelStyle: {
     color: grey900
   }
+}
+
+const paperStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  color: grey900,
+  padding: '2%',
+  minHeight: '50vh',
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '5vh',
+  flex: 1,
+  marginRight: '10px'
+}
+
+const listItemStyle = {
+  fontSize: '2vmax'
+}
+
+const listStyle = {
+  backgroundColor: grey800
 }
 
 class Roster extends Component {
@@ -71,7 +91,7 @@ class Roster extends Component {
         </div>
         {this.renderAlert()}
         <RaisedButton label='Add Player' type='submit' />
-        <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true} /></Link>
+        <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true}/></Link>
       </form>
     );
   }
@@ -93,9 +113,9 @@ class Roster extends Component {
     const players = campaign.players
     return players.map(function(object){
       return (
-        <li className='list-group-item' key={object.email}>
-          <Link to={`/campaigns/${type}/${id}/roster/${object.name}`}><h4>{object.name}</h4></Link>
-        </li>
+        <Link key={object._id} to={`/campaigns/${type}/${id}/roster/${object.name}`}>
+          <ListItem style={listItemStyle} primaryText={object.name} />
+        </Link>
       );
     });
   }
@@ -106,19 +126,23 @@ class Roster extends Component {
       <div>
         <CampaignNav index={0} />
         <div className='container'>
-          <div className='row'>
-            {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
-            <div className='col-md-6 col-xs-12'>
-              <h2>Players</h2>
-              <ul className='list-group'>
-                {this.renderPlayers()}
-              </ul>
-              {this.props.params.type ==='dm' ? this.renderAddPlayer() : <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true} /></Link>}
-            </div>
-            <div className='col-md-6 col hidden-xs'>
-
-            </div>
-          </div>
+          <Paper style={{display: 'flex', backgroundColor:'none', width: '100%'}}>
+            <Paper style={paperStyle}>
+              {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
+                <h2>Players</h2>
+                <List style={listStyle}>
+                  {this.renderPlayers()}
+                </List>
+                {this.props.params.type ==='dm' ? this.renderAddPlayer() : 
+                <Link to='/campaigns'>
+                  <RaisedButton label='Back to Campaigns' secondary={true}/>
+                </Link>}
+            </Paper>
+            <Paper style={paperStyle}>
+            
+            </Paper>
+          </Paper>
+          
         </div>
       </div>
     );
