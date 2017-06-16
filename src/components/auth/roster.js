@@ -78,7 +78,7 @@ class Roster extends Component {
           inputStyle={{color:grey900}}
           {...input}
           {...custom}
-        />
+      />
     );
   }
 

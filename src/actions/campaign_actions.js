@@ -56,6 +56,21 @@ export function addPlayer(request) {
   }
 }
 
+export function updatePlayer(request) {
+  return (dispatch) => {
+    console.log(request);
+    axios.put(`${ROOT_URL}/updateplayer`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    })
+  }
+}
+
 export function addNPC(request) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/addnpc`, request, {
