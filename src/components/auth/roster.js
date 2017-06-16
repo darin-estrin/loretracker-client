@@ -24,8 +24,7 @@ const paperStyle = {
   display: 'flex',
   flexDirection: 'column',
   marginTop: '5vh',
-  flex: 1,
-  marginRight: '10px'
+  flex: 1
 }
 
 const listItemStyle = {
@@ -34,6 +33,10 @@ const listItemStyle = {
 
 const listStyle = {
   backgroundColor: grey800
+}
+
+const buttonStyle = {
+  float: 'right',
 }
 
 class Roster extends Component {
@@ -91,7 +94,11 @@ class Roster extends Component {
         </div>
         {this.renderAlert()}
         <RaisedButton label='Add Player' type='submit' />
-        <Link to='/campaigns'><RaisedButton label='Back to Campaigns' secondary={true}/></Link>
+        <Link to='/campaigns'>
+          <RaisedButton style={buttonStyle} label='Back to Campaigns' 
+            secondary={true}
+          />
+        </Link>
       </form>
     );
   }
@@ -113,8 +120,10 @@ class Roster extends Component {
     const players = campaign.players
     return players.map(function(object){
       return (
-        <Link key={object._id} to={`/campaigns/${type}/${id}/roster/${object.name}`}>
-          <ListItem style={listItemStyle} primaryText={object.name} />
+        <Link key={object._id} to={`/campaigns/${type}/${id}/roster/${object.characterName}`}>
+          <ListItem style={listItemStyle} primaryText={object.name}
+            secondaryText={!object.characterName ? '' : object.characterName}
+          />
         </Link>
       );
     });
@@ -135,11 +144,8 @@ class Roster extends Component {
                 </List>
                 {this.props.params.type ==='dm' ? this.renderAddPlayer() : 
                 <Link to='/campaigns'>
-                  <RaisedButton label='Back to Campaigns' secondary={true}/>
+                  <RaisedButton style={{float:'right', marginTop: '10px'}} label='Back to Campaigns' secondary={true}/>
                 </Link>}
-            </Paper>
-            <Paper style={paperStyle}>
-            
             </Paper>
           </Paper>
           
@@ -147,6 +153,20 @@ class Roster extends Component {
       </div>
     );
   }
+}
+
+function validate(formProps) {
+  const errors = {}
+
+  if (!formProps.email) {
+    errors.email = 'Please Enter an email address';
+  }
+
+  if (!formProps.name) {
+    errors.name = 'Please enter a name for the Character';
+  }
+
+  return errors;
 }
 
 function mapStateToProps(state) {
@@ -158,7 +178,8 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'add_player'
+  form: 'add_player',
+  validate
 })(connect(mapStateToProps, {
   addPlayer,
   getCampaignData
