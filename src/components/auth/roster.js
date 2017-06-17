@@ -46,17 +46,13 @@ class Roster extends Component {
   
   componentWillMount() {
     const { type, id } = this.props.params;
-    if (type === 'dm') {
-      this.props.getCampaignData(id, type);
-    } else if (type === 'pc') {
-      this.props.getCampaignData(this.props.params.id, type);
-    }    
+    this.props.getCampaignData(id, type);
   }
 
   addPlayerSubmit = ({ email, name }) => {
     const { id } = this.props.params;
     this.props.addPlayer({ email, campaignId: id, name });
-    this.props.resetForm();
+    this.props.reset();
   }
 
   renderField({

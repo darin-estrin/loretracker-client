@@ -18,7 +18,7 @@ class Npcs extends Component {
   addnpcSubmit = ({ name,  image }) => {
     const { id } = this.props.params;
     this.props.addNPC({ name, image, id});
-    this.props.resetForm();
+    this.props.reset();
   }
 
   renderAddNpc() {

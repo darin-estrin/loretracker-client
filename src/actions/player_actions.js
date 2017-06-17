@@ -21,7 +21,6 @@ export function addPlayer(request) {
 
 export function updatePlayer(request) {
   return (dispatch) => {
-    console.log(request);
     axios.put(`${ROOT_URL}/updateplayer`, request, {
       headers: { authorization: localStorage.getItem('token') }
     })
@@ -31,6 +30,15 @@ export function updatePlayer(request) {
         payload: response.data
       });
     })
+  }
+}
+
+export function getPlayerData(id) {
+  console.log(id);
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/player/${id}`, {
+      headers: { authorization: localStorage.getItem('token'), id }
+    });
   }
 }
 
