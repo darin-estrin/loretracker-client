@@ -39,11 +39,7 @@ const buttonStyle = {
   float: 'right',
 }
 
-class Roster extends Component {
-  static contextTypes = {
-    router: React.PropTypes.object
-  }
-  
+class Roster extends Component {  
   componentWillMount() {
     const { type, id } = this.props.params;
     this.props.getCampaignData(id, type);
@@ -179,5 +175,4 @@ export default reduxForm({
 })(connect(mapStateToProps, {
   addPlayer,
   getCampaignData
-})(Roster)
-);
+})(Roster));
