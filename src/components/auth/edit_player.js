@@ -53,11 +53,8 @@ class EditPlayer extends Component {
   renderPlayerData() {
     var player;
     const { campaign } = this.props;
-    if (!campaign) {
-     return;
-    } else {
-       player =_.find(campaign.players, ['characterName', this.props.params.player]);
-    }
+    if (!campaign) { return; } 
+    else { player =_.find(campaign.players, ['characterName', this.props.params.player]); }
     return (
       <List style={listStyle}>
         <ListItem style={listItemStyle} primaryText={`Character: ${player.characterName}`}
@@ -76,7 +73,7 @@ class EditPlayer extends Component {
     label,
     meta: { touched, error },
     ...custom
-  }, field) {
+  }) {
     return (
       <TextField
         hintText={label === 'Phone Number' ? '555-555-5555' : label}
@@ -94,24 +91,6 @@ class EditPlayer extends Component {
     );
   }
 
-  renderEditForm = () => {
-    const { handleSubmit } = this.props;
-    return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <div>
-          <Field label='Phone Number' name='phone' component={this.renderField} />
-        </div>
-        <div>
-          <Field label='Link to Image' name='image' component={this.renderField} />
-        </div>
-        <div>
-          <Field label='Description' name='description' component={this.renderField} />
-        </div>
-        <RaisedButton type='submit' label='Update Information' />
-      </form>
-    );
-  }
-
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
@@ -120,7 +99,7 @@ class EditPlayer extends Component {
   }
 
   render() {
-    const { id, type, player } = this.props.params;
+    const { handleSubmit, params: { id, type, player }} = this.props;
     return (
       <div>
         <CampaignNav index={0} />
@@ -128,7 +107,18 @@ class EditPlayer extends Component {
           <Paper style={paperStyle}>
             <h3>Player Details</h3>
             {this.renderPlayerData()}
-            {this.renderEditForm()}
+            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+              <div>
+                <Field label='Phone Number' name='phone' component={this.renderField} />
+              </div>
+              <div>
+                <Field label='Link to Image' name='image' component={this.renderField} />
+              </div>
+              <div>
+                <Field label='Description' name='description' component={this.renderField} />
+              </div>
+              <RaisedButton type='submit' label='Update Information' />
+            </form>
             <div>
               <Link to={`/campaigns/${type}/${id}/roster/${player}/notes`}>
                 <RaisedButton primary={true} style={{marginTop: '10px'}} label='Add a note' />
@@ -146,7 +136,7 @@ class EditPlayer extends Component {
 }
 
 function validate(values) {
-  const { phone, note } = values;
+  const { phone, description, image } = values;
   const errors = {};
   const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
   
