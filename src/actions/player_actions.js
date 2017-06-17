@@ -33,6 +33,20 @@ export function updatePlayer(request) {
   }
 }
 
+export function addPlayerNote(request) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/addplayernote`, request, {
+      headers: { authorization: localStorage.getItem('token'); }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      })
+    });
+  }
+}
+
 export function fetchError(error) {
   return {
     type: FETCH_ERROR,
