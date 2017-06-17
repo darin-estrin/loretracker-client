@@ -36,7 +36,7 @@ export function updatePlayer(request) {
 export function addPlayerNote(request) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/addplayernote`, request, {
-      headers: { authorization: localStorage.getItem('token'); }
+      headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
       dispatch({
