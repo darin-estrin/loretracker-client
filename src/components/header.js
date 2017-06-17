@@ -23,6 +23,9 @@ const menuIcon = {
 }
 
 class Header extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
 
   onSignoutClick = () => {
     this.props.signoutUser()

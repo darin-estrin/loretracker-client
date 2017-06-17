@@ -15,6 +15,7 @@ import Campaigns from './components/auth/campaigns';
 import PageNotFound from './components/pageNotFound';
 import Roster from './components/auth/roster';
 import EditPlayer from './components/auth/edit_player';
+import PlayerNotes from './components/auth/player_notes';
 import Npcs from './components/auth/npcs';
 import Lore from './components/auth/lore';
 import Locations from './components/auth/locations';
@@ -41,6 +42,8 @@ ReactDOM.render(
         <Route path='campaigns' component={RequireAuth(Campaigns)} />
         <Route path='campaigns/:type/:id/roster' component={RequireAuth(Roster)} />
         <Route path='campaigns/:type/:id/roster/:player' component={RequireAuth(EditPlayer)} />
+        <Route path='campaigns/:type/:id/roster/:player/notes'
+        component={RequireAuth(PlayerNotes)} />
         <Route path='campaigns/:type/:id/npcs' component={RequireAuth(Npcs)} />
         <Route path='campaigns/:type/:id/locations' component={RequireAuth(Locations)} />
         <Route path='campaigns/:type/:id/lore' component={RequireAuth(Lore)} />

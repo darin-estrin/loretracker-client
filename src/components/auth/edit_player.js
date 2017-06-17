@@ -45,8 +45,8 @@ class EditPlayer extends Component {
     if (type === 'dm') {
       this.props.getCampaignData(id, type);
     } else if (type === 'pc') {
-      this.props.getCampaignData(this.props.params.id, type);
-    }   
+      this.props.getCampaignData(id, type);
+    }
   }
 
   renderPlayerData() {
@@ -96,7 +96,7 @@ class EditPlayer extends Component {
     } else {
       return (
         <TextField
-          hintText={label === 'Phone Number' ? '1(555)555-5555' : label}
+          hintText={label === 'Phone Number' ? '555-555-5555' : label}
           hintStyle={{color:grey900}}
           floatingLabelText={label}
           floatingLabelFocusStyle={{color:'#0097A7'}}
@@ -119,7 +119,7 @@ class EditPlayer extends Component {
         <div>
           <Field label='Phone Number' name='phone' component={this.renderField} />
         </div>
-        <RaisedButton type='submit' label='Submit' />
+        <RaisedButton type='submit' label='Update Information' />
       </form>
     );
   }
@@ -131,19 +131,28 @@ class EditPlayer extends Component {
   }
 
   renderPCForm = () => {
-    
+    <form onSubmit={handleSubmit(this.handlePCFormSubmit)}>
+      <div>
+        <Field label='Phone Number' name='phone' component={this.renderField} />
+      </div>
+    </form>
   }
 
   render() {
+    const { id, type, player } = this.props.params;
     return (
       <div>
         <CampaignNav index={0} />
         <div className='container'>
           <Paper style={paperStyle}>
-            <h1>{this.props.params.player}</h1>
+            <h1>{player}</h1>
             {this.getPlayerImage()}
+            <h3>Player Details</h3>
             {this.renderPlayerData()}
-            {this.props.params.type === 'dm' ? this.renderDMForm() : this.renderPCForm()}
+            {type === 'dm' ? this.renderDMForm() : this.renderPCForm()}
+            <Link to={`/campaigns/${type}/${id}/roster/${player}/notes`}>
+              <RaisedButton primary={true} style={{float: 'right'}} label='Add a note' />
+            </Link>
           </Paper>
         </div>
       </div>
@@ -153,16 +162,16 @@ class EditPlayer extends Component {
 }
 
 function validate(values) {
-  const { phone } = values;
+  const { phone, note } = values;
   const errors = {};
   const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
   
   if (!phoneRegex.test(phone)) {
-    errors.phone = 'Please Enter A Valid Phone Number';
+    errors.phone = 'Please enter a valid phone number';
   }
 
   if (!phone) {
-    errors.phone = 'Please Enter A Phone Number'
+    errors.phone = 'Please enter a phone number'
   }
 
   return errors;
