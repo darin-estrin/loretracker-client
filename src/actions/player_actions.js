@@ -33,15 +33,6 @@ export function updatePlayer(request) {
   }
 }
 
-export function getPlayerData(id) {
-  console.log(id);
-  return (dispatch) => {
-    axios.get(`${ROOT_URL}/player/${id}`, {
-      headers: { authorization: localStorage.getItem('token'), id }
-    });
-  }
-}
-
 export function fetchError(error) {
   return {
     type: FETCH_ERROR,

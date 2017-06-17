@@ -9,8 +9,10 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 import CommunicationPhone from 'material-ui/svg-icons/communication/phone';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
+import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
 import { getCampaignData, updatePlayer } from '../../actions';
+require('../../css/edit_player.scss');
 
 const styles = {
   underlineStyle: {
@@ -43,7 +45,9 @@ const listStyle = {
 class EditPlayer extends Component {
   componentWillMount() {
     const { id, type } = this.props.params;
-    this.props.getCampaignData(id, type);
+    if (!this.props.campaign) {
+      this.props.getCampaignData(id, type);
+    }
   }
 
   renderPlayerData() {
@@ -61,12 +65,10 @@ class EditPlayer extends Component {
         <ListItem style={listItemStyle} primaryText={`Name: ${player.name}`} leftIcon={<ActionPermIdentity/>} />
         <ListItem style={listItemStyle} primaryText={`Email: ${player.email}`} leftIcon={<CommunicationEmail/>} />
         {player.phone ? <ListItem style={listItemStyle} primaryText={`Phone: ${player.phone}`} leftIcon={<CommunicationPhone />} /> : ''}
+        {player.description ? <ListItem style={listItemStyle} primaryText={`Description: ${player.description}`} leftIcon={<ActionDescription />} /> : ''}
+        {player.image ? <img className='character-image' src={player.image} /> : '' }
       </List>
     );
-  }
-
-  getPlayerImage() {
-
   }
 
   renderField({
@@ -75,66 +77,27 @@ class EditPlayer extends Component {
     meta: { touched, error },
     ...custom
   }, field) {
-    if (custom.type === 'textarea') {
-      return (
-        <TextField
-          hintText={label} hintStyle={{color:grey900}}
-          floatingLabelText={label}
-          floatingLabelFocusStyle={{color:'#0097A7'}}
-          underlineStyle={styles.underlineStyle}
-          floatingLabelStyle={styles.floatingLabelStyle}
-          errorText={touched && error}
-          fullWidth
-          multiLine={true}
-          rows={2}
-          rowsMax={2}
-          textareaStyle={{color:grey900}}
-          {...input}
-          {...custom}
-        />
-      );
-    } else {
-      return (
-        <TextField
-          hintText={label === 'Phone Number' ? '555-555-5555' : label}
-          hintStyle={{color:grey900}}
-          floatingLabelText={label}
-          floatingLabelFocusStyle={{color:'#0097A7'}}
-          underlineStyle={styles.underlineStyle}
-          floatingLabelStyle={styles.floatingLabelStyle}
-          errorText={touched && error}
-          fullWidth
-          inputStyle={{color:grey900}}
-          {...input}
-          {...custom}
-        />
-      );
-    }
-  }
-
-  renderDMForm() {
-    const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handleDMFormSubmit)}>
-        <div>
-          <Field label='Phone Number' name='phone' component={this.renderField} />
-        </div>
-        <RaisedButton type='submit' label='Update Information' />
-      </form>
+      <TextField
+        hintText={label === 'Phone Number' ? '555-555-5555' : label}
+        hintStyle={{color:grey900}}
+        floatingLabelText={label}
+        floatingLabelFocusStyle={{color:'#0097A7'}}
+        underlineStyle={styles.underlineStyle}
+        floatingLabelStyle={styles.floatingLabelStyle}
+        errorText={touched && error}
+        fullWidth
+        inputStyle={{color:grey900}}
+        {...input}
+        {...custom}
+      />
     );
   }
 
-  handleDMFormSubmit = (values) => {
-    const { type, id } = this.props.params;
-    const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
-    this.props.updatePlayer({values, id: player._id, type, campaignId: id});
-    this.props.reset();
-  }
-
-  renderPCForm = () => {
+  renderEditForm = () => {
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handlePCFormSubmit)}>
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <div>
           <Field label='Phone Number' name='phone' component={this.renderField} />
         </div>
@@ -142,16 +105,18 @@ class EditPlayer extends Component {
           <Field label='Link to Image' name='image' component={this.renderField} />
         </div>
         <div>
-          <Field type='textarea' label='Description'
-          name='description' component={this.renderField} />
+          <Field label='Description' name='description' component={this.renderField} />
         </div>
         <RaisedButton type='submit' label='Update Information' />
       </form>
     );
   }
 
-  handlePCFormSubmit = (values) => {
-
+  handleFormSubmit = (values) => {
+    const { type, id } = this.props.params;
+    const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
+    this.props.updatePlayer({values, id: player._id, type, campaignId: id});
+    this.props.reset();
   }
 
   render() {
@@ -161,10 +126,9 @@ class EditPlayer extends Component {
         <CampaignNav index={0} />
         <div className='container'>
           <Paper style={paperStyle}>
-            {this.getPlayerImage()}
             <h3>Player Details</h3>
             {this.renderPlayerData()}
-            {type === 'dm' ? this.renderDMForm() : this.renderPCForm()}
+            {this.renderEditForm()}
             <div>
               <Link to={`/campaigns/${type}/${id}/roster/${player}/notes`}>
                 <RaisedButton primary={true} style={{marginTop: '10px'}} label='Add a note' />
@@ -199,8 +163,7 @@ function validate(values) {
 
 function mapStateToProps(state) {
   return {
-    campaign: state.user.Campaign,
-    initialValues: { phone: '111-111-1111' }
+    campaign: state.user.Campaign
   }
 }
 
