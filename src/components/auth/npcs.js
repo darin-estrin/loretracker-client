@@ -116,10 +116,10 @@ class Npcs extends Component {
   }
 }
 
-function validate() {
+function validate(values) {
   const errors = {};
 
-  if(!name) {
+  if(!values.name) {
     errors.name = 'NPC must have a name';
   }
 
