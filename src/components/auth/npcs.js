@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { TextField, RaisedButton, Paper, List, ListItem }  from 'material-ui';
-import { grey900, grey800 } from 'material-ui/styles/colors';
+import { grey900 } from 'material-ui/styles/colors';
 import { addNPC, getCampaignData } from '../../actions'
 import CampaignNav from './campaign_nav';
 import * as styles from '../../css/material_styles';
@@ -14,28 +14,62 @@ class Npcs extends Component {
     this.props.getCampaignData(id, type);
   }
 
-  addnpcSubmit = ({ name,  image }) => {
+  addNpcSubmit = ({ name,  image, bio, description }) => {
     const { id } = this.props.params;
-    this.props.addNPC({ name, image, id});
+    this.props.addNPC({ name, image, id, bio, description});
     this.props.reset();
+  }
+
+  renderField({
+    input,
+    label,
+    meta: {touched, error },
+    ...custom
+  }) {
+    return(
+      <TextField
+          hintText={label}
+          hintStyle={{color:grey900}}
+          floatingLabelText={label}
+          floatingLabelFocusStyle={{color:'#0097A7'}}
+          underlineStyle={styles.styles.underlineStyle}
+          floatingLabelStyle={styles.styles.floatingLabelStyle}
+          errorText={touched && error}
+          fullWidth
+          inputStyle={{color:grey900}}
+          {...input}
+          {...custom}
+      />
+    );
   }
 
   renderAddNpc() {
     const { handleSubmit } = this.props;
-    return (
-      <form onSubmit={handleSubmit(this.addnpcSubmit)}>
-        <fieldset className='form-group'>
-          <label>* NPC Name:</label>
-          <input placeholder='Jor' className='form-control' {...name} />
-        </fieldset>
-        <fieldset className='form-group'>
-          <label>Link to Image:</label>
-          <input placeholder='imgur.com/urlforcharacterimage' className='form-control' {...image} />
-        </fieldset>
-        {this.renderAlert()}
-        <button action='submit' className='btn btn-primary'>Add Player</button>
-      </form>
-    );
+    if (this.props.params.type === 'dm') {
+      return (
+        <form onSubmit={handleSubmit(this.addNpcSubmit)}>
+          <div>
+            <Field label='Character Name' name='name' component={this.renderField} />
+          </div>
+          <div>
+            <Field label='Description' name='description' component={this.renderField} />
+          </div>
+          <div>
+            <Field label='Bio' name='bio' component={this.renderField} />
+          </div>
+          <div>
+            <Field label='Link to image' name='image' component={this.renderField} />
+          </div>
+          {this.renderAlert()}
+          <RaisedButton type='submit' label='Add NPC' />
+          <Link to='/campaigns'>
+            <RaisedButton style={styles.buttonStyle} label='Back to Campaigns' 
+              secondary={true}
+            />
+          </Link>
+        </form>
+      );
+    }
   }
 
   renderAlert() {
@@ -49,14 +83,16 @@ class Npcs extends Component {
   }
 
   renderNpcs() {
-    const campaign  = this.props.DMCampaign;
+    const { campaign, params:{ type, id }}  = this.props;
     if (!campaign) { return; }
     const npcs = campaign.NPCs
     return npcs.map(function(object){
       return (
-        <li className='list-group-item' key={object.name}>
-          <h4>{object.name}</h4>
-        </li>
+        <Link to={`/campaigns/${type}/${id}/npcs/${object.name}`} key={object._id}>
+          <ListItem style={styles.listItemStyle} primaryText={object.name} 
+            secondaryText={!object.description ? '' : object.description}
+          />
+        </Link>
       );
     });
    }
@@ -67,12 +103,27 @@ class Npcs extends Component {
         <CampaignNav index={1} />
         <div className='container'>
           <Paper style={styles.paperStyle}>
-          
+            {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
+            <List style={styles.listStyle}>
+            <h2 className='notes-header'>NPCs</h2>
+            {this.renderNpcs()}
+            </List>
+            {this.renderAddNpc()}
           </Paper>
         </div>
       </div>
     );
   }
+}
+
+function validate() {
+  const errors = {};
+
+  if(!name) {
+    errors.name = 'NPC must have a name';
+  }
+
+  return errors;
 }
 
 function mapStateToProps(state) {
@@ -85,4 +136,5 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: "Add_npc",
+  validate
 })(connect(mapStateToProps, { addNPC, getCampaignData})(Npcs));

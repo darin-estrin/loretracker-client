@@ -75,8 +75,7 @@ class Roster extends Component {
   }
 
   renderPlayers() {
-    const campaign  = this.props.Campaign;
-    const { type, id } = this.props.params;
+    const { campaign, params: { id, type }}  = this.props;
     if (!campaign) { return; }
     const players = campaign.players
     return players.map(function(object){
@@ -98,7 +97,7 @@ class Roster extends Component {
         <div className='container'>
           <Paper style={{display: 'flex', backgroundColor:'none', width: '100%'}}>
             <Paper style={styles.paperStyle}>
-              {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
+              {!this.props.campaign ? '' : <h2>{this.props.campaign.campaignName}</h2>}
                 <h2>Players</h2>
                 <List style={styles.listStyle}>
                   {this.renderPlayers()}
@@ -109,7 +108,6 @@ class Roster extends Component {
                 </Link>}
             </Paper>
           </Paper>
-          
         </div>
       </div>
     );
@@ -133,7 +131,7 @@ function validate(formProps) {
 function mapStateToProps(state) {
   return {
     name: state.user.name,
-    Campaign: state.user.Campaign,
+    campaign: state.user.Campaign,
     errorMessage: state.user.error
   }
 }

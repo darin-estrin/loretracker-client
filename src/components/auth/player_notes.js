@@ -63,14 +63,14 @@ class PlayerNotes extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, params: { type, id, player }} = this.props;
     return(
       <div>
         <CampaignNav />
         <div className='container'>
           <Paper style={styles.paperStyle}>
             <List style={styles.listStyle}>
-              <h3 className='notes-header'>Notes for {this.props.params.player}</h3>
+              <h3 className='notes-header'>Notes for {player}</h3>
               {this.renderPlayerNotes()}
             </List>
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -78,6 +78,10 @@ class PlayerNotes extends Component {
                 <Field label='Add a note' name='note' component={this.renderField} />
               </div>
               <RaisedButton type='submit' label='Add Note' />
+              <Link to={`/campaigns/${type}/${id}/roster/${player}`}>
+                <RaisedButton secondary={true} style={styles.buttonStyle} 
+                label={`Back to ${player}`} />
+              </Link>
             </form>
           </Paper>
         </div>
