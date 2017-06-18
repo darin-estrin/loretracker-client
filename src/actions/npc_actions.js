@@ -46,3 +46,18 @@ export function addNpcNote(request) {
     });
   }
 }
+
+export function shareNpc(request) {
+  return (dispatch) => {
+    console.log('request', request);
+    axios.put(`${ROOT_URL}/sharenpc`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    })
+  }
+}
