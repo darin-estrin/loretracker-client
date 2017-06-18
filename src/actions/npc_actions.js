@@ -32,3 +32,17 @@ export function updateNPC(request) {
     });
   }
 }
+
+export function addNpcNote(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/addnpcnote`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    });
+  }
+}

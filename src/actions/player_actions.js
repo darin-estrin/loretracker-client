@@ -29,7 +29,7 @@ export function updatePlayer(request) {
         type: ADD_CAMPAIGN_DATA,
         payload: response.data
       });
-    })
+    });
   }
 }
 
@@ -42,7 +42,7 @@ export function addPlayerNote(request) {
       dispatch({
         type: ADD_CAMPAIGN_DATA,
         payload: response.data
-      })
+      });
     });
   }
 }

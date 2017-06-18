@@ -6,11 +6,10 @@ import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, addPlayerNote } from '../../actions';
+import { getCampaignData, addNpcNote } from '../../actions';
 import * as styles from '../../css/material_styles';
-require('../../css/player_note.scss');
 
-class PlayerNotes extends Component {
+class NpcNotes extends Component {
   componentWillMount() {
     const { id, type } = this.props.params;
     if (!this.props.campaign) {
@@ -41,13 +40,13 @@ class PlayerNotes extends Component {
     );
   }
 
-  renderPlayerNotes() {
-    var player;
+  renderNpcNotes() {
+    var npc;
     const { campaign } = this.props;
     if (!campaign) { return; } 
-    else { player =_.find(campaign.players, ['characterName', this.props.params.player]); }
-    const notes = player.notes;
-    if (!notes) { return; }
+    else { npc =_.find(campaign.NPCs, ['name', this.props.params.npc]); }
+    const notes = npc.notes;
+    if (!notes) { return }
     else {
       return notes.map(function(object) {
         return (
@@ -60,30 +59,30 @@ class PlayerNotes extends Component {
 
   handleFormSubmit = ({ note }) => {
     const { type, id } = this.props.params;
-    const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
-    this.props.addPlayerNote({note, id: player._id, type, campaignId: id});
+    const player = _.find(this.props.campaign.NPCs, ['name', this.props.params.npc]);
+    this.props.addNpcNote({note, id: player._id, type, campaignId: id});
     this.props.reset();
   }
 
   render() {
-    const { handleSubmit, params: { type, id, player }} = this.props;
+    const { handleSubmit, params: { type, id, npc }} = this.props;
     return(
       <div>
         <CampaignNav />
         <div className='container'>
           <Paper style={styles.paperStyle}>
             <List style={styles.listStyle}>
-              <h3 className='notes-header'>Notes for {player}</h3>
-              {this.renderPlayerNotes()}
+              <h3 className='notes-header'>Notes for {npc}</h3>
+              {this.renderNpcNotes()}
             </List>
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <div>
                 <Field label='Add a note' name='note' component={this.renderField} />
               </div>
               <RaisedButton type='submit' label='Add Note' />
-              <Link to={`/campaigns/${type}/${id}/roster/${player}`}>
+              <Link to={`/campaigns/${type}/${id}/npc/${npc}`}>
                 <RaisedButton secondary={true} style={styles.buttonStyle} 
-                label={`Back to ${player}`} />
+                label={`Back to ${npc}`} />
               </Link>
             </form>
           </Paper>
@@ -100,5 +99,5 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'player_notes'
-})(connect(mapStateToProps, { getCampaignData, addPlayerNote })(PlayerNotes));
+  form: 'npc_notes'
+})(connect(mapStateToProps, { getCampaignData, addNpcNote })(NpcNotes));

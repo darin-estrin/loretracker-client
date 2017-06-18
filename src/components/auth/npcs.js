@@ -135,6 +135,6 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: "Add_npc",
+  form: "add_npc",
   validate
 })(connect(mapStateToProps, { addNPC, getCampaignData})(Npcs));

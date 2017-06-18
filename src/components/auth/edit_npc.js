@@ -94,6 +94,7 @@ class EditNpc extends Component {
 
   render() {
     const { handleSubmit, params: { id, type, npc }} = this.props;
+    console.log(this.props.params);
     return (
       <div>
         <CampaignNav index={1} />
@@ -103,7 +104,7 @@ class EditNpc extends Component {
             {this.renderNpcData()}
             {this.renderEditNpc()}
             <div>
-              <Link to={`/campaigns/${type}/${id}/roster/${npc}/notes`}>
+              <Link to={`/campaigns/${type}/${id}/npcs/${npc}/notes`}>
                 <RaisedButton primary={true} style={{marginTop: '10px'}} label='Add a note' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/npcs`}>
@@ -125,5 +126,5 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'edit_player'
+  form: 'edit_npc'
 })(connect(mapStateToProps, { getCampaignData, updateNPC })(EditNpc));
