@@ -94,7 +94,6 @@ class EditNpc extends Component {
 
   render() {
     const { handleSubmit, params: { id, type, npc }} = this.props;
-    console.log(this.props.params);
     return (
       <div>
         <CampaignNav index={1} />
@@ -105,7 +104,7 @@ class EditNpc extends Component {
             {this.renderEditNpc()}
             <div>
               <Link to={`/campaigns/${type}/${id}/npcs/${npc}/notes`}>
-                <RaisedButton primary={true} style={{marginTop: '10px'}} label='Add a note' />
+                <RaisedButton primary={true} style={{marginTop: '10px'}} label='View notes' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/npcs`}>
                 <RaisedButton secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to NPCs' />
@@ -114,7 +113,6 @@ class EditNpc extends Component {
           </Paper>
         </div>
       </div>
-      
     );
   }
 }

@@ -94,7 +94,7 @@ class EditPlayer extends Component {
             </form>
             <div>
               <Link to={`/campaigns/${type}/${id}/roster/${player}/notes`}>
-                <RaisedButton primary={true} style={{marginTop: '10px'}} label='Add a note' />
+                <RaisedButton primary={true} style={{marginTop: '10px'}} label='View notes' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/roster`}>
                 <RaisedButton secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Players' />

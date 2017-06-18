@@ -19,6 +19,7 @@ import PlayerNotes from './components/auth/player_notes';
 import Npcs from './components/auth/npcs';
 import EditNpc from './components/auth/edit_npc';
 import NpcNotes from './components/auth/npc_note';
+import ShareNpc from './components/auth/share_npc';
 import Lore from './components/auth/lore';
 import Locations from './components/auth/locations';
 import RequireAuth from './components/auth/require_auth';
@@ -49,6 +50,7 @@ ReactDOM.render(
         <Route path='campaigns/:type/:id/npcs' component={RequireAuth(Npcs)} />
         <Route path='campaigns/:type/:id/npcs/:npc' component={RequireAuth(EditNpc)} />
         <Route path='campaigns/:type/:id/npcs/:npc/notes' component={RequireAuth(NpcNotes)} />
+        <Route path='campaigns/:type/:id/npcs/:npc/share' component={RequireAuth(ShareNpc)} />
         <Route path='campaigns/:type/:id/locations' component={RequireAuth(Locations)} />
         <Route path='campaigns/:type/:id/lore' component={RequireAuth(Lore)} />
         <Route path='*' component={PageNotFound} />

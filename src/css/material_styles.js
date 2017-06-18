@@ -45,3 +45,11 @@ export const menuIcon = {
   color: redA400,
   marginTop: '12px'
 }
+
+export const inkBarStyle = {
+  backgroundColor: redA400
+}
+
+export const tabStyle = {
+  color: redA400
+}

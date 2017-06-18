@@ -68,7 +68,7 @@ class NpcNotes extends Component {
     const { handleSubmit, params: { type, id, npc }} = this.props;
     return(
       <div>
-        <CampaignNav />
+        <CampaignNav index={1} />
         <div className='container'>
           <Paper style={styles.paperStyle}>
             <List style={styles.listStyle}>

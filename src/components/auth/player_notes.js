@@ -69,7 +69,7 @@ class PlayerNotes extends Component {
     const { handleSubmit, params: { type, id, player }} = this.props;
     return(
       <div>
-        <CampaignNav />
+        <CampaignNav index={0} />
         <div className='container'>
           <Paper style={styles.paperStyle}>
             <List style={styles.listStyle}>
