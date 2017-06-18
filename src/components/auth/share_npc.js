@@ -18,16 +18,19 @@ class ShareNpc extends Component {
   }
 
   handleFormSubmit = (values) => {
-    const { id, npc } = this.props.params;
-    let emails = [];
+    const { players, campaign, npcs, params: { id, npc }} = this.props;
+    const npcToShare = _.find(npcs, ['name', npc]);
+    let ids = [];
     if (values.all) {
-      this.props.players.map(function(player) {
-        email.push(player.email);
+      players.map(function(player) {
+        ids.push(player.playerId);
       })
-      this.props.shareNpc({emails, id, npc})
+      this.props.shareNpc({ids, campaign, npcToShare});
     } else {
-      console.log(values);
-      this.props.shareNpc({values, id, npc});
+      _.forEach(values, function(val, key) {
+        ids.push(key);
+      });
+      this.props.shareNpc({ids, campaign, npcToShare});
     }
   }
 
@@ -38,7 +41,7 @@ class ShareNpc extends Component {
     return players.map(function(player) {
       return (
         <div key={player.email}>
-          <Field label={player.name} component={self.renderCheckBox} name={player.email} />
+          <Field label={player.name} component={self.renderCheckBox} name={player.playerId} />
         </div>
       );
     });
@@ -78,7 +81,8 @@ function mapStateToProps(state) {
   if (!state.user.Campaign) { return {...state} }
   return {
     players: state.user.Campaign.players,
-    npcs: state.user.Campaign.NPCs
+    npcs: state.user.Campaign.NPCs,
+    campaign: state.user.Campaign
   }
 }
 

@@ -8,3 +8,4 @@ export const ADD_CAMPAIGN_DATA = 'add_campaign_data';
 export const ADD_ERROR = 'add_error';
 export const FETCH_CAMPAIGN = 'fetch_campaign';
 export const FETCH_ERROR = 'fetch_error';
+export const SHARE_DATA = 'share_data';

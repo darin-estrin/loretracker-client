@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { ADD_CAMPAIGN_DATA } from './types';
+import { ADD_CAMPAIGN_DATA, SHARE_DATA } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
 
@@ -25,10 +25,10 @@ export function updateNPC(request) {
       headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
-      dispatch({
+      dispatch({ 
         type: ADD_CAMPAIGN_DATA,
         payload: response.data
-      });
+       });
     });
   }
 }
@@ -54,10 +54,7 @@ export function shareNpc(request) {
       headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
-      dispatch({
-        type: ADD_CAMPAIGN_DATA,
-        payload: response.data
-      });
+      dispatch({ type: SHARE_DATA });
     })
   }
 }
