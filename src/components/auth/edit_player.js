@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
-import { grey900, grey800 } from 'material-ui/styles/colors';
+import { grey900 } from 'material-ui/styles/colors';
 import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 import CommunicationPhone from 'material-ui/svg-icons/communication/phone';
@@ -12,35 +12,8 @@ import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
 import { getCampaignData, updatePlayer } from '../../actions';
+import * as styles from '../../css/material_styles';
 require('../../css/edit_player.scss');
-
-const styles = {
-  underlineStyle: {
-    borderColor: grey900
-  },
-  floatingLabelStyle: {
-    color: grey900
-  }
-}
-
-const paperStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-  color: grey900,
-  padding: '2%',
-  minHeight: '50vh',
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: '5vh',
-  flex: 1
-}
-
-const listItemStyle = {
-  fontSize: '2vmax'
-}
-
-const listStyle = {
-  backgroundColor: grey800
-}
 
 class EditPlayer extends Component {
   componentWillMount() {
@@ -56,13 +29,13 @@ class EditPlayer extends Component {
     if (!campaign) { return; } 
     else { player =_.find(campaign.players, ['characterName', this.props.params.player]); }
     return (
-      <List style={listStyle}>
-        <ListItem style={listItemStyle} primaryText={`Character: ${player.characterName}`}
+      <List style={styles.listStyle}>
+        <ListItem style={styles.listItemStyle} primaryText={`Character: ${player.characterName}`}
         leftIcon={<ActionLabelOutline />} />
-        <ListItem style={listItemStyle} primaryText={`Name: ${player.name}`} leftIcon={<ActionPermIdentity/>} />
-        <ListItem style={listItemStyle} primaryText={`Email: ${player.email}`} leftIcon={<CommunicationEmail/>} />
-        {player.phone ? <ListItem style={listItemStyle} primaryText={`Phone: ${player.phone}`} leftIcon={<CommunicationPhone />} /> : ''}
-        {player.description ? <ListItem style={listItemStyle} primaryText={`Description: ${player.description}`} leftIcon={<ActionDescription />} /> : ''}
+        <ListItem style={styles.listItemStyle} primaryText={`Name: ${player.name}`} leftIcon={<ActionPermIdentity/>} />
+        <ListItem style={styles.listItemStyle} primaryText={`Email: ${player.email}`} leftIcon={<CommunicationEmail/>} />
+        {player.phone ? <ListItem style={styles.listItemStyle} primaryText={`Phone: ${player.phone}`} leftIcon={<CommunicationPhone />} /> : ''}
+        {player.description ? <ListItem style={styles.listItemStyle} primaryText={`Description: ${player.description}`} leftIcon={<ActionDescription />} /> : ''}
         {player.image ? <img className='character-image' src={player.image} /> : '' }
       </List>
     );
@@ -80,8 +53,8 @@ class EditPlayer extends Component {
         hintStyle={{color:grey900}}
         floatingLabelText={label}
         floatingLabelFocusStyle={{color:'#0097A7'}}
-        underlineStyle={styles.underlineStyle}
-        floatingLabelStyle={styles.floatingLabelStyle}
+        underlineStyle={styles.styles.underlineStyle}
+        floatingLabelStyle={styles.styles.floatingLabelStyle}
         errorText={touched && error}
         fullWidth
         inputStyle={{color:grey900}}
@@ -104,7 +77,7 @@ class EditPlayer extends Component {
       <div>
         <CampaignNav index={0} />
         <div className='container'>
-          <Paper style={paperStyle}>
+          <Paper style={styles.paperStyle}>
             <h3>Player Details</h3>
             {this.renderPlayerData()}
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>

@@ -17,7 +17,7 @@ export default () => (
     <h1>Do you play Dungeons & Dragons</h1>
     <h2>or any other table top RPG?</h2>
     <br />
-    <h3>Playing Dungeons & Dragons is always a great time, but sometimes keeping track of everything can leave encumbered. With Lore Tracker you can easily look up the information you need. So why Lore Tracker?</h3>
+    <h3>Playing Dungeons & Dragons is always a great time, but sometimes keeping track of everything can leave you encumbered. With Lore Tracker you can easily look up the information you need. So why Lore Tracker?</h3>
     
     <Paper className='main-paper' style={paperStyle} zDepth={4}>
       <div className='main'>

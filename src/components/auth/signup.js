@@ -2,29 +2,10 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { TextField, RaisedButton, Paper }  from 'material-ui';
-import { grey900, grey50 } from 'material-ui/styles/colors';
+import { grey900 } from 'material-ui/styles/colors';
 import { signupUser } from '../../actions';
+import * as styles from '../../css/material_styles';
 const validator = require('email-validator');
-
-const styles = {
-  underlineStyle: {
-    borderColor: grey900
-  },
-  floatingLabelStyle: {
-    color: grey900
-  }
-}
-
-const paperStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-  padding: '2%',
-  marginTop: '10vh',
-  display: 'flex',
-  height: '50vh',
-  flexDirection: 'column'
-}
-
-
 
 class Signup extends Component {
   handleFormSubmit = (formProps) => {
@@ -43,8 +24,8 @@ class Signup extends Component {
           hintStyle={{color:grey900}}
           floatingLabelText={label}
           floatingLabelFocusStyle={{color:'#0097A7'}}
-          underlineStyle={styles.underlineStyle}
-          floatingLabelStyle={styles.floatingLabelStyle}
+          underlineStyle={styles.styles.underlineStyle}
+          floatingLabelStyle={styles.styles.floatingLabelStyle}
           errorText={touched && error}
           fullWidth
           inputStyle={{color:grey900, fontSize: '2vmax'}}
@@ -67,7 +48,7 @@ class Signup extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <Paper style={paperStyle} zDepth={4} className='container'>
+      <Paper style={styles.paperStyle} zDepth={4} className='container'>
         <div>
           <form className='signup' onSubmit={handleSubmit(this.handleFormSubmit)}>
             <div>
@@ -77,10 +58,11 @@ class Signup extends Component {
               <Field name='email' label='Email' component={this.renderField} />
             </div>
           <div>
-            <Field name='password' label='Password' component={this.renderField} />
+            <Field name='password' label='Password' type='password' component={this.renderField} />
           </div>
             <div>
-              <Field name='passwordConfirm' label='Confirm Password' component={this.renderField} />
+              <Field name='passwordConfirm' label='Confirm Password' type='password'
+              component={this.renderField} />
             </div>
             <div>
               <Field name='phone' label='Phone Number' component={this.renderField} />

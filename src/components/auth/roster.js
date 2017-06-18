@@ -2,42 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { TextField, RaisedButton, Paper, List, ListItem }  from 'material-ui';
-import { grey900, grey800 } from 'material-ui/styles/colors';
+import { grey900 } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 import { addPlayer, getCampaignData } from '../../actions';
 import CampaignNav from './campaign_nav';
-
-const styles = {
-  underlineStyle: {
-    borderColor: grey900
-  },
-  floatingLabelStyle: {
-    color: grey900
-  }
-}
-
-const paperStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-  color: grey900,
-  padding: '2%',
-  minHeight: '50vh',
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: '5vh',
-  flex: 1
-}
-
-const listItemStyle = {
-  fontSize: '2vmax'
-}
-
-const listStyle = {
-  backgroundColor: grey800
-}
-
-const buttonStyle = {
-  float: 'right',
-}
+import * as styles from '../../css/material_styles';
 
 class Roster extends Component {  
   componentWillMount() {
@@ -63,8 +32,8 @@ class Roster extends Component {
           hintStyle={{color:grey900}}
           floatingLabelText={label}
           floatingLabelFocusStyle={{color:'#0097A7'}}
-          underlineStyle={styles.underlineStyle}
-          floatingLabelStyle={styles.floatingLabelStyle}
+          underlineStyle={styles.styles.underlineStyle}
+          floatingLabelStyle={styles.styles.floatingLabelStyle}
           errorText={touched && error}
           fullWidth
           inputStyle={{color:grey900}}
@@ -87,7 +56,7 @@ class Roster extends Component {
         {this.renderAlert()}
         <RaisedButton label='Add Player' type='submit' />
         <Link to='/campaigns'>
-          <RaisedButton style={buttonStyle} label='Back to Campaigns' 
+          <RaisedButton style={styles.buttonStyle} label='Back to Campaigns' 
             secondary={true}
           />
         </Link>
@@ -113,7 +82,7 @@ class Roster extends Component {
     return players.map(function(object){
       return (
         <Link key={object._id} to={`/campaigns/${type}/${id}/roster/${object.characterName}`}>
-          <ListItem style={listItemStyle} primaryText={object.name}
+          <ListItem style={styles.listItemStyle} primaryText={object.name}
             secondaryText={!object.characterName ? '' : object.characterName}
           />
         </Link>
@@ -128,10 +97,10 @@ class Roster extends Component {
         <CampaignNav index={0} />
         <div className='container'>
           <Paper style={{display: 'flex', backgroundColor:'none', width: '100%'}}>
-            <Paper style={paperStyle}>
+            <Paper style={styles.paperStyle}>
               {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
                 <h2>Players</h2>
-                <List style={listStyle}>
+                <List style={styles.listStyle}>
                   {this.renderPlayers()}
                 </List>
                 {this.props.params.type ==='dm' ? this.renderAddPlayer() : 

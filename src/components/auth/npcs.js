@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { TextField, RaisedButton, Paper, List, ListItem }  from 'material-ui';
+import { grey900, grey800 } from 'material-ui/styles/colors';
 import { addNPC, getCampaignData } from '../../actions'
 import CampaignNav from './campaign_nav';
+import * as styles from '../../css/material_styles';
 
 class Npcs extends Component {
-  static contextTypes = {
-    router: React.PropTypes.object
-  }
-
   componentWillMount() {
     const { type, id } = this.props.params;
     this.props.getCampaignData(id, type);
@@ -67,7 +66,9 @@ class Npcs extends Component {
       <div>
         <CampaignNav index={1} />
         <div className='container'>
-          <h1>Hi</h1>
+          <Paper style={styles.paperStyle}>
+          
+          </Paper>
         </div>
       </div>
     );
@@ -77,7 +78,7 @@ class Npcs extends Component {
 function mapStateToProps(state) {
   return {
     name: state.user.name,
-    Campaign: state.user.Campaign,
+    campaign: state.user.Campaign,
     errorMessage: state.user.error
   }
 }

@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Tabs, Tab } from 'material-ui'
-import { grey900, redA400 } from 'material-ui/styles/colors';
-
-const appBarStyles = {
-  backgroundColor: grey900,
-  color: redA400
-}
+import * as styles from '../../css/material_styles';
 
 class CampaignNav extends Component {
   static contextTypes = {
@@ -52,10 +47,10 @@ class CampaignNav extends Component {
         className='nav-bar'
         initialSelectedIndex={this.props.index}
       >
-        <Tab onActive={this.renderRosterComponent} label='Players' style={appBarStyles} ></Tab>
-        <Tab onActive={this.renderNpcComponent} label='NPCs' style={appBarStyles}></Tab>
-        <Tab onActive={this.renderLocationComponent} label='Locations' style={appBarStyles}></Tab>
-        <Tab onActive={this.renderLoreComponent} label='Lore' style={appBarStyles}></Tab>
+        <Tab onActive={this.renderRosterComponent} label='Players' style={styles.appBarStyles} ></Tab>
+        <Tab onActive={this.renderNpcComponent} label='NPCs' style={styles.appBarStyles}></Tab>
+        <Tab onActive={this.renderLocationComponent} label='Locations' style={styles.appBarStyles}></Tab>
+        <Tab onActive={this.renderLoreComponent} label='Lore' style={styles.appBarStyles}></Tab>
       </Tabs>
     );
   }

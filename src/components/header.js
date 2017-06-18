@@ -2,25 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { signoutUser } from '../actions';
-import { grey900, redA400 } from 'material-ui/styles/colors';
+import { redA400 } from 'material-ui/styles/colors';
 import { AppBar, IconButton, IconMenu, MenuItem, FontIcon } from 'material-ui';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
+import * as styles from '../css/material_styles';
 const token = localStorage.getItem('token');
-
-const appBarStyles = {
-  backgroundColor: grey900,
-  color: redA400
-}
-
-const menuItemStyle = {
-  color: redA400
-}
-
-const menuIcon = {
-  color: redA400,
-  marginTop: '12px'
-}
 
 class Header extends Component {
   static contextTypes = {
@@ -34,7 +20,7 @@ class Header extends Component {
   homeIcon() {
     return (
       <Link to='/'>
-        <FontIcon style={menuIcon} className='material-icons'>home</FontIcon>
+        <FontIcon style={styles.menuIcon} className='material-icons'>home</FontIcon>
       </Link>
     );
   }
@@ -72,7 +58,7 @@ class Header extends Component {
     return(
       <AppBar
         title='Lore Tracker'
-        style={appBarStyles}
+        style={styles.appBarStyles}
         titleStyle={{color: redA400}}
         iconElementRight={this.renderIcon()}
         iconElementLeft={this.homeIcon()}

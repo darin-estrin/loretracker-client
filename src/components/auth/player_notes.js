@@ -3,39 +3,12 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
-import { grey900, grey800 } from 'material-ui/styles/colors';
+import { grey900 } from 'material-ui/styles/colors';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import CampaignNav from './campaign_nav';
 import { getCampaignData, addPlayerNote } from '../../actions';
+import * as styles from '../../css/material_styles';
 require('../../css/player_note.scss');
-
-const styles = {
-  underlineStyle: {
-    borderColor: grey900
-  },
-  floatingLabelStyle: {
-    color: grey900
-  }
-}
-
-const paperStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-  color: grey900,
-  padding: '2%',
-  minHeight: '50vh',
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: '5vh',
-  flex: 1
-}
-
-const listItemStyle = {
-  fontSize: '2vmax'
-}
-
-const listStyle = {
-  backgroundColor: grey800
-}
 
 class PlayerNotes extends Component {
   componentWillMount() {
@@ -57,8 +30,8 @@ class PlayerNotes extends Component {
         hintStyle={{color:grey900}}
         floatingLabelText={label}
         floatingLabelFocusStyle={{color:'#0097A7'}}
-        underlineStyle={styles.underlineStyle}
-        floatingLabelStyle={styles.floatingLabelStyle}
+        underlineStyle={styles.styles.underlineStyle}
+        floatingLabelStyle={styles.styles.floatingLabelStyle}
         errorText={touched && error}
         fullWidth
         inputStyle={{color:grey900}}
@@ -76,7 +49,7 @@ class PlayerNotes extends Component {
     const notes = player.notes;
     return notes.map(function(object) {
       return (
-        <ListItem style={listItemStyle} key={object._id} primaryText={object.note}
+        <ListItem style={styles.listItemStyle} key={object._id} primaryText={object.note}
         leftIcon={<ActionNoteAdd/>} />
       );
     });
@@ -86,7 +59,7 @@ class PlayerNotes extends Component {
     const { type, id } = this.props.params;
     const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
     this.props.addPlayerNote({note, id: player._id, type, campaignId: id});
-    //this.props.reset();
+    this.props.reset();
   }
 
   render() {
@@ -95,8 +68,8 @@ class PlayerNotes extends Component {
       <div>
         <CampaignNav />
         <div className='container'>
-          <Paper style={paperStyle}>
-            <List style={listStyle}>
+          <Paper style={styles.paperStyle}>
+            <List style={styles.listStyle}>
               <h3 className='notes-header'>Notes for {this.props.params.player}</h3>
               {this.renderPlayerNotes()}
             </List>

@@ -2,38 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
-import { grey900, grey800 } from 'material-ui/styles/colors';
+import { grey900 } from 'material-ui/styles/colors';
 import _ from 'lodash'
 import { Field, reduxForm } from 'redux-form';
 import { getUserData, startCampaign } from '../../actions';
+import * as styles from '../../css/material_styles';
 require('../../css/campaign.scss');
-
-const styles = {
-  underlineStyle: {
-    borderColor: grey900
-  },
-  floatingLabelStyle: {
-    color: grey900
-  }
-}
-
-const paperStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-  color: grey900,
-  padding: '2%',
-  minHeight: '50vh',
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: '5vh'
-}
-
-const listItemStyle = {
-  fontSize: '2vmax'
-}
-
-const listStyle = {
-  backgroundColor: grey800
-}
 
 class Campaigns extends Component {
   static contextTypes = {
@@ -61,8 +35,8 @@ class Campaigns extends Component {
           hintStyle={{color:grey900}}
           floatingLabelText={label}
           floatingLabelFocusStyle={{color:'#0097A7'}}
-          underlineStyle={styles.underlineStyle}
-          floatingLabelStyle={styles.floatingLabelStyle}
+          underlineStyle={styles.styles.underlineStyle}
+          floatingLabelStyle={styles.styles.floatingLabelStyle}
           errorText={touched && error}
           fullWidth
           inputStyle={{color:grey900, fontSize: '2vmax'}}
@@ -76,7 +50,7 @@ class Campaigns extends Component {
     return campaignListToRender.map(function(object){
       return (
         <Link key={object._id} to={`/campaigns/${type}/${object._id}/roster`}>
-          <ListItem style={listItemStyle} primaryText={object.campaignName} />
+          <ListItem style={styles.listItemStyle} primaryText={object.campaignName} />
         </Link>
       );
     });
@@ -90,7 +64,7 @@ class Campaigns extends Component {
       return (
         <div>
           <h2>Select A Campaign To Edit</h2>
-          <List style={listStyle}>
+          <List style={styles.listStyle}>
             {this.renderCampaignList(DMCampaigns, 'dm')}
           </List>
         </div>
@@ -104,13 +78,11 @@ class Campaigns extends Component {
       return (
         <div>
           <h2>Select a Campaign To View</h2>
-          <List style={listStyle}>
+          <List style={styles.listStyle}>
             {this.renderCampaignList(PCCampaigns, 'pc')}
           </List>
         </div>
       )
-    } else {
-      //return 
     }
   }
 
@@ -118,7 +90,7 @@ class Campaigns extends Component {
     const { handleSubmit } = this.props;
     return(
       <div className='container'>
-        <Paper zDepth={4} style={paperStyle}>
+        <Paper zDepth={4} style={styles.paperStyle}>
           <h1 className='greeting'>Welcome {this.props.name}</h1>
           <div className='campaigns'>
             {this.renderDMCampaigns()}
