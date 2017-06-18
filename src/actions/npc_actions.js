@@ -18,3 +18,17 @@ export function addNPC(request) {
     .catch(error => console.log(error));
   }
 }
+
+export function updateNPC(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/updatenpc`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    });
+  }
+}

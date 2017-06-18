@@ -9,7 +9,7 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
-import { getCampaignData  } from '../../actions';
+import { getCampaignData, updateNPC  } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class EditNpc extends Component {
@@ -87,8 +87,8 @@ class EditNpc extends Component {
 
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
-    const npc = _.find(this.props.campaign.NPCs, ['characterName', this.props.params.npc]);
-    //this.props.updatePlayer({values, id: npc._id, type, campaignId: id});
+    const npc = _.find(this.props.campaign.NPCs, ['name', this.props.params.npc]);
+    this.props.updateNPC({values, id: npc._id, campaignId: id});
     this.props.reset();
   }
 
@@ -126,4 +126,4 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'edit_player'
-})(connect(mapStateToProps, { getCampaignData })(EditNpc));
+})(connect(mapStateToProps, { getCampaignData, updateNPC })(EditNpc));
