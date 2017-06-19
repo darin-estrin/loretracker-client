@@ -69,13 +69,15 @@ class ShareNpc extends Component {
         <div className='container'>
           <Paper style={styles.paperStyle}>
             <h2>Who would you like to share {npc} with?</h2>
-            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+            <Paper>
+              <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 {this.renderPlayersToShareWith()}
-              <div>
-                <Field name='all' component={this.renderCheckBox} label='All Players' />
-              </div>
-              <RaisedButton type='submit' label='Share' />
-            </form>
+                <div>
+                  <Field name='all' component={this.renderCheckBox} label='All Players' />
+                </div>
+                <RaisedButton primary={true} type='submit' label='Share' />
+              </form>
+            </Paper>
           </Paper>
         </div>
       </div>
