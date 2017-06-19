@@ -103,7 +103,7 @@ class Npcs extends Component {
         <CampaignNav index={1} />
         <div className='container'>
           <Paper style={styles.paperStyle}>
-            {!this.props.Campaign ? '' : <h2>{this.props.Campaign.campaignName}</h2>}
+            {!this.props.campaign ? '' : <h2>{this.props.campaign.campaignName}</h2>}
             <List style={styles.listStyle}>
             <h2 className='notes-header'>NPCs</h2>
             {this.renderNpcs()}

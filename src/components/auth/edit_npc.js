@@ -42,9 +42,6 @@ class EditNpc extends Component {
       return (
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div>
-            <Field label='Character Name' name='name' component={this.renderField} />
-          </div>
-          <div>
             <Field label='Description' name='description' component={this.renderField} />
           </div>
           <div>

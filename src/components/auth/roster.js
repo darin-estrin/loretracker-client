@@ -98,8 +98,8 @@ class Roster extends Component {
           <Paper style={{display: 'flex', backgroundColor:'none', width: '100%'}}>
             <Paper style={styles.paperStyle}>
               {!this.props.campaign ? '' : <h2>{this.props.campaign.campaignName}</h2>}
-                <h2>Players</h2>
                 <List style={styles.listStyle}>
+                  <h2 className='notes-header'>Players</h2>
                   {this.renderPlayers()}
                 </List>
                 {this.props.params.type ==='dm' ? this.renderAddPlayer() : 
