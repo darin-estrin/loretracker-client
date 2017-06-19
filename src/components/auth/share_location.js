@@ -50,7 +50,7 @@ class ShareLocation extends Component {
     const { type, id, location } = this.props.params;
     return (
       <div>
-        <CampaignNav index={1} />
+        <CampaignNav index={2} />
         <div className='container'>
           <Paper style={styles.paperStyle}>
             <List style={styles.listStyle}>
