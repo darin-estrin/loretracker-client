@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
-import _ from 'lodash'
-import { Field, reduxForm } from 'redux-form';
+import _ from 'lodash';
 import CampaignNav from './campaign_nav';
 import { getCampaignData, shareNpc } from '../../actions';
 import * as styles from '../../css/material_styles';
@@ -78,6 +77,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default reduxForm({
-  form: 'share_npc'
-})(connect(mapStateToProps, { getCampaignData, shareNpc })(ShareNpc));
+export default connect(mapStateToProps, { getCampaignData, shareNpc })(ShareNpc);
