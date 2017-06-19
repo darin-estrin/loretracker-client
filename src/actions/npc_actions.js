@@ -53,7 +53,10 @@ export function shareNpc(request) {
       headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
-      dispatch({ type: SHARE_DATA });
+      dispatch({ 
+        type: SHARE_DATA,
+        payload: response.data.success
+      });
     })
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { RaisedButton, Paper, Checkbox } from 'material-ui';
+import { RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import _ from 'lodash'
 import { Field, reduxForm } from 'redux-form';
@@ -10,9 +10,6 @@ import { getCampaignData, shareNpc } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class ShareNpc extends Component {
-  static contextTypes = {
-    router: React.PropTypes.object
-  }
 
   componentWillMount() {
     const { id, type } = this.props.params;
@@ -21,63 +18,49 @@ class ShareNpc extends Component {
     }
   }
 
-  handleFormSubmit = (values) => {
-    const { players, campaign, npcs, params: { id, npc, type}} = this.props;
+  onListItemTap(playerId, npc) {
+    const { npcs, campaign } = this.props;
     const npcToShare = _.find(npcs, ['name', npc]);
-    let ids = [];
-    if (values.all) {
-      players.map(function(player) {
-        ids.push(player.playerId);
-      })
-      this.props.shareNpc({ids, campaign, npcToShare});
-    } else {
-      _.forEach(values, function(val, key) {
-        ids.push(key);
-      });
-      this.props.shareNpc({ids, campaign, npcToShare});
-    }
-    this.props.reset();
-    this.context.router.push(`/campaigns/${type}/${id}/npcs`)
+    const campaignName = campaign.campaignName;
+    this.props.shareNpc({playerId, campaignName, npcToShare })
   }
 
-  renderPlayersToShareWith() {
-    const { players } = this.props;
-    const self = this;
+  renderList() {
+    const { players, params: { npc }} = this.props;
     if (!players) { return; }
     return players.map(function(player) {
       return (
-        <div key={player.email}>
-          <Field label={player.name} component={self.renderCheckBox} name={player.playerId} />
-        </div>
-      );
-    });
+        <ListItem style={styles.listItemStyle} key={player.email}
+          primaryText={player.name} onTouchTap={() => this.onListItemTap(player.playerId, npc)} />
+      )
+    }, this);
   }
 
-  renderCheckBox({ input, label}) {
-    return (
-      <Checkbox label={label} checked={input.value ? true : false}
-        onCheck={input.onChange}
-      />
-    );
+  renderSuccessMessage() {
+    if(this.props.successMessage) {
+      return(
+        <div className='alert alert-success'>
+          <strong>{this.props.successMessage}</strong>
+        </div>
+      );
+    }
   }
 
   render() {
-    const { handleSubmit, params: { type, id, npc }} = this.props;
+    const { type, id, npc } = this.props.params;
     return (
       <div>
         <CampaignNav index={1} />
         <div className='container'>
           <Paper style={styles.paperStyle}>
-            <h2>Who would you like to share {npc} with?</h2>
-            <Paper style={{padding: '10px'}}>
-              <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                {this.renderPlayersToShareWith()}
-                <div>
-                  <Field name='all' component={this.renderCheckBox} label='All Players' />
-                </div>
-                <RaisedButton primary={true} type='submit' label='Share' />
-              </form>
-            </Paper>
+            <List style={styles.listStyle}>
+              <h2 className='notes-header'>Who would you like to share {npc} with?</h2>
+              {this.renderList()}
+            </List>
+            {this.renderSuccessMessage()}
+            <Link to={`/campaigns/${type}/${id}/npcs`} >
+              <RaisedButton style={{marginTop: '10px'}} label='Back To NPCs' />
+            </Link>
           </Paper>
         </div>
       </div>
@@ -90,7 +73,8 @@ function mapStateToProps(state) {
   return {
     players: state.user.Campaign.players,
     npcs: state.user.Campaign.NPCs,
-    campaign: state.user.Campaign
+    campaign: state.user.Campaign,
+    successMessage: state.user.success
   }
 }
 
