@@ -21,7 +21,7 @@ export function addLocation(request) {
 
 export function updateLocation(request) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/updateupdate`, request, {
+    axios.put(`${ROOT_URL}/updatelocation`, request, {
       headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {

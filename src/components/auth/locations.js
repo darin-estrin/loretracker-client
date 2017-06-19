@@ -14,9 +14,9 @@ class Locations extends Component {
     this.props.getCampaignData(id, type);
   }
 
-  addLocationSubmit = ({ name,  image, bio, description }) => {
+  addLocationSubmit = ({ name,  image, history, description }) => {
     const { id } = this.props.params;
-    this.props.addLocation({ name, image, id, bio, description});
+    this.props.addLocation({ name, image, id, history, description});
     this.props.reset();
   }
 
@@ -55,7 +55,7 @@ class Locations extends Component {
             <Field label='Description' name='description' component={this.renderField} />
           </div>
           <div>
-            <Field label='Bio' name='bio' component={this.renderField} />
+            <Field label='History' name='history' component={this.renderField} />
           </div>
           <div>
             <Field label='Link to image' name='image' component={this.renderField} />
