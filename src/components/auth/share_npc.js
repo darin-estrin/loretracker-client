@@ -69,7 +69,7 @@ class ShareNpc extends Component {
         <div className='container'>
           <Paper style={styles.paperStyle}>
             <h2>Who would you like to share {npc} with?</h2>
-            <Paper>
+            <Paper style={{padding: '10px'}}>
               <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 {this.renderPlayersToShareWith()}
                 <div>
