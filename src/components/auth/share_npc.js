@@ -10,6 +10,10 @@ import { getCampaignData, shareNpc } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class ShareNpc extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
   componentWillMount() {
     const { id, type } = this.props.params;
     if (!this.props.campaign) {
@@ -18,7 +22,7 @@ class ShareNpc extends Component {
   }
 
   handleFormSubmit = (values) => {
-    const { players, campaign, npcs, params: { id, npc }} = this.props;
+    const { players, campaign, npcs, params: { id, npc, type}} = this.props;
     const npcToShare = _.find(npcs, ['name', npc]);
     let ids = [];
     if (values.all) {
@@ -32,6 +36,8 @@ class ShareNpc extends Component {
       });
       this.props.shareNpc({ids, campaign, npcToShare});
     }
+    this.props.reset();
+    this.context.router.push(`/campaigns/${type}/${id}/npcs`)
   }
 
   renderPlayersToShareWith() {

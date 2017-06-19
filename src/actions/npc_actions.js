@@ -49,7 +49,6 @@ export function addNpcNote(request) {
 
 export function shareNpc(request) {
   return (dispatch) => {
-    console.log('request', request);
     axios.put(`${ROOT_URL}/sharenpc`, request, {
       headers: { authorization: localStorage.getItem('token') }
     })
