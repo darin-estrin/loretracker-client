@@ -86,6 +86,11 @@ class Npcs extends Component {
     const { campaign, params:{ type, id }}  = this.props;
     if (!campaign) { return; }
     const npcs = campaign.NPCs
+    if (type === 'pc' && npcs.length < 1) {
+      return (
+        <h2 className='notes-header'>No NPCs have been shared with you yet</h2>
+      );
+    }
     return npcs.map(function(object){
       return (
         <Link to={`/campaigns/${type}/${id}/npcs/${object.name}`} key={object._id}>

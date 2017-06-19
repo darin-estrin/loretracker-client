@@ -86,6 +86,11 @@ class Locations extends Component {
     const { campaign, params:{ type, id }}  = this.props;
     if (!campaign) { return; }
     const locations = campaign.locations
+    if (type === 'pc' && locations.length < 1) {
+      return (
+        <h2 className='notes-header'>No locations have been shared with you yet</h2>
+      );
+    }
     return locations.map(function(object){
       return (
         <Link to={`/campaigns/${type}/${id}/locations/${object.name}`} key={object._id}>
