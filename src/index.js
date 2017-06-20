@@ -20,11 +20,14 @@ import Npcs from './components/auth/npcs';
 import EditNpc from './components/auth/edit_npc';
 import NpcNotes from './components/auth/npc_note';
 import ShareNpc from './components/auth/share_npc';
-import Lore from './components/auth/lore';
 import Locations from './components/auth/locations';
 import EditLocation from './components/auth/edit_locations';
 import LocationNotes from './components/auth/location_notes';
 import ShareLocation from './components/auth/share_location';
+import Lore from './components/auth/lore';
+import EditLore from './components/auth/edit_lore';
+import LoreNotes from './components/auth/lore_notes';
+import ShareLore from './components/auth/share_lore';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -62,6 +65,9 @@ ReactDOM.render(
         <Route path='campaigns/:type/:id/locations/:location/share'
         component={RequireAuth(ShareLocation)} />
         <Route path='campaigns/:type/:id/lore' component={RequireAuth(Lore)} />
+        <Route path='campaigns/:type/:id/lore/:lore' component={RequireAuth(EditLore)} />
+        <Route path='campaings/:type/:id/lore/:lore/notes' component={RequireAuth(LoreNotes)} />
+        <Route path='campaigns/:type/:id/lore/:lore/share' component={RequireAuth(ShareLore)} />
         <Route path='*' component={PageNotFound} />
       </Route>      
     </Router>

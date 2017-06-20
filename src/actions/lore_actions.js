@@ -1,9 +1,62 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { ADD_CAMPAIGN_DATA } from './types';
+import { ADD_CAMPAIGN_DATA, SHARE_DATA } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
 
-export function addLore() {
+export function addLore(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/addlore`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    })
+    .catch(error => console.log(error));
+  }
+}
 
+export function updateLore(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/updatelore`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({ 
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+       });
+    });
+  }
+}
+
+export function addLoreNote(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/addlorenote`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    });
+  }
+}
+
+export function shareLore(request) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/sharelore`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({ 
+        type: SHARE_DATA,
+        payload: response.data.success
+      });
+    })
+  }
 }
