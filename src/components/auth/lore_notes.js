@@ -25,7 +25,7 @@ class LoreNotes extends Component {
   }) {
     return (
       <TextField
-        hintText={label}
+        hintText='Notes will always be private to you'
         hintStyle={{color:grey900}}
         floatingLabelText={label}
         floatingLabelFocusStyle={{color:'#0097A7'}}
