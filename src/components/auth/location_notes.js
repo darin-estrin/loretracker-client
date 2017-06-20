@@ -40,7 +40,7 @@ class LocationNotes extends Component {
     );
   }
 
-  renderNpcNotes() {
+  renderLocationNotes() {
     var location;
     const { campaign } = this.props;
     if (!campaign) { return; } 
@@ -73,7 +73,7 @@ class LocationNotes extends Component {
           <Paper style={styles.paperStyle}>
             <List style={styles.listStyle}>
               <h3 className='notes-header'>Notes for {location}</h3>
-              {this.renderNpcNotes()}
+              {this.renderLocationNotes()}
             </List>
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <div>

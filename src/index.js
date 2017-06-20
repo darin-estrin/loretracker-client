@@ -66,7 +66,7 @@ ReactDOM.render(
         component={RequireAuth(ShareLocation)} />
         <Route path='campaigns/:type/:id/lore' component={RequireAuth(Lore)} />
         <Route path='campaigns/:type/:id/lore/:lore' component={RequireAuth(EditLore)} />
-        <Route path='campaings/:type/:id/lore/:lore/notes' component={RequireAuth(LoreNotes)} />
+        <Route path='campaigns/:type/:id/lore/:lore/notes' component={RequireAuth(LoreNotes)} />
         <Route path='campaigns/:type/:id/lore/:lore/share' component={RequireAuth(ShareLore)} />
         <Route path='*' component={PageNotFound} />
       </Route>      

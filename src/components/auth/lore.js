@@ -52,7 +52,7 @@ class Lore extends Component {
             <Field label='Lore Item' name='title' component={this.renderField} />
           </div>
           <div>
-            <Field label='Back Story' name='backstory' component={this.renderField} />
+            <Field label='History' name='backstory' component={this.renderField} />
           </div>
           <div>
             <Field label='Link to image' name='image' component={this.renderField} />
