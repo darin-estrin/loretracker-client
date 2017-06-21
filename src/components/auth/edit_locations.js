@@ -85,6 +85,15 @@ class EditLocation extends Component {
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const location = _.find(this.props.campaign.locations, ['name', this.props.params.location]);
+    
+    const regex1 = /^(\s+)|(\s+)$/g;
+    const regex2 = /\s{2,}/g;
+    for (var value in values) {
+      // replace all excess white space in front and end of string
+      // replace excess white space in the middle of a string and replace with one empty space
+      values[value] = values[value].replace(regex1, '').replace(regex2, ' ');
+    }
+
     this.props.updateLocation({values, id: location._id, campaignId: id});
     this.props.reset();
   }
@@ -114,6 +123,14 @@ class EditLocation extends Component {
   }
 }
 
+function validate(values) {
+  const errors = {}
+  // if(values.description) {
+  //   values.description = values.description.replace(/^(\s+)|(\s+)$/g, '');
+  // }
+  
+}
+
 function mapStateToProps(state) {
   return {
     campaign: state.user.Campaign
@@ -121,5 +138,6 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'edit_location'
+  form: 'edit_location',
+  validate
 })(connect(mapStateToProps, { getCampaignData, updateLocation })(EditLocation));

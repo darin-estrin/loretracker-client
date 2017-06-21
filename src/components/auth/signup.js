@@ -78,8 +78,9 @@ class Signup extends Component {
 }
 
 function validate(formProps) {
-  const { password, passwordConfirm, email, name } = formProps;
+  const { password, passwordConfirm, email, name, phone } = formProps;
   const errors = {};
+  const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
   if (!name) {
     errors.name = 'Please enter a name';
@@ -101,9 +102,9 @@ function validate(formProps) {
     errors.password = 'Password must match';
   }
 
-  // if (!phoneRegex.test(phone)) {
-  //   errors.phone = 'Please enter a valid phone number';
-  // }
+  if (phone && !phoneRegex.test(phone)) {
+    errors.phone = 'Please enter a valid phone number';
+  }
 
   return errors;
 }

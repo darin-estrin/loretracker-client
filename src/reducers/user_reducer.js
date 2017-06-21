@@ -20,9 +20,8 @@ export default function(state= {}, action) {
       return { ...state, error: action.payload, success: '' };
     case FETCH_CAMPAIGN:
       return { ...state, Campaign: action.payload, error: '', success: '' };
-    case SHARE_DATA: {
+    case SHARE_DATA:
       return { ...state, success: action.payload, error: '' };
-    }
     case UNAUTH_USER:
       return { ...state, name: '', DMCampaigns: '', PCCampaigns: '', error: '', Campaign: '', success: '' }
     default:

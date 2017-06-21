@@ -81,6 +81,15 @@ class EditLore extends Component {
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const lore = _.find(this.props.campaign.lore, ['title', this.props.params.lore]);
+
+    const regex1 = /^(\s+)|(\s+)$/g;
+    const regex2 = /\s{2,}/g;
+    for (var value in values) {
+      // replace all excess white space in front and end of string
+      // replace excess white space in the middle of a string and replace with one empty space
+      values[value] = values[value].replace(regex1, '').replace(regex2, ' ');
+    }
+    
     this.props.updateLore({values, id: lore._id, campaignId: id});
     this.props.reset();
   }

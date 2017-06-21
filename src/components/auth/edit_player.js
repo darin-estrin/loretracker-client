@@ -33,7 +33,6 @@ class EditPlayer extends Component {
         <ListItem style={styles.listItemStyle} primaryText={`Character: ${player.characterName}`}
         leftIcon={<ActionLabelOutline />} />
         <ListItem style={styles.listItemStyle} primaryText={`Name: ${player.name}`} leftIcon={<ActionPermIdentity/>} />
-        <ListItem style={styles.listItemStyle} primaryText={`Email: ${player.email}`} leftIcon={<CommunicationEmail/>} />
         {player.phone ? <ListItem style={styles.listItemStyle} primaryText={`Phone: ${player.phone}`} leftIcon={<CommunicationPhone />} /> : ''}
         {player.description ? <ListItem style={styles.listItemStyle} primaryText={`Description: ${player.description}`} leftIcon={<ActionDescription />} /> : ''}
         {player.image ? <img className='character-image' src={player.image} /> : '' }
@@ -67,11 +66,21 @@ class EditPlayer extends Component {
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
+    
+    const regex1 = /^(\s+)|(\s+)$/g;
+    const regex2 = /\s{2,}/g;
+    for (var value in values) {
+      // replace all excess white space in front and end of string
+      // replace excess white space in the middle of a string and replace with one empty space
+      values[value] = values[value].replace(regex1, '').replace(regex2, ' ');
+    }
+
     this.props.updatePlayer({values, id: player._id, type, campaignId: id});
     this.props.reset();
   }
 
   render() {
+    console.log(this.props);
     const { handleSubmit, params: { id, type, player }} = this.props;
     return (
       <div>
@@ -132,6 +141,5 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'edit_player',
-  enableReinitialize: true,
   validate
 })(connect(mapStateToProps, { getCampaignData, updatePlayer })(EditPlayer));
