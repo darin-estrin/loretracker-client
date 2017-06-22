@@ -26,6 +26,26 @@ class Lore extends Component {
     meta: {touched, error },
     ...custom
   }) {
+    if (custom.type === 'textarea') {
+      return (
+        <TextField
+          hintText={label}
+          hintStyle={{color:grey900}}
+          floatingLabelText={label}
+          floatingLabelFocusStyle={{color:'#0097A7'}}
+          underlineStyle={styles.styles.underlineStyle}
+          floatingLabelStyle={styles.styles.floatingLabelStyle}
+          errorText={touched && error}
+          fullWidth
+          multiLine={true}
+          rows={2}
+          rowsMax={4}
+          textareaStyle={{color:grey900}}
+          {...input}
+          {...custom}
+        />
+      );
+    }
     return(
       <TextField
           hintText={label}
@@ -52,7 +72,7 @@ class Lore extends Component {
             <Field label='Lore Item' name='title' component={this.renderField} />
           </div>
           <div>
-            <Field label='History' name='backstory' component={this.renderField} />
+            <Field type='textarea' label='History' name='backstory' component={this.renderField} />
           </div>
           <div>
             <Field label='Link to image' name='image' component={this.renderField} />
@@ -119,10 +139,15 @@ class Lore extends Component {
 }
 
 function validate(values) {
+  const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
   const errors = {};
 
   if(!values.title) {
     errors.title = 'Lore item must have a name';
+  }
+
+  if (values.image && !urlRegex.test(values.image)) {
+    errors.image = 'Please enter a valid URL';
   }
 
   return errors;

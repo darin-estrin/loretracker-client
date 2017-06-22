@@ -31,10 +31,10 @@ class EditPlayer extends Component {
     return (
       <List style={styles.listStyle}>
         <ListItem style={styles.listItemStyle} primaryText={`Character: ${player.characterName}`}
-        leftIcon={<ActionLabelOutline />} />
-        <ListItem style={styles.listItemStyle} primaryText={`Name: ${player.name}`} leftIcon={<ActionPermIdentity/>} />
-        {player.phone ? <ListItem style={styles.listItemStyle} primaryText={`Phone: ${player.phone}`} leftIcon={<CommunicationPhone />} /> : ''}
-        {player.description ? <ListItem style={styles.listItemStyle} primaryText={`Description: ${player.description}`} leftIcon={<ActionDescription />} /> : ''}
+        leftIcon={<ActionLabelOutline />} disabled />
+        <ListItem style={styles.listItemStyle} primaryText={`Name: ${player.name}`} leftIcon={<ActionPermIdentity/>} disabled />
+        {player.phone ? <ListItem style={styles.listItemStyle} primaryText={`Phone: ${player.phone}`} leftIcon={<CommunicationPhone />} disabled /> : ''}
+        {player.description ? <ListItem style={styles.listItemStyle} primaryText={`Description: ${player.description}`} leftIcon={<ActionDescription />} disabled /> : ''}
         {player.image ? <img className='character-image' src={player.image} /> : '' }
       </List>
     );
@@ -80,7 +80,6 @@ class EditPlayer extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { handleSubmit, params: { id, type, player }} = this.props;
     return (
       <div>
@@ -121,9 +120,14 @@ function validate(values) {
   const { phone, description, image } = values;
   const errors = {};
   const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
   
   if (phone && !phoneRegex.test(phone)) {
     errors.phone = 'Please enter a valid phone number';
+  }
+
+  if (image && !urlRegex.test(image)) {
+    errors.image = 'Please enter a valid URL';
   }
 
   return errors;

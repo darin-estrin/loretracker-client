@@ -28,9 +28,9 @@ class EditLocation extends Component {
     return (
       <List style={styles.listStyle}>
         <ListItem style={styles.listItemStyle} primaryText={`Location: ${location.name}`}
-        leftIcon={<ActionPermIdentity />} />
-        {location.description ? <ListItem style={styles.listItemStyle} primaryText={`Description: ${location.description}`} leftIcon={<ActionLabelOutline />} /> : '' }
-        {location.history ? <ListItem style={styles.listItemStyle} primaryText={`History: ${location.history}`} leftIcon={<ActionDescription />} /> : ''}
+        leftIcon={<ActionPermIdentity />} disabled />
+        {location.description ? <ListItem style={styles.listItemStyle} primaryText={`Description: ${location.description}`} leftIcon={<ActionLabelOutline />} disabled /> : '' }
+        {location.history ? <ListItem style={styles.listItemStyle} primaryText={`History: ${location.history}`} leftIcon={<ActionDescription />} disabled /> : ''}
         {location.image ? <img className='character-image' src={location.image} /> : '' }
       </List>
     );
@@ -45,7 +45,7 @@ class EditLocation extends Component {
             <Field label='Description' name='description' component={this.renderField} />
           </div>
           <div>
-            <Field label='History' name='history' component={this.renderField} />
+            <Field type='textarea' label='History' name='history' component={this.renderField} />
           </div>
           <div>
             <Field label='Link To Image' name='image' component={this.renderField} />
@@ -65,6 +65,26 @@ class EditLocation extends Component {
     meta: { touched, error },
     ...custom
   }) {
+    if (custom.type === 'textarea') {
+      return (
+        <TextField
+          hintText={label}
+          hintStyle={{color:grey900}}
+          floatingLabelText={label}
+          floatingLabelFocusStyle={{color:'#0097A7'}}
+          underlineStyle={styles.styles.underlineStyle}
+          floatingLabelStyle={styles.styles.floatingLabelStyle}
+          errorText={touched && error}
+          fullWidth
+          multiLine={true}
+          rows={2}
+          rowsMax={4}
+          textareaStyle={{color:grey900}}
+          {...input}
+          {...custom}
+        />
+      );
+    }
     return (
       <TextField
         hintText={label}
@@ -124,11 +144,14 @@ class EditLocation extends Component {
 }
 
 function validate(values) {
-  const errors = {}
-  // if(values.description) {
-  //   values.description = values.description.replace(/^(\s+)|(\s+)$/g, '');
-  // }
-  
+  const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
+  const errors = {};
+
+  if (values.image && !urlRegex.test(values.image)) {
+    errors.image = 'Please enter a valid URL';
+  }
+
+  return errors;
 }
 
 function mapStateToProps(state) {

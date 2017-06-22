@@ -28,8 +28,8 @@ class EditLore extends Component {
     return (
       <List style={styles.listStyle}>
         <ListItem style={styles.listItemStyle} primaryText={`Title: ${lore.title}`}
-        leftIcon={<ActionPermIdentity />} />
-        {lore.backstory ? <ListItem style={styles.listItemStyle} primaryText={`History: ${lore.backstory}`} leftIcon={<ActionLabelOutline />} /> : '' }
+        leftIcon={<ActionPermIdentity />} disabled />
+        {lore.backstory ? <ListItem style={styles.listItemStyle} primaryText={`History: ${lore.backstory}`} leftIcon={<ActionLabelOutline />} disabled /> : '' }
         {lore.image ? <img className='character-image' src={lore.image} /> : '' }
       </List>
     );
@@ -41,7 +41,7 @@ class EditLore extends Component {
       return (
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div>
-            <Field label='History' name='backstory' component={this.renderField} />
+            <Field type='textarea' label='History' name='backstory' component={this.renderField} />
           </div>
           <div>
             <Field label='Link To Image' name='image' component={this.renderField} />
@@ -61,6 +61,26 @@ class EditLore extends Component {
     meta: { touched, error },
     ...custom
   }) {
+    if (custom.type === 'textarea') {
+      return (
+        <TextField
+          hintText={label}
+          hintStyle={{color:grey900}}
+          floatingLabelText={label}
+          floatingLabelFocusStyle={{color:'#0097A7'}}
+          underlineStyle={styles.styles.underlineStyle}
+          floatingLabelStyle={styles.styles.floatingLabelStyle}
+          errorText={touched && error}
+          fullWidth
+          multiLine={true}
+          rows={2}
+          rowsMax={4}
+          textareaStyle={{color:grey900}}
+          {...input}
+          {...custom}
+        />
+      );
+    }
     return (
       <TextField
         hintText={label}
@@ -119,6 +139,17 @@ class EditLore extends Component {
   }
 }
 
+function validate(values) {
+  const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
+  const errors = {};
+
+  if (values.image && !urlRegex.test(values.image)) {
+    errors.image = 'Please enter a valid URL';
+  }
+
+  return errors;
+}
+
 function mapStateToProps(state) {
   return {
     campaign: state.user.Campaign
@@ -126,5 +157,6 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'edit_lore'
+  form: 'edit_lore',
+  validate
 })(connect(mapStateToProps, { getCampaignData, updateLore })(EditLore));
