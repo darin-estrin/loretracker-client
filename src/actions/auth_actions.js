@@ -5,7 +5,8 @@ import {
   AUTH_ERROR,
   UNAUTH_USER,
   GET_USER,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  FETCH_PROFILE
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
@@ -21,6 +22,20 @@ export function signinUser({ email, password }) {
       .catch((err) => {
         dispatch(authError('Email or password are incorrect'));
       });
+  }
+}
+
+export function getUser() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/`, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: FETCH_PROFILE,
+        payload: response.data
+      })
+    })
   }
 }
 

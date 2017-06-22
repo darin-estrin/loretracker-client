@@ -122,12 +122,8 @@ function validate(values) {
   const errors = {};
   const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
   
-  if (!phoneRegex.test(phone)) {
+  if (phone && !phoneRegex.test(phone)) {
     errors.phone = 'Please enter a valid phone number';
-  }
-
-  if (!phone) {
-    errors.phone = null;
   }
 
   return errors;

@@ -9,4 +9,4 @@ export const ADD_ERROR = 'add_error';
 export const FETCH_CAMPAIGN = 'fetch_campaign';
 export const FETCH_ERROR = 'fetch_error';
 export const SHARE_DATA = 'share_data';
-export const UPDATE_PROFILE = 'update_profile';
+export const FETCH_PROFILE = 'fetch_profile';

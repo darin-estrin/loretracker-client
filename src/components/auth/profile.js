@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { TextField, RaisedButton, Paper } from 'material-ui';
+import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
-import { updateProfile } from '../../actions';
+import { updateProfile, getUser } from '../../actions';
 import * as styles from '../../css/material_styles';
 const validator = require('email-validator');
 
 class Profile extends Component {
+  componentWillMount() {
+    this.props.getUser();
+  }
 
   renderField({
     input,
@@ -55,11 +58,24 @@ class Profile extends Component {
     }
   }
 
+  renderProfileData() {
+    const { user } = this.props;
+    if (!user) { return; }
+    return(
+      <List style={styles.listStyle}>
+        <ListItem style={styles.listItemStyle} primaryText={user.name} />
+        <ListItem style={styles.listItemStyle} primaryText={user.email} />
+        {user.phone ? <ListItem style={styles.listItemStyle} primaryText={user.phone} /> : ''}
+      </List>
+    )
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return(
       <div className='container'>
         <Paper style={styles.paperStyle}>
+          {this.renderProfileData()}
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <div>
               <Field label='Name' name='name' component={this.renderField} />
@@ -90,6 +106,11 @@ class Profile extends Component {
 
 function validate(values) {
   const errors = {};
+  const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  
+  if (values.phone && !phoneRegex.test(values.phone)) {
+    errors.phone = 'Please enter a valid phone number';
+  }
 
   if (values.email && !validator.validate(values.email)) {
     errors.email = 'Please enter a valid email';
@@ -101,11 +122,12 @@ function validate(values) {
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    errorMessage: state.auth.error
+    errorMessage: state.auth.error,
+    user: state.auth.user
   }
 }
 
 export default reduxForm({
   form: 'update_profile',
   validate
-})(connect(mapStateToProps, { updateProfile })(Profile));
+})(connect(mapStateToProps, { updateProfile, getUser })(Profile));
