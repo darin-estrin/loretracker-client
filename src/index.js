@@ -29,6 +29,8 @@ import EditLore from './components/auth/edit_lore';
 import LoreNotes from './components/auth/lore_notes';
 import ShareLore from './components/auth/share_lore';
 import RequireAuth from './components/auth/require_auth';
+import Profile from './components/auth/profile';
+import ChangePassword from './components/auth/change_password';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 
@@ -68,6 +70,8 @@ ReactDOM.render(
         <Route path='campaigns/:type/:id/lore/:lore' component={RequireAuth(EditLore)} />
         <Route path='campaigns/:type/:id/lore/:lore/notes' component={RequireAuth(LoreNotes)} />
         <Route path='campaigns/:type/:id/lore/:lore/share' component={RequireAuth(ShareLore)} />
+        <Route path='profile' component={RequireAuth(Profile)} />
+        <Route path='changepassword' component={RequireAuth(ChangePassword)} />
         <Route path='*' component={PageNotFound} />
       </Route>      
     </Router>

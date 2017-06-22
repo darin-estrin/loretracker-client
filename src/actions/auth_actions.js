@@ -67,3 +67,29 @@ export function getUserData() {
     })
   }
 }
+
+export function updateProfile(values) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/updateprofile`, values, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({ type: AUTH_USER });
+      browserHistory.push('/campaigns');
+    })
+    .catch(error => dispatch(authError(error.response.data.error)));
+  }
+}
+
+export function changePassword(values) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/changepassword`, values, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({ type: AUTH_USER });
+      localStorage.setItem('token', response.data.token);
+      browserHistory.push('/campaigns');
+    })
+  }
+}
