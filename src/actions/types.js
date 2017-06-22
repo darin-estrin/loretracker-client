@@ -1,0 +1,12 @@
+export const AUTH_USER = 'auth_user';
+export const UNAUTH_USER = 'unauth_user';
+export const AUTH_ERROR = 'auth_error';
+export const GET_USER = 'get_user';
+export const CLEAR_ERRORS = 'clear_errors';
+export const START_CAMPAIGN = 'start_campaign';
+export const ADD_CAMPAIGN_DATA = 'add_campaign_data';
+export const ADD_ERROR = 'add_error';
+export const FETCH_CAMPAIGN = 'fetch_campaign';
+export const FETCH_ERROR = 'fetch_error';
+export const SHARE_DATA = 'share_data';
+export const FETCH_PROFILE = 'fetch_profile';
