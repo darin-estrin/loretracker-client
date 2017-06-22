@@ -7,7 +7,6 @@ import _ from 'lodash'
 import { Field, reduxForm } from 'redux-form';
 import { getUserData, startCampaign } from '../../actions';
 import * as styles from '../../css/material_styles';
-require('../../css/campaign.scss');
 
 class Campaigns extends Component {
   static contextTypes = {

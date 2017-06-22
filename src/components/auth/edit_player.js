@@ -13,7 +13,7 @@ import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
 import { getCampaignData, updatePlayer } from '../../actions';
 import * as styles from '../../css/material_styles';
-require('../../css/edit_player.scss');
+
 
 class EditPlayer extends Component {
   componentWillMount() {

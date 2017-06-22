@@ -1,5 +1,41 @@
 $mobile: 800px;
 
+body {
+  font: 0;
+  font-family: MedivalSharp;
+  background-image: url('../images/background.jpg');
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: center;
+  background-attachment: fixed;
+  min-width: 350px;
+}
+
+h1 {
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.character-image {
+  display: flex;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
+  font-size: 2vw;
+  @media screen and (max-width: 750px) {
+    font-size: 3vw;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 5vw;
+  }
+}
+
 .greeting {
   text-align: center;
 }
@@ -53,4 +89,9 @@ $mobile: 800px;
 
 .get-started {
   text-align: center;
+}
+
+.notes-header {
+  text-align: center;
+  color: #D9F4FF;
 }

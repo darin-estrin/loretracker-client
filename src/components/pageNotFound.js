@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-require('../css/pageNotFound.scss');
 
 const token = localStorage.getItem('token');
 

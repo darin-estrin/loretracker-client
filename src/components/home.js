@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Paper } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
-require('../css/home.scss');
 
 const paperStyle = {
   backgroundColor: 'rgba(255, 255, 255, 0.75)',

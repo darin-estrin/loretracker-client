@@ -8,7 +8,6 @@ import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import CampaignNav from './campaign_nav';
 import { getCampaignData, addPlayerNote } from '../../actions';
 import * as styles from '../../css/material_styles';
-require('../../css/player_note.scss');
 
 class PlayerNotes extends Component {
   componentWillMount() {
