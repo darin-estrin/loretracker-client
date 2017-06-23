@@ -33,6 +33,13 @@ class ChangePassword extends Component {
   }
 
   handleFormSubmit = (values) => {
+    const regex1 = /^(\s+)|(\s+)$/g;
+    for (var value in values) {
+      // replace all excess white space in front and end of string
+      // replace excess white space in the middle of a string and replace with one empty space
+      values[value] = values[value].replace(regex1, '');
+    }
+    
     this.props.changePassword(values);
   }
 

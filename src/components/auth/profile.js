@@ -21,7 +21,7 @@ class Profile extends Component {
   }) {
     return (
       <TextField
-        hintText={label}
+        hintText={label === 'Phone Number' ? '5555555555' : label}
         hintStyle={{color:grey900}}
         floatingLabelText={label}
         floatingLabelFocusStyle={{color:'#0097A7'}}
@@ -63,9 +63,9 @@ class Profile extends Component {
     if (!user) { return; }
     return(
       <List style={styles.listStyle}>
-        <ListItem style={styles.listItemStyle} primaryText={user.name} />
-        <ListItem style={styles.listItemStyle} primaryText={user.email} />
-        {user.phone ? <ListItem style={styles.listItemStyle} primaryText={user.phone} /> : ''}
+        <ListItem style={styles.listItemStyle} disabled primaryText={user.name} />
+        <ListItem style={styles.listItemStyle} disabled primaryText={user.email} />
+        {user.phone ? <ListItem style={styles.listItemStyle} disabled primaryText={user.phone} /> : ''}
       </List>
     )
   }
@@ -84,7 +84,7 @@ class Profile extends Component {
               <Field label='Email' name='email' component={this.renderField} />
             </div>
             <div>
-              <Field label='Phone' name='phone' component={this.renderField} />
+              <Field label='Phone Number' name='phone' component={this.renderField} />
             </div>
             {this.renderAlert()}
             <RaisedButton type='submit' label='Submit' />
