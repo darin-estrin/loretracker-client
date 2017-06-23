@@ -9,7 +9,7 @@ import {
   FETCH_PROFILE
 } from './types';
 
-const ROOT_URL = 'http://localhost:3090/api';
+const ROOT_URL = '/api';
 
 export function signinUser({ email, password }) {
   return (dispatch) => {

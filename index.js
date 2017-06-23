@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 // Set up Database
-mongoose.connect('mongodb://localhost:loretracker/loretracker');
+mongoose.connect('localhost:27017/loretracker');
 
 // Set up app
 app.use(morgan('combined'));
@@ -24,7 +24,7 @@ app.get('*', function(req, res) {
 });
 
 // Set up server
-const port = process.env.PORT || 3090;
+const port = process.env.PORT || 8080;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on:', port);

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { START_CAMPAIGN, FETCH_CAMPAIGN } from './types';
 
-const ROOT_URL = 'http://localhost:3090/api';
+const ROOT_URL = '/api';
 
 export function startCampaign(formProps){
   return function(dispatch) {
