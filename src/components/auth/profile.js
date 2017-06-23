@@ -29,7 +29,7 @@ class Profile extends Component {
         floatingLabelStyle={styles.styles.floatingLabelStyle}
         errorText={touched && error}
         fullWidth
-        inputStyle={{color:grey900}}
+        inputStyle={styles.inputStye}
         {...input}
         {...custom}
       />

@@ -38,7 +38,7 @@ class Campaigns extends Component {
           floatingLabelStyle={styles.styles.floatingLabelStyle}
           errorText={touched && error}
           fullWidth
-          inputStyle={{color:grey900, fontSize: '2vmax'}}
+          inputStyle={styles.inputStye}
           {...input}
           {...custom}
         />

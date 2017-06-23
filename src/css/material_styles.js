@@ -53,3 +53,8 @@ export const inkBarStyle = {
 export const tabStyle = {
   color: redA400
 }
+
+export const inputStye = {
+  fontSize: '100%',
+  color: grey900
+}

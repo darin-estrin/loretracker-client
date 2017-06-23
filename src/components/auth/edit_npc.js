@@ -79,7 +79,7 @@ class EditNpc extends Component {
           multiLine={true}
           rows={2}
           rowsMax={4}
-          textareaStyle={{color:grey900}}
+          textareaStyle={styles.inputStye}
           {...input}
           {...custom}
         />
