@@ -62,7 +62,7 @@ class Campaigns extends Component {
     } else {
       return (
         <div>
-          <h2>Select A Campaign To Edit</h2>
+          <h2 className='campaign-list'>Select A Campaign To Edit</h2>
           <List style={styles.listStyle}>
             {this.renderCampaignList(DMCampaigns, 'dm')}
           </List>
@@ -76,7 +76,7 @@ class Campaigns extends Component {
     if (PCCampaigns.length >= 1) {
       return (
         <div>
-          <h2>Select a Campaign To View</h2>
+          <h2 className='campaign-list'>Select a Campaign To View</h2>
           <List style={styles.listStyle}>
             {this.renderCampaignList(PCCampaigns, 'pc')}
           </List>
