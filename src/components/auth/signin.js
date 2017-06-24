@@ -14,6 +14,9 @@ class Signin extends Component {
   }
 
   handleFormSubmit = ({email, password}) => {
+    const regex1 = /^(\s+)|(\s+)$/g;
+    email = email.replace(regex1, '');
+    password = password.replace(regex1, '');
     this.props.signinUser({ email, password });
   }
 

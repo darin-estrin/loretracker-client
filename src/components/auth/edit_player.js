@@ -48,7 +48,7 @@ class EditPlayer extends Component {
   }) {
     return (
       <TextField
-        hintText={label === 'Phone Number' ? '555-555-5555' : label}
+        hintText={label === 'Phone Number' ? '5555555555' : label}
         hintStyle={{color:grey900}}
         floatingLabelText={label}
         floatingLabelFocusStyle={{color:'#0097A7'}}

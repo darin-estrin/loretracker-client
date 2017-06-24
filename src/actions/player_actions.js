@@ -2,7 +2,7 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { ADD_CAMPAIGN_DATA, FETCH_ERROR } from './types';
 
-const ROOT_URL = 'http://localhost:3090';
+const ROOT_URL = '/api';
 
 export function addPlayer(request) {
   return (dispatch) => {
