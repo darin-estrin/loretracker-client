@@ -124,7 +124,7 @@ class EditNpc extends Component {
       <div>
         <CampaignNav index={1} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <h3>NPC Details</h3>
             {this.renderNpcData()}
             {this.renderEditNpc()}

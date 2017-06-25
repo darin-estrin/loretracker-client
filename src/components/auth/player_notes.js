@@ -70,7 +70,7 @@ class PlayerNotes extends Component {
       <div>
         <CampaignNav index={0} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <List style={styles.listStyle}>
               <h3 className='notes-header'>Notes for {player}</h3>
               {this.renderPlayerNotes()}

@@ -124,7 +124,7 @@ class EditLocation extends Component {
       <div>
         <CampaignNav index={2} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <h3>Location Details</h3>
             {this.renderLocationData()}
             {this.renderEditLocation()}

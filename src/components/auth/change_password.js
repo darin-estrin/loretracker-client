@@ -47,7 +47,7 @@ class ChangePassword extends Component {
     const { handleSubmit } = this.props;
     return(
       <div className='container'>
-        <Paper style={styles.paperStyle}>
+        <Paper style={styles.paperStyle} zDepth={4}>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <div>
               <Field type='password' label='Password' name='password' 

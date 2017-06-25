@@ -74,7 +74,7 @@ class Profile extends Component {
     const { handleSubmit } = this.props;
     return(
       <div className='container'>
-        <Paper style={styles.paperStyle}>
+        <Paper style={styles.paperStyle} zDepth={4}>
           {this.renderProfileData()}
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <div>

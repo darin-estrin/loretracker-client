@@ -70,7 +70,7 @@ class NpcNotes extends Component {
       <div>
         <CampaignNav index={1} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <List style={styles.listStyle}>
               <h3 className='notes-header'>Notes for {npc}</h3>
               {this.renderNpcNotes()}

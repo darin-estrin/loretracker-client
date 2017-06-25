@@ -70,7 +70,7 @@ class LocationNotes extends Component {
       <div>
         <CampaignNav index={2} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <List style={styles.listStyle}>
               <h3 className='notes-header'>Notes for {location}</h3>
               {this.renderLocationNotes()}

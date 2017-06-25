@@ -120,7 +120,7 @@ class EditLore extends Component {
       <div>
         <CampaignNav index={3} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <h3>Lore Details</h3>
             {this.renderLoreData()}
             {this.renderEditLore()}

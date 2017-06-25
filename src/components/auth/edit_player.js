@@ -85,7 +85,7 @@ class EditPlayer extends Component {
       <div>
         <CampaignNav index={0} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <h3>Player Details</h3>
             {this.renderPlayerData()}
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
