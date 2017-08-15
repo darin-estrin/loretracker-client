@@ -176,3 +176,39 @@ exports.addPlayerNote = function(req, res, next) {
     });
   }
 }
+
+exports.deletePlayer = function(req, res, next) {
+  const { campaign, player } = req.body;
+  User.findById({'_id': req.user.id}).exec((err, user) => {
+    // find campaign to remove player
+    const campaignToEdit = _.find(user.campaigns.DM, function(userCampaign) {
+      return userCampaign._id == campaign._id;
+    });
+    
+    for (var i = 0; i < campaignToEdit.players.length; i++) {
+      //console.log(campaignToEdit.players[0]);
+      if(campaignToEdit.players[i].playerId == player.playerId) {
+        campaignToEdit.players.splice(i, 1);
+      }
+    }
+
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaignToEdit);
+    });
+
+    User.findById({ '_id': player.playerId}).exec((err, user) => {
+      campaigns = user.campaigns.PC;
+      for (var i = 0; i < campaigns.length; i++) {
+       //console.log(campaigns[i]);
+        if (campaigns[i].campaignId == campaign._id) {
+          campaigns.splice(i, 1);
+        }
+      }
+
+      user.save(function(err) {
+        if (err) {return next(err); }
+      });
+    });
+  });
+}

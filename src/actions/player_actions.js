@@ -53,3 +53,18 @@ export function fetchError(error) {
     payload: error
   };
 }
+
+export function deletePlayer(campaign, player, id, type) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/deleteplayer`, { campaign, player }, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      browserHistory.push(`/campaigns/${type}/${id}/roster`);
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      });
+    });
+  }
+}
