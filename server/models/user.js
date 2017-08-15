@@ -54,6 +54,7 @@ const userSchema = new Schema({
     PC: [{
       owner: Boolean,
       campaignName: String,
+      campaignId: String,
       players: [{
         name: String,
         email: String,

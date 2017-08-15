@@ -50,6 +50,7 @@ exports.addPlayer = function(req, res, next) {
       // build campaign data to share with roster of players
       const campaignInfo = {
         campaignName: campaign.campaignName,
+        campaignId: campaignId,
         players: roster,
         owner: false
       }
@@ -61,10 +62,10 @@ exports.addPlayer = function(req, res, next) {
           if (err) { return next(err); }
           
           const userCampaigns = player.campaigns.PC;
-          const campaignsUserIsIn = _.map(userCampaigns, 'campaignName');
+          const campaignsUserIsIn = _.map(userCampaigns, 'campaignId');
           // check if user is already in the campaign
           // if not push data into user database
-          if (campaignsUserIsIn.indexOf(campaign.campaignName) < 0) {
+          if (campaignsUserIsIn.indexOf(campaignInfo.campaignId) < 0) {
             userCampaigns.push(campaignInfo);
             player.save(function(err) {
               if (err) { return next(err); }
@@ -72,8 +73,9 @@ exports.addPlayer = function(req, res, next) {
           // if user is already in campaign
           // find old campaign record an replace it
           } else {
-            const index = campaignsUserIsIn.indexOf(campaign.campaignName);
+            const index = campaignsUserIsIn.indexOf(campaignInfo.campaignId);
             userCampaigns[index].players = roster;
+
             player.save(function (err) {
               if (err) { return next(err); }
             });
