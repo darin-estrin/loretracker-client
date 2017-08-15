@@ -97,11 +97,11 @@ exports.addLocationNote = function(req, res, next) {
 }
 
 exports.shareLocation = function(req, res, next) {
-  const { playerId, campaignName, locationToShare } = req.body;
+  const { playerId, campaignId, locationToShare } = req.body;
   User.findById({'_id': playerId}).exec((err, user) => {
       // find campaign location is in
       const playerCampaign = _.find(user.campaigns.PC, function(campaignToFind) {
-        return campaignToFind.campaignName = campaignName;
+        return campaignToFind.campaignId = campaignId;
       });
 
       // define location model

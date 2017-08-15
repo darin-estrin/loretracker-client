@@ -20,8 +20,8 @@ class ShareLocation extends Component {
   onListItemTap(playerId, location) {
     const { locations, campaign } = this.props;
     const locationToShare = _.find(locations, ['name', location]);
-    const campaignName = campaign.campaignName;
-    this.props.shareLocation({playerId, campaignName, locationToShare});
+    const campaignId = campaign._id;
+    this.props.shareLocation({playerId, campaignId, locationToShare});
   }
 
   renderList() {

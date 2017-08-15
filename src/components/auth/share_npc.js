@@ -20,8 +20,8 @@ class ShareNpc extends Component {
   onListItemTap(playerId, npc) {
     const { npcs, campaign } = this.props;
     const npcToShare = _.find(npcs, ['name', npc]);
-    const campaignName = campaign.campaignName;
-    this.props.shareNpc({playerId, campaignName, npcToShare })
+    const campaignId = campaign._id;
+    this.props.shareNpc({playerId, campaignId, npcToShare });
   }
 
   renderList() {

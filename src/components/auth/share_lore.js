@@ -20,8 +20,8 @@ class ShareLore extends Component {
   onListItemTap(playerId, loreItem) {
     const { lore, campaign } = this.props;
     const loreItemToShare = _.find(lore, ['title', loreItem]);
-    const campaignName = campaign.campaignName;
-    this.props.shareLore({playerId, campaignName, loreItemToShare});
+    const campaignId = campaign._id;
+    this.props.shareLore({playerId, campaignId, loreItemToShare});
   }
 
   renderList() {
