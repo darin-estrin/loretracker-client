@@ -127,7 +127,7 @@ class Locations extends Component {
       <div>
         <CampaignNav index={2} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             {!this.props.campaign ? '' : <h2>{this.props.campaign.campaignName}</h2>}
             <List style={styles.listStyle}>
             <h2 className='notes-header'>Locations</h2>

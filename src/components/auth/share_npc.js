@@ -51,7 +51,7 @@ class ShareNpc extends Component {
       <div>
         <CampaignNav index={1} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <List style={styles.listStyle}>
               <h2 className='notes-header'>Who would you like to share {npc} with?</h2>
               {this.renderList()}

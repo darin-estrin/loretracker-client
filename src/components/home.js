@@ -11,6 +11,13 @@ const paperStyle = {
   margin: '1vh'
 }
 
+const footerPapter = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  padding: '2%',
+  color: grey900,
+  margin: '1vh'
+}
+
 export default () => (
   <div  className='greeting container'>
     <h1>Do you play Dungeons & Dragons</h1>
@@ -43,6 +50,9 @@ export default () => (
         </ul>
       </div>
     </Paper>
-    <h4 className='get-started'>To get started either <Link to='/signin'>Sign in</Link> or <Link to='/signup'>Sign up</Link>!</h4>
+
+    <Paper style={footerPapter} zDepth={4}>
+      <h4 className='get-started'>To get started either <Link to='/signin'>Sign in</Link> or <Link to='/signup'>Sign up</Link>!</h4>
+    </Paper>
   </div>
 );

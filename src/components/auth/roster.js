@@ -95,7 +95,7 @@ class Roster extends Component {
       <div>
         <CampaignNav index={0} />
         <div className='container'>
-          <Paper style={{display: 'flex', backgroundColor:'none', width: '100%'}}>
+          <Paper style={{display: 'flex', backgroundColor:'none', width: '100%'}} zDepth={4}>
             <Paper style={styles.paperStyle}>
               {!this.props.campaign ? '' : <h2>{this.props.campaign.campaignName}</h2>}
                 <List style={styles.listStyle}>

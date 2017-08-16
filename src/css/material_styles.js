@@ -21,7 +21,9 @@ export const paperStyle = {
 }
 
 export const listItemStyle = {
-  fontSize: '2vmax'
+  fontSize: '2vmax',
+  lineHeight: 1.2,
+  whiteSpace: 'pre-line'
 }
 
 export const listStyle = {

@@ -107,11 +107,10 @@ class EditNpc extends Component {
     const npc = _.find(this.props.campaign.NPCs, ['name', this.props.params.npc]);
 
     const regex1 = /^(\s+)|(\s+)$/g;
-    const regex2 = /\s{2,}/g;
     for (var value in values) {
       // replace all excess white space in front and end of string
       // replace excess white space in the middle of a string and replace with one empty space
-      values[value] = values[value].replace(regex1, '').replace(regex2, ' ');
+      values[value] = values[value].replace(regex1, '');
     }
     
     this.props.updateNPC({values, id: npc._id, campaignId: id});
@@ -124,7 +123,7 @@ class EditNpc extends Component {
       <div>
         <CampaignNav index={1} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <h3>NPC Details</h3>
             {this.renderNpcData()}
             {this.renderEditNpc()}

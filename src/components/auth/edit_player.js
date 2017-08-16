@@ -68,11 +68,10 @@ class EditPlayer extends Component {
     const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
     
     const regex1 = /^(\s+)|(\s+)$/g;
-    const regex2 = /\s{2,}/g;
     for (var value in values) {
       // replace all excess white space in front and end of string
       // replace excess white space in the middle of a string and replace with one empty space
-      values[value] = values[value].replace(regex1, '').replace(regex2, ' ');
+      values[value] = values[value].replace(regex1, '');
     }
 
     this.props.updatePlayer({values, id: player._id, type, campaignId: id});
@@ -85,7 +84,7 @@ class EditPlayer extends Component {
       <div>
         <CampaignNav index={0} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <h3>Player Details</h3>
             {this.renderPlayerData()}
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>

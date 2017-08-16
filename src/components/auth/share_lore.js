@@ -52,7 +52,7 @@ class ShareLore extends Component {
       <div>
         <CampaignNav index={3} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <List style={styles.listStyle}>
               <h2 className='notes-header'>Who would you like to share {`"${lore}"`} with?</h2>
               {this.renderList()}

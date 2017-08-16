@@ -103,11 +103,10 @@ class EditLore extends Component {
     const lore = _.find(this.props.campaign.lore, ['title', this.props.params.lore]);
 
     const regex1 = /^(\s+)|(\s+)$/g;
-    const regex2 = /\s{2,}/g;
     for (var value in values) {
       // replace all excess white space in front and end of string
       // replace excess white space in the middle of a string and replace with one empty space
-      values[value] = values[value].replace(regex1, '').replace(regex2, ' ');
+      values[value] = values[value].replace(regex1, '');
     }
     
     this.props.updateLore({values, id: lore._id, campaignId: id});
@@ -120,7 +119,7 @@ class EditLore extends Component {
       <div>
         <CampaignNav index={3} />
         <div className='container'>
-          <Paper style={styles.paperStyle}>
+          <Paper style={styles.paperStyle} zDepth={4}>
             <h3>Lore Details</h3>
             {this.renderLoreData()}
             {this.renderEditLore()}
