@@ -179,6 +179,8 @@ exports.addPlayerNote = function(req, res, next) {
 
 exports.deletePlayer = function(req, res, next) {
   const { campaign, player } = req.body;
+  
+  // remove player from dm campaign roster
   User.findById({'_id': req.user.id}).exec((err, user) => {
     // find campaign to remove player
     const campaignToEdit = _.find(user.campaigns.DM, function(userCampaign) {
@@ -197,6 +199,29 @@ exports.deletePlayer = function(req, res, next) {
       res.json(campaignToEdit);
     });
 
+    // remove delete player from the rest of the players campaign roster
+    campaignToEdit.players.forEach(function(playerCharacter) {
+      User.findOne({ 'email': playerCharacter.email}).exec((err, user) => {
+
+        const campaignToEdit = _.find(user.campaigns.PC, function(userCampaign) {
+          return userCampaign.campaignId == campaign._id;
+        });
+        
+        for (var i = 0; i < campaignToEdit.players.length; i++) {
+          console.log(player.playerId);
+          if(campaignToEdit.players[i].playerId == player.playerId) {
+            campaignToEdit.players.splice(i, 1);
+          }
+        }
+        
+        user.save(function(err) {
+          if (err) { return next(err); }
+        });
+
+      });
+    })
+
+    // remove campaign from deleted players campaign list
     User.findById({ '_id': player.playerId}).exec((err, user) => {
       campaigns = user.campaigns.PC;
       for (var i = 0; i < campaigns.length; i++) {
