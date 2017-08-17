@@ -49,3 +49,18 @@ export function deleteCampaign(request) {
     })
   }
 }
+
+export function leaveCampaign(request) {
+  return function (dispatch) {
+    axios.put(`${ROOT_URL}/leavecampaign`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      browserHistory.push('/campaigns');
+      dispatch({
+        type: FETCH_CAMPAIGN,
+        payload: response.data
+      })
+    })
+  }
+}

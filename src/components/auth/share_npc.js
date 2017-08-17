@@ -45,6 +45,16 @@ class ShareNpc extends Component {
     }
   }
 
+  renderErrorMessage() {
+    if(this.props.errorMessage) {
+      return (
+        <div className='alert alert-danger'>
+          <strong>{this.props.errorMessage}</strong>
+        </div>
+      )
+    }
+  }
+
   render() {
     const { type, id, npc } = this.props.params;
     return (
@@ -56,6 +66,7 @@ class ShareNpc extends Component {
               <h2 className='notes-header'>Who would you like to share {npc} with?</h2>
               {this.renderList()}
             </List>
+            {this.renderErrorMessage()}
             {this.renderSuccessMessage()}
             <Link to={`/campaigns/${type}/${id}/npcs`} >
               <RaisedButton style={{marginTop: '10px'}} label='Back To NPCs' />
@@ -73,7 +84,8 @@ function mapStateToProps(state) {
     players: state.user.Campaign.players,
     npcs: state.user.Campaign.NPCs,
     campaign: state.user.Campaign,
-    successMessage: state.user.success
+    successMessage: state.user.success,
+    errorMessage: state.user.error
   }
 }
 

@@ -239,13 +239,13 @@ exports.deletePlayer = function(req, res, next) {
 }
 
 exports.deleteCampaign = function(req, res, next) {
-
+  console.log('request', req.body);
   User.findById({ '_id': req.user.id }).exec((err, user) => {
     
     const campaigns = user.campaigns.DM;
-
+    console.log('campaigns', campaigns);
     for (var i = 0; i < campaigns.length; i++) {
-      if (campaigns[i].campaignName == req.body.campaignName) {
+      if (campaigns[i]._id == req.body._id) {
         campaigns.splice(i, 1);
       }
     }
@@ -258,5 +258,23 @@ exports.deleteCampaign = function(req, res, next) {
 }
 
 exports.leaveCampaign = function(req, res, next) {
-  console.log(req.body);
+  
+  User.findById({ '_id': req.user.id}).exec((err, user) => {
+    
+    const campaigns = user.campaigns.PC;
+    
+    for (var i = 0; i < campaigns.length; i++) {
+      if (campaigns[i].campaignId && campaigns[i].campaignId == req.body.campaignId) {
+        campaigns.splice(i, 1);
+      } else if (!campaigns[i].campaignName && campaigns[i].campaignName == req.body.campaignName) {
+        campaigns.splice(i, 1);
+      }
+    }
+
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaigns);
+    });
+
+  });
 }

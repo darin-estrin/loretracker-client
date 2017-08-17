@@ -10,3 +10,4 @@ export const FETCH_CAMPAIGN = 'fetch_campaign';
 export const FETCH_ERROR = 'fetch_error';
 export const SHARE_DATA = 'share_data';
 export const FETCH_PROFILE = 'fetch_profile';
+export const SHARE_ERROR = 'share_error';
