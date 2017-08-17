@@ -237,3 +237,26 @@ exports.deletePlayer = function(req, res, next) {
     });
   });
 }
+
+exports.deleteCampaign = function(req, res, next) {
+
+  User.findById({ '_id': req.user.id }).exec((err, user) => {
+    
+    const campaigns = user.campaigns.DM;
+
+    for (var i = 0; i < campaigns.length; i++) {
+      if (campaigns[i].campaignName == req.body.campaignName) {
+        campaigns.splice(i, 1);
+      }
+    }
+
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaigns);
+    });
+  });
+}
+
+exports.leaveCampaign = function(req, res, next) {
+  console.log(req.body);
+}

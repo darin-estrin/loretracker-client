@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { TextField, RaisedButton, Paper, List, ListItem, Dialog }  from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
-import { addPlayer, getCampaignData } from '../../actions';
+import { addPlayer, getCampaignData, deleteCampaign } from '../../actions';
 import CampaignNav from './campaign_nav';
 import * as styles from '../../css/material_styles';
 
@@ -56,7 +56,7 @@ class Roster extends Component {
   }
 
   handleDeleteCampaign = () => {
-    console.log('campaign deleted');
+    this.props.deleteCampaign(this.props.campaign);
     this.handleClose();
   }
 
@@ -214,5 +214,6 @@ export default reduxForm({
   validate
 })(connect(mapStateToProps, {
   addPlayer,
-  getCampaignData
+  getCampaignData,
+  deleteCampaign
 })(Roster));
