@@ -46,6 +46,16 @@ class ShareLore extends Component {
     }
   }
 
+  renderErrorMessage() {
+    if(this.props.errorMessage) {
+      return (
+        <div className='alert alert-danger'>
+          <strong>{this.props.errorMessage}</strong>
+        </div>
+      )
+    }
+  }
+
   render() {
     const { type, id, lore } = this.props.params;
     return (
@@ -57,6 +67,7 @@ class ShareLore extends Component {
               <h2 className='notes-header'>Who would you like to share {`"${lore}"`} with?</h2>
               {this.renderList()}
             </List>
+            {this.renderErrorMessage()}
             {this.renderSuccessMessage()}
             <Link to={`/campaigns/${type}/${id}/lore`} >
               <RaisedButton style={{marginTop: '10px'}} label='Back To Lore Items' />
@@ -74,7 +85,8 @@ function mapStateToProps(state) {
     players: state.user.Campaign.players,
     lore: state.user.Campaign.lore,
     campaign: state.user.Campaign,
-    successMessage: state.user.success
+    successMessage: state.user.success,
+    errorMessage: state.user.error
   }
 }
 

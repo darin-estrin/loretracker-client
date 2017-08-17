@@ -46,6 +46,16 @@ class ShareLocation extends Component {
     }
   }
 
+  renderErrorMessage() {
+    if(this.props.errorMessage) {
+      return (
+        <div className='alert alert-danger'>
+          <strong>{this.props.errorMessage}</strong>
+        </div>
+      )
+    }
+  }
+
   render() {
     const { type, id, location } = this.props.params;
     return (
@@ -57,6 +67,7 @@ class ShareLocation extends Component {
               <h2 className='notes-header'>Who would you like to share {location} with?</h2>
               {this.renderList()}
             </List>
+            {this.renderErrorMessage()}
             {this.renderSuccessMessage()}
             <Link to={`/campaigns/${type}/${id}/locations`} >
               <RaisedButton style={{marginTop: '10px'}} label='Back To Locations' />
@@ -74,7 +85,8 @@ function mapStateToProps(state) {
     players: state.user.Campaign.players,
     locations: state.user.Campaign.locations,
     campaign: state.user.Campaign,
-    successMessage: state.user.success
+    successMessage: state.user.success,
+    errorMessage: state.user.error
   }
 }
 

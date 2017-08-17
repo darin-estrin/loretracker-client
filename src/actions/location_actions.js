@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { ADD_CAMPAIGN_DATA, SHARE_DATA } from './types';
+import { ADD_CAMPAIGN_DATA, SHARE_DATA, SHARE_ERROR } from './types';
 
 const ROOT_URL = '/api';
 
@@ -58,5 +58,11 @@ export function shareLocation(request) {
         payload: response.data.success
       });
     })
+    .catch(err => {
+      dispatch({
+        type: SHARE_ERROR,
+        payload: err.response.data.error
+      })
+    });
   }
 }

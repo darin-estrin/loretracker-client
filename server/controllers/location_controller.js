@@ -104,6 +104,10 @@ exports.shareLocation = function(req, res, next) {
         return campaignToFind.campaignId = campaignId;
       });
 
+      if (!playerCampaign) {
+        return res.status(422).send({ 'error': user.name + ' is no longer part of the campaign'});
+      }
+
       // define location model
       const locationDataToShare = {
         name: locationToShare.name,

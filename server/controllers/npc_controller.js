@@ -104,8 +104,6 @@ exports.shareNpc = function(req, res, next) {
         return campaignToFind.campaignId = campaignId;
       });
 
-      console.log(user);
-
       if (!playerCampaign) {
         return res.status(422).send({ 'error': user.name + ' is no longer part of the campaign' });
       }

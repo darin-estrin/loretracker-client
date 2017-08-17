@@ -102,7 +102,9 @@ const { playerId, campaignId, loreItemToShare } = req.body;
         return campaignToFind.campaignId = campaignId;
       });
 
-      console.log(playerCampaign);
+      if (!playerCampaign) {
+        return res.status(422).send({ 'error': user.name + ' is no longer part of the campaign'});
+      }
 
       // define lore item model
       const loreDataToShare = {
