@@ -188,7 +188,7 @@ exports.deletePlayer = function(req, res, next) {
     });
     
     for (var i = 0; i < campaignToEdit.players.length; i++) {
-      //console.log(campaignToEdit.players[0]);
+      
       if(campaignToEdit.players[i].playerId == player.playerId) {
         campaignToEdit.players.splice(i, 1);
       }
@@ -208,7 +208,7 @@ exports.deletePlayer = function(req, res, next) {
         });
         
         for (var i = 0; i < campaignToEdit.players.length; i++) {
-          console.log(player.playerId);
+          
           if(campaignToEdit.players[i].playerId == player.playerId) {
             campaignToEdit.players.splice(i, 1);
           }
@@ -225,7 +225,7 @@ exports.deletePlayer = function(req, res, next) {
     User.findById({ '_id': player.playerId}).exec((err, user) => {
       campaigns = user.campaigns.PC;
       for (var i = 0; i < campaigns.length; i++) {
-       //console.log(campaigns[i]);
+       
         if (campaigns[i].campaignId == campaign._id) {
           campaigns.splice(i, 1);
         }
@@ -239,11 +239,10 @@ exports.deletePlayer = function(req, res, next) {
 }
 
 exports.deleteCampaign = function(req, res, next) {
-  console.log('request', req.body);
   User.findById({ '_id': req.user.id }).exec((err, user) => {
     
     const campaigns = user.campaigns.DM;
-    console.log('campaigns', campaigns);
+    
     for (var i = 0; i < campaigns.length; i++) {
       if (campaigns[i]._id == req.body._id) {
         campaigns.splice(i, 1);

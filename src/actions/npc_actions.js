@@ -15,7 +15,6 @@ export function addNPC(request) {
         payload: response.data
       });
     })
-    .catch(error => console.log(error));
   }
 }
 

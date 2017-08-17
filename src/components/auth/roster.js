@@ -61,7 +61,6 @@ class Roster extends Component {
   }
 
   handleLeaveCampaign = () => {
-    console.log(this.props.campaign)
     this.props.leaveCampaign(this.props.campaign);
     this.handleClose();
   }
