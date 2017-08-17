@@ -265,7 +265,7 @@ exports.leaveCampaign = function(req, res, next) {
     for (var i = 0; i < campaigns.length; i++) {
       if (campaigns[i].campaignId && campaigns[i].campaignId == req.body.campaignId) {
         campaigns.splice(i, 1);
-      } else if (!campaigns[i].campaignName && campaigns[i].campaignName == req.body.campaignName) {
+      } else if (!campaigns[i].campaignId && campaigns[i].campaignName == req.body.campaignName) {
         campaigns.splice(i, 1);
       }
     }
