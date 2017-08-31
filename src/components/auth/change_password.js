@@ -57,10 +57,16 @@ class ChangePassword extends Component {
               <Field type='password' label='Confirm Password' name='passwordConfirm' 
               component={this.renderField} />
             </div>
-            <RaisedButton type='submit' label='Submit' />
+            <RaisedButton
+              labelStyle={styles.paperButtonStyle} 
+              type='submit' 
+              label='Submit' />
             <Link to='/campaigns'>
-              <RaisedButton secondary={true} 
-              style={styles.buttonStyle} label='Cancel'/>
+              <RaisedButton 
+                secondary={true} 
+                labelStyle={styles.paperButtonStyle}
+                style={styles.buttonStyle} 
+                label='Cancel'/>
             </Link>
           </form>
         </Paper>

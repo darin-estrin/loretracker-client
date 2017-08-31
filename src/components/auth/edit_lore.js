@@ -46,9 +46,9 @@ class EditLore extends Component {
           <div>
             <Field label='Link To Image' name='image' component={this.renderField} />
           </div>
-          <RaisedButton type='submit' label='Update Lore Item' />
+          <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Update Lore Item' />
           <Link to={`/campaigns/${type}/${id}/lore/${lore}/share`}>
-            <RaisedButton style={styles.buttonStyle} primary={true} label='Share Lore Item' />
+            <RaisedButton labelStyle={styles.paperButtonStyle} style={styles.buttonStyle} primary={true} label='Share Lore Item' />
           </Link>
         </form>
       );
@@ -125,10 +125,10 @@ class EditLore extends Component {
             {this.renderEditLore()}
             <div>
               <Link to={`/campaigns/${type}/${id}/lore/${lore}/notes`}>
-                <RaisedButton primary={true} style={{marginTop: '10px'}} label='View notes' />
+                <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} style={{marginTop: '10px'}} label='View notes' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/lore`}>
-                <RaisedButton secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Lore Items' />
+                <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Lore Items' />
               </Link>
             </div>
           </Paper>

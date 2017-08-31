@@ -69,6 +69,7 @@ class Roster extends Component {
     const { handleSubmit } = this.props;
     const deleteCampaign = [
       <RaisedButton
+        labelStyle={styles.paperButtonStyle}
         label="Cancel"
         primary={true}
         keyboardFocused={true}
@@ -76,6 +77,7 @@ class Roster extends Component {
       />,
       <RaisedButton
         label="Confirm"
+        labelStyle={styles.paperButtonStyle}
         secondary={true}
         onTouchTap={this.handleDeleteCampaign}
       />,
@@ -90,14 +92,14 @@ class Roster extends Component {
             <Field label='Character Name' name='name' component={this.renderField} />
           </div>
           {this.renderAlert()}
-          <RaisedButton label='Add Player' type='submit' />
+          <RaisedButton labelStyle={styles.paperButtonStyle} label='Add Player' type='submit' />
           <Link to='/campaigns'>
-            <RaisedButton style={styles.buttonStyle} label='Back to Campaigns' 
+            <RaisedButton labelStyle={styles.paperButtonStyle} style={styles.buttonStyle} label='Back to Campaigns' 
               primary={true}
             />
           </Link>
         </form>
-        <RaisedButton style={{float: 'right', marginTop: '10px'}} secondary={true} 
+        <RaisedButton labelStyle={styles.paperButtonStyle} style={{float: 'right', marginTop: '10px'}} secondary={true} 
         onTouchTap={this.handleOpen} label='Delete Campaign' />
         <Dialog
         title="Warning!"
@@ -142,12 +144,14 @@ class Roster extends Component {
     const leaveCampaign = [
       <RaisedButton
         label="Cancel"
+        labelStyle={styles.paperButtonStyle}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleClose}
       />,
       <RaisedButton
         label="Confirm"
+        labelStyle={styles.paperButtonStyle}
         secondary={true}
         onTouchTap={this.handleLeaveCampaign}
       />,
@@ -165,9 +169,9 @@ class Roster extends Component {
                 </List>
                 {this.props.params.type ==='dm' ? this.renderAddPlayer() : 
                 <div>
-                  <RaisedButton label='Leave Campaign' style={{marginTop: '10px'}} secondary={true}   onTouchTap={this.handleOpen} />
+                  <RaisedButton labelStyle={styles.paperButtonStyle} label='Leave Campaign' style={{marginTop: '10px'}} secondary={true}   onTouchTap={this.handleOpen} />
                   <Link to='/campaigns'>
-                    <RaisedButton style={{float:'right', marginTop: '10px'}} label='Back to Campaigns' primary={true} />
+                    <RaisedButton labelStyle={styles.paperButtonStyle} style={{float:'right', marginTop: '10px'}} label='Back to Campaigns' primary={true} />
                   </Link>
                   <Dialog
                   title="Warning!"

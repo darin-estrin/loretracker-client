@@ -70,7 +70,7 @@ class ShareLore extends Component {
             {this.renderErrorMessage()}
             {this.renderSuccessMessage()}
             <Link to={`/campaigns/${type}/${id}/lore`} >
-              <RaisedButton style={{marginTop: '10px'}} label='Back To Lore Items' />
+              <RaisedButton labelStyle={styles.paperButtonStyle} style={{marginTop: '10px'}} label='Back To Lore Items' />
             </Link>
           </Paper>
         </div>

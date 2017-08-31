@@ -69,7 +69,7 @@ class ShareNpc extends Component {
             {this.renderErrorMessage()}
             {this.renderSuccessMessage()}
             <Link to={`/campaigns/${type}/${id}/npcs`} >
-              <RaisedButton style={{marginTop: '10px'}} label='Back To NPCs' />
+              <RaisedButton labelStyle={styles.paperButtonStyle} style={{marginTop: '10px'}} label='Back To NPCs' />
             </Link>
           </Paper>
         </div>

@@ -100,6 +100,7 @@ class EditPlayer extends Component {
   render() {
     const actions = [
       <RaisedButton
+        labelStyle={styles.paperButtonStyle}
         label="Cancel"
         primary={true}
         keyboardFocused={true}
@@ -108,6 +109,7 @@ class EditPlayer extends Component {
       <RaisedButton
         label="Confirm"
         secondary={true}
+        labelStyle={styles.paperButtonStyle}
         onTouchTap={this.handleDelete}
       />,
     ];
@@ -131,17 +133,17 @@ class EditPlayer extends Component {
               <div>
                 <Field label='Description' name='description' component={this.renderField} />
               </div>
-              <RaisedButton type='submit' label='Update Information' />
+              <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Update Information' />
               {this.props.params.type == 'dm' ? 
-                <RaisedButton label='Delete Player' 
+                <RaisedButton  labelStyle={styles.paperButtonStyle} label='Delete Player' 
                   onTouchTap={this.handleOpen} style={{float: 'right'}} /> : ''  }
             </form>
             <div>
               <Link to={`/campaigns/${type}/${id}/roster/${player}/notes`}>
-                <RaisedButton primary={true} style={{marginTop: '10px'}} label='View notes' />
+                <RaisedButton  labelStyle={styles.paperButtonStyle} primary={true} style={{marginTop: '10px'}} label='View notes' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/roster`}>
-                <RaisedButton secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Players' />
+                <RaisedButton  labelStyle={styles.paperButtonStyle} secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Players' />
                 <Dialog
                 title="Warning!"
                 actions={actions}

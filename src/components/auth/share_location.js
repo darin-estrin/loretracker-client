@@ -70,7 +70,7 @@ class ShareLocation extends Component {
             {this.renderErrorMessage()}
             {this.renderSuccessMessage()}
             <Link to={`/campaigns/${type}/${id}/locations`} >
-              <RaisedButton style={{marginTop: '10px'}} label='Back To Locations' />
+              <RaisedButton labelStyle={styles.paperButtonStyle} style={{marginTop: '10px'}} label='Back To Locations' />
             </Link>
           </Paper>
         </div>

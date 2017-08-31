@@ -50,9 +50,9 @@ class EditNpc extends Component {
           <div>
             <Field label='Link To Image' name='image' component={this.renderField} />
           </div>
-          <RaisedButton type='submit' label='Update Information' />
+          <RaisedButto labelStyle={styles.paperButtonStyle} type='submit' label='Update Information' />
           <Link to={`/campaigns/${type}/${id}/npcs/${npc}/share`}>
-            <RaisedButton style={styles.buttonStyle} primary={true} label='Share NPC' />
+            <RaisedButton labelStyle={styles.paperButtonStyle} style={styles.buttonStyle} primary={true} label='Share NPC' />
           </Link>
         </form>
       );
@@ -129,10 +129,10 @@ class EditNpc extends Component {
             {this.renderEditNpc()}
             <div>
               <Link to={`/campaigns/${type}/${id}/npcs/${npc}/notes`}>
-                <RaisedButton primary={true} style={{marginTop: '10px'}} label='View notes' />
+                <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} style={{marginTop: '10px'}} label='View notes' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/npcs`}>
-                <RaisedButton secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to NPCs' />
+                <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to NPCs' />
               </Link>
             </div>
           </Paper>

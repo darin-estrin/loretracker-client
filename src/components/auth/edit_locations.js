@@ -50,9 +50,16 @@ class EditLocation extends Component {
           <div>
             <Field label='Link To Image' name='image' component={this.renderField} />
           </div>
-          <RaisedButton type='submit' label='Update Information' />
+          <RaisedButton 
+            type='submit' 
+            labelStyle={styles.paperButtonStyle} 
+            label='Update Information' />
           <Link to={`/campaigns/${type}/${id}/locations/${location}/share`}>
-            <RaisedButton style={styles.buttonStyle} primary={true} label='Share Location' />
+            <RaisedButton 
+              labelStyle={styles.paperButtonStyle} 
+              style={styles.buttonStyle} 
+              primary={true} 
+              label='Share Location' />
           </Link>
         </form>
       );
@@ -129,10 +136,18 @@ class EditLocation extends Component {
             {this.renderEditLocation()}
             <div>
               <Link to={`/campaigns/${type}/${id}/locations/${location}/notes`}>
-                <RaisedButton primary={true} style={{marginTop: '10px'}} label='View notes' />
+                <RaisedButton 
+                  primary={true} 
+                  labelStyle={styles.paperButtonStyle} 
+                  style={{marginTop: '10px'}} 
+                  label='View notes' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/locations`}>
-                <RaisedButton secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Locations' />
+                <RaisedButton
+                  labelStyle={styles.paperButtonStyle}
+                  secondary={true} 
+                  style={{float: 'right', marginTop: '10px'}}
+                  label='Back to Locations' />
               </Link>
             </div>
           </Paper>

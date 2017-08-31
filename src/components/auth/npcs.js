@@ -81,9 +81,9 @@ class Npcs extends Component {
             <Field label='Link to image' name='image' component={this.renderField} />
           </div>
           {this.renderAlert()}
-          <RaisedButton type='submit' label='Add NPC' />
+          <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Add NPC' />
           <Link to='/campaigns'>
-            <RaisedButton style={styles.buttonStyle} label='Back to Campaigns' 
+            <RaisedButton labelStyle={styles.paperButtonStyle} style={styles.buttonStyle} label='Back to Campaigns' 
               secondary={true}
             />
           </Link>
