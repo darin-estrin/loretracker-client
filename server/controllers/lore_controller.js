@@ -95,12 +95,16 @@ const { note, id, type, campaignId } = req.body;
 }
 
 exports.shareLore = function(req, res, next) {
-const { playerId, campaignName, loreItemToShare } = req.body;
+const { playerId, campaignId, loreItemToShare } = req.body;
   User.findById({'_id': playerId}).exec((err, user) => {
       // find campaign lore item is in
       const playerCampaign = _.find(user.campaigns.PC, function(campaignToFind) {
-        return campaignToFind.campaignName = campaignName;
+        return campaignToFind.campaignId = campaignId;
       });
+
+      if (!playerCampaign) {
+        return res.status(422).send({ 'error': user.name + ' is no longer part of the campaign'});
+      }
 
       // define lore item model
       const loreDataToShare = {

@@ -97,12 +97,16 @@ exports.addNpcNote = function(req, res, next) {
 }
 
 exports.shareNpc = function(req, res, next) {
-  const { playerId, campaignName, npcToShare } = req.body;
+  const { playerId, campaignId, npcToShare } = req.body;
   User.findById({'_id': playerId}).exec((err, user) => {
       // find campaign npc is in
       const playerCampaign = _.find(user.campaigns.PC, function(campaignToFind) {
-        return campaignToFind.campaignName = campaignName;
+        return campaignToFind.campaignId = campaignId;
       });
+
+      if (!playerCampaign) {
+        return res.status(422).send({ 'error': user.name + ' is no longer part of the campaign' });
+      }
 
       // define npc model
       const npcDataToShare = {
@@ -112,7 +116,7 @@ exports.shareNpc = function(req, res, next) {
         image: npcToShare.image
       }
 
-      // if npc exist in player campaign model, find it
+      // // if npc exist in player campaign model, find it
       const npcs = _.map(playerCampaign.NPCs, 'name');
 
       //if npc does not exist push npc into player campaign model

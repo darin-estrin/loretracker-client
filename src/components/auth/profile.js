@@ -87,14 +87,14 @@ class Profile extends Component {
               <Field label='Phone Number' name='phone' component={this.renderField} />
             </div>
             {this.renderAlert()}
-            <RaisedButton type='submit' label='Submit' />
+            <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Submit' />
           </form>
           <div>
             <Link to='/changepassword'>
-              <RaisedButton primary={true} style={{marginTop: '10px'}} label='Change Password'/>
+              <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} style={{marginTop: '10px'}} label='Change Password'/>
             </Link>
             <Link to='/campaigns'>
-              <RaisedButton secondary={true} 
+              <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} 
               style={{float: 'right', marginTop: '10px'}} label='Cancel'/>
             </Link>
           </div>

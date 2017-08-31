@@ -79,9 +79,9 @@ class NpcNotes extends Component {
               <div>
                 <Field label='Add a note' name='note' component={this.renderField} />
               </div>
-              <RaisedButton type='submit' label='Add Note' />
+              <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Add Note' />
               <Link to={`/campaigns/${type}/${id}/npcs/${npc}`}>
-                <RaisedButton secondary={true} style={styles.buttonStyle} 
+                <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
                 label={`Back to ${npc}`} />
               </Link>
             </form>

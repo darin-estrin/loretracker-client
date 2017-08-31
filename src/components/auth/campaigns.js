@@ -100,7 +100,10 @@ class Campaigns extends Component {
               <div>
                 <Field label='Campaign Name' name='name' component={this.renderField} />
               </div>
-              <RaisedButton label='Start A New Campaign' type='submit' />
+              <RaisedButton 
+                labelStyle={styles.paperButtonStyle} 
+                label='Start A New Campaign' 
+                type='submit' />
             </form>
           </div>           
         </Paper>

@@ -74,7 +74,7 @@ class Signup extends Component {
             <div>
               <Field name='phone' label='Phone Number' component={this.renderField} />
             </div>
-            <RaisedButton label='Sign Up' type='submit' />
+            <RaisedButton labelStyle={styles.paperButtonStyle} label='Sign Up' type='submit' />
             {this.renderAlert()}
           </form>
         </div>

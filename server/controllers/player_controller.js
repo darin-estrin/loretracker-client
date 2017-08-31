@@ -50,6 +50,7 @@ exports.addPlayer = function(req, res, next) {
       // build campaign data to share with roster of players
       const campaignInfo = {
         campaignName: campaign.campaignName,
+        campaignId: campaignId,
         players: roster,
         owner: false
       }
@@ -61,10 +62,10 @@ exports.addPlayer = function(req, res, next) {
           if (err) { return next(err); }
           
           const userCampaigns = player.campaigns.PC;
-          const campaignsUserIsIn = _.map(userCampaigns, 'campaignName');
+          const campaignsUserIsIn = _.map(userCampaigns, 'campaignId');
           // check if user is already in the campaign
           // if not push data into user database
-          if (campaignsUserIsIn.indexOf(campaign.campaignName) < 0) {
+          if (campaignsUserIsIn.indexOf(campaignInfo.campaignId) < 0) {
             userCampaigns.push(campaignInfo);
             player.save(function(err) {
               if (err) { return next(err); }
@@ -72,8 +73,9 @@ exports.addPlayer = function(req, res, next) {
           // if user is already in campaign
           // find old campaign record an replace it
           } else {
-            const index = campaignsUserIsIn.indexOf(campaign.campaignName);
+            const index = campaignsUserIsIn.indexOf(campaignInfo.campaignId);
             userCampaigns[index].players = roster;
+
             player.save(function (err) {
               if (err) { return next(err); }
             });
@@ -173,4 +175,105 @@ exports.addPlayerNote = function(req, res, next) {
       });
     });
   }
+}
+
+exports.deletePlayer = function(req, res, next) {
+  const { campaign, player } = req.body;
+  
+  // remove player from dm campaign roster
+  User.findById({'_id': req.user.id}).exec((err, user) => {
+    // find campaign to remove player
+    const campaignToEdit = _.find(user.campaigns.DM, function(userCampaign) {
+      return userCampaign._id == campaign._id;
+    });
+    
+    for (var i = 0; i < campaignToEdit.players.length; i++) {
+      
+      if(campaignToEdit.players[i].playerId == player.playerId) {
+        campaignToEdit.players.splice(i, 1);
+      }
+    }
+
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaignToEdit);
+    });
+
+    // remove delete player from the rest of the players campaign roster
+    campaignToEdit.players.forEach(function(playerCharacter) {
+      User.findOne({ 'email': playerCharacter.email}).exec((err, user) => {
+
+        const campaignToEdit = _.find(user.campaigns.PC, function(userCampaign) {
+          return userCampaign.campaignId == campaign._id;
+        });
+        
+        for (var i = 0; i < campaignToEdit.players.length; i++) {
+          
+          if(campaignToEdit.players[i].playerId == player.playerId) {
+            campaignToEdit.players.splice(i, 1);
+          }
+        }
+        
+        user.save(function(err) {
+          if (err) { return next(err); }
+        });
+
+      });
+    })
+
+    // remove campaign from deleted players campaign list
+    User.findById({ '_id': player.playerId}).exec((err, user) => {
+      campaigns = user.campaigns.PC;
+      for (var i = 0; i < campaigns.length; i++) {
+       
+        if (campaigns[i].campaignId == campaign._id) {
+          campaigns.splice(i, 1);
+        }
+      }
+
+      user.save(function(err) {
+        if (err) {return next(err); }
+      });
+    });
+  });
+}
+
+exports.deleteCampaign = function(req, res, next) {
+  User.findById({ '_id': req.user.id }).exec((err, user) => {
+    
+    const campaigns = user.campaigns.DM;
+    
+    for (var i = 0; i < campaigns.length; i++) {
+      if (campaigns[i]._id == req.body._id) {
+        campaigns.splice(i, 1);
+      }
+    }
+
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaigns);
+    });
+  });
+}
+
+exports.leaveCampaign = function(req, res, next) {
+  
+  User.findById({ '_id': req.user.id}).exec((err, user) => {
+    
+    const campaigns = user.campaigns.PC;
+    
+    for (var i = 0; i < campaigns.length; i++) {
+      if (campaigns[i].campaignId && campaigns[i].campaignId == req.body.campaignId) {
+        campaigns.splice(i, 1);
+      } else if (!campaigns[i].campaignId && campaigns[i].campaignName == req.body.campaignName) {
+        campaigns.splice(i, 1);
+      }
+    }
+
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaigns);
+    });
+
+  });
 }

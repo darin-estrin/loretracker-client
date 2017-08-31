@@ -60,3 +60,14 @@ export const inputStye = {
   fontSize: '100%',
   color: grey900
 }
+
+export const appButtonStyle = {
+  marginRight: '5px',
+  label: {
+    color: redA400
+  }
+}
+
+export const paperButtonStyle = {
+  fontSize: 12
+}

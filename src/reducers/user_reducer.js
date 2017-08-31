@@ -5,7 +5,8 @@ import {
   FETCH_ERROR,
   FETCH_CAMPAIGN,
   UNAUTH_USER,
-  SHARE_DATA
+  SHARE_DATA,
+  SHARE_ERROR
 } from '../actions/types'
 
 export default function(state= {}, action) {
@@ -24,6 +25,8 @@ export default function(state= {}, action) {
       return { ...state, success: action.payload, error: '' };
     case UNAUTH_USER:
       return { ...state, name: '', DMCampaigns: '', PCCampaigns: '', error: '', Campaign: '', success: '' }
+    case SHARE_ERROR:
+      return { ...state, error: action.payload }
     default:
       return { ...state };
   }

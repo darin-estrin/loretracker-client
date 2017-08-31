@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
+import { TextField, RaisedButton, Paper, List, ListItem, Dialog } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import CommunicationEmail from 'material-ui/svg-icons/communication/email';
@@ -11,11 +11,15 @@ import CommunicationPhone from 'material-ui/svg-icons/communication/phone';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, updatePlayer } from '../../actions';
+import { getCampaignData, updatePlayer, deletePlayer } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 
 class EditPlayer extends Component {
+  state = {
+    open: false
+  }
+
   componentWillMount() {
     const { id, type } = this.props.params;
     if (!this.props.campaign) {
@@ -38,6 +42,14 @@ class EditPlayer extends Component {
         {player.image ? <img className='character-image' src={player.image} /> : '' }
       </List>
     );
+  }
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  }
+
+  handleClose = () => {
+    this.setState({ open: false });
   }
 
   renderField({
@@ -78,8 +90,32 @@ class EditPlayer extends Component {
     this.props.reset();
   }
 
+  handleDelete = () => {
+    const { campaign, params: { id, type } } = this.props;
+    const player =_.find(campaign.players, ['characterName', this.props.params.player]);
+    this.props.deletePlayer(campaign, player, id, type);
+    this.handleClose();
+  }
+
   render() {
+    const actions = [
+      <RaisedButton
+        labelStyle={styles.paperButtonStyle}
+        label="Cancel"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleClose}
+      />,
+      <RaisedButton
+        label="Confirm"
+        secondary={true}
+        labelStyle={styles.paperButtonStyle}
+        onTouchTap={this.handleDelete}
+      />,
+    ];
+
     const { handleSubmit, params: { id, type, player }} = this.props;
+    
     return (
       <div>
         <CampaignNav index={0} />
@@ -97,14 +133,26 @@ class EditPlayer extends Component {
               <div>
                 <Field label='Description' name='description' component={this.renderField} />
               </div>
-              <RaisedButton type='submit' label='Update Information' />
+              <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Update Information' />
+              {this.props.params.type == 'dm' ? 
+                <RaisedButton  labelStyle={styles.paperButtonStyle} label='Delete Player' 
+                  onTouchTap={this.handleOpen} style={{float: 'right'}} /> : ''  }
             </form>
             <div>
               <Link to={`/campaigns/${type}/${id}/roster/${player}/notes`}>
-                <RaisedButton primary={true} style={{marginTop: '10px'}} label='View notes' />
+                <RaisedButton  labelStyle={styles.paperButtonStyle} primary={true} style={{marginTop: '10px'}} label='View notes' />
               </Link>
               <Link to={`/campaigns/${type}/${id}/roster`}>
-                <RaisedButton secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Players' />
+                <RaisedButton  labelStyle={styles.paperButtonStyle} secondary={true} style={{float: 'right', marginTop: '10px'}} label='Back to Players' />
+                <Dialog
+                title="Warning!"
+                actions={actions}
+                modal={false}
+                open={this.state.open}
+                onRequestClose={this.handleClose}
+              >
+                This will permanently delete the player from the campaign.
+              </Dialog>
               </Link>
             </div>
           </Paper>
@@ -141,4 +189,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'edit_player',
   validate
-})(connect(mapStateToProps, { getCampaignData, updatePlayer })(EditPlayer));
+})(connect(mapStateToProps, { getCampaignData, updatePlayer, deletePlayer })(EditPlayer));

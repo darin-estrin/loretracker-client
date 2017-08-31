@@ -20,6 +20,9 @@ module.exports = function(app) {
   app.put('/api/addPlayer', requireAuth, Player.addPlayer);
   app.put('/api/updateplayer', requireAuth, Player.updatePlayer);
   app.put('/api/addplayernote', requireAuth, Player.addPlayerNote);
+  app.put('/api/deleteplayer', requireAuth, Player.deletePlayer);
+  app.put('/api/deletecampaign', requireAuth, Player.deleteCampaign);
+  app.put('/api/leavecampaign', requireAuth, Player.leaveCampaign);
   app.put('/api/addnpc', requireAuth, NPC.addNpc);
   app.put('/api/updatenpc', requireAuth, NPC.updateNpc);
   app.put('/api/addnpcnote', requireAuth, NPC.addNpcNote);

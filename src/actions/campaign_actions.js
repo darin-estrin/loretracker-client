@@ -34,3 +34,33 @@ export function getCampaignData(id, type) {
     });
   }
 }
+
+export function deleteCampaign(request) {
+  return function (dispatch) {
+    axios.put(`${ROOT_URL}/deletecampaign`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      browserHistory.push('/campaigns');
+      dispatch({
+        type: FETCH_CAMPAIGN,
+        payload: response.data
+      })
+    })
+  }
+}
+
+export function leaveCampaign(request) {
+  return function (dispatch) {
+    axios.put(`${ROOT_URL}/leavecampaign`, request, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      browserHistory.push('/campaigns');
+      dispatch({
+        type: FETCH_CAMPAIGN,
+        payload: response.data
+      })
+    })
+  }
+}

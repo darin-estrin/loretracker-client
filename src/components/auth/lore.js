@@ -78,9 +78,9 @@ class Lore extends Component {
             <Field label='Link to image' name='image' component={this.renderField} />
           </div>
           {this.renderAlert()}
-          <RaisedButton type='submit' label='Add Lore Item' />
+          <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Add Lore Item' />
           <Link to='/campaigns'>
-            <RaisedButton style={styles.buttonStyle} label='Back to Campaigns' 
+            <RaisedButton labelStyle={styles.paperButtonStyle} style={styles.buttonStyle} label='Back to Campaigns' 
               secondary={true}
             />
           </Link>
