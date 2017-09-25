@@ -5,7 +5,8 @@ export const styles = {
     borderColor: grey900
   },
   floatingLabelStyle: {
-    color: grey900
+    color: grey900,
+    lineHeight: 0
   }
 }
 
