@@ -80,8 +80,7 @@ export function fetchLoreItem(id, lore) {
   }
 }
 
-export function resetCurrentLoreItem() {
-  console.log('resetting');
+export function resetInitialValues() {
   return {
     type: RESET_INITIAL_VALUES
   }

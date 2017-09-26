@@ -9,7 +9,7 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, updateLore, fetchLoreItem, resetCurrentLoreItem } from '../../actions';
+import { getCampaignData, updateLore, fetchLoreItem, resetInitialValues } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class EditLore extends Component {
@@ -24,7 +24,7 @@ class EditLore extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetCurrentLoreItem();
+    this.props.resetInitialValues();
   }
 
   renderLoreData() {
@@ -108,7 +108,6 @@ class EditLore extends Component {
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const lore = _.find(this.props.campaign.lore, ['title', this.props.params.lore]);
-    console.log('values', values);
 
     const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
     values.title = values.title.replace(removeExcessWhiteSpace, '');
@@ -165,10 +164,10 @@ EditLore = reduxForm({
 
 EditLore = connect(
   state => ({
-    initialValues: state.user.currentLoreItem,
+    initialValues: state.user.currentFormItem,
     campaign: state.user.Campaign,
     enableReinintialize: true
-  }), { getCampaignData, updateLore, fetchLoreItem, resetCurrentLoreItem }
+  }), { getCampaignData, updateLore, fetchLoreItem, resetInitialValues }
 )(EditLore)
 
 export default EditLore;

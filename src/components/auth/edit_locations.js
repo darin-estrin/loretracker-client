@@ -9,15 +9,22 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, updateLocation  } from '../../actions';
+import { getCampaignData, updateLocation, fetchLocation, resetInitialValues } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class EditLocation extends Component {
   componentWillMount() {
-    const { id, type } = this.props.params;
+    const { id, type, location } = this.props.params;
     if (!this.props.campaign) {
       this.props.getCampaignData(id, type);
     }
+    if(this.props.params.type = 'dm') {
+      this.props.fetchLocation(id, location);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetInitialValues();
   }
 
   renderLocationData() {
@@ -174,7 +181,17 @@ function mapStateToProps(state) {
   }
 }
 
-export default reduxForm({
-  form: 'edit_location',
+EditLocation = reduxForm({
+  form:'edit_location',
   validate
-})(connect(mapStateToProps, { getCampaignData, updateLocation })(EditLocation));
+})(EditLocation)
+
+EditLocation = connect(
+  state => ({
+    initialValues: state.user.currentFormItem,
+    campaign: state.user.Campaign,
+    enableReinintialize: true
+  }), { getCampaignData, updateLocation, fetchLocation, resetInitialValues }
+)(EditLocation)
+
+export default EditLocation;

@@ -140,7 +140,6 @@ const { playerId, campaignId, loreItemToShare } = req.body;
 
 exports.fetchLoreItem = function(req, res, next) {
   User.findById({'_id': req.user.id}).exec((err, user) => {
-    console.log(user.campaigns.DM);
     const campaign = _.find(user.campaigns.DM, function(campaignToFind) {
       return campaignToFind.campaignId = req.headers.id;
     })
