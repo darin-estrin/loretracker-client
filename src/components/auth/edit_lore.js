@@ -18,7 +18,7 @@ class EditLore extends Component {
     if (!this.props.campaign) {
       this.props.getCampaignData(id, type);
     }
-    if(this.props.params.type === 'dm') {
+    if(type === 'dm') {
       this.props.fetchLoreItem(id, lore);
     }
   }
@@ -150,12 +150,6 @@ function validate(values) {
 
   return errors;
 }
-
-// function mapStateToProps(state) {
-//   return {
-//     campaign: state.user.Campaign
-//   }
-// }
 
 EditLore = reduxForm({
   form: 'edit_lore',

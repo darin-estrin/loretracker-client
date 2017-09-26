@@ -18,7 +18,7 @@ class EditLocation extends Component {
     if (!this.props.campaign) {
       this.props.getCampaignData(id, type);
     }
-    if(this.props.params.type = 'dm') {
+    if(type === 'dm') {
       this.props.fetchLocation(id, location);
     }
   }
@@ -119,16 +119,13 @@ class EditLocation extends Component {
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const location = _.find(this.props.campaign.locations, ['name', this.props.params.location]);
+    console.log(values);
     
-    const regex1 = /^(\s+)|(\s+)$/g;
-    for (var value in values) {
-      // replace all excess white space in front and end of string
-      // replace excess white space in the middle of a string and replace with one empty space
-      values[value] = values[value].replace(regex1, '');
-    }
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+    values.description = values.description.replace(removeExcessWhiteSpace, '');
+    values.history = values.history.replace(removeExcessWhiteSpace, '');
 
     this.props.updateLocation({values, id: location._id, campaignId: id});
-    this.props.reset();
   }
 
   render() {
@@ -173,12 +170,6 @@ function validate(values) {
   }
 
   return errors;
-}
-
-function mapStateToProps(state) {
-  return {
-    campaign: state.user.Campaign
-  }
 }
 
 EditLocation = reduxForm({

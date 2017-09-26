@@ -16,6 +16,7 @@ module.exports = function(app) {
   app.get('/api/user', requireAuth, CampaignCreate.user);
   app.get('/api/loreitem', requireAuth, Lore.fetchLoreItem);
   app.get('/api/location', requireAuth, Location.fetchLocation);
+  app.get('/api/npc', requireAuth, NPC.fetchNpc);
   app.post('/api/signin', requireSignin, Authentication.signin);
   app.post('/api/signup', Authentication.signup);
   app.put('/api/startCampaign', requireAuth, CampaignCreate.startCampaign);
