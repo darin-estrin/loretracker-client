@@ -9,15 +9,22 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, updateNPC  } from '../../actions';
+import { getCampaignData, updateNPC, fetchNpc, resetInitialValues  } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class EditNpc extends Component {
   componentWillMount() {
-    const { id, type } = this.props.params;
+    const { id, type, npc } = this.props.params;
     if (!this.props.campaign) {
       this.props.getCampaignData(id, type);
     }
+    if (type === 'dm') {
+      this.props.fetchNpc(id, npc);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetInitialValues();
   }
 
   renderNpcData() {
@@ -50,7 +57,7 @@ class EditNpc extends Component {
           <div>
             <Field label='Link To Image' name='image' component={this.renderField} />
           </div>
-          <RaisedButto labelStyle={styles.paperButtonStyle} type='submit' label='Update Information' />
+          <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Update Information' />
           <Link to={`/campaigns/${type}/${id}/npcs/${npc}/share`}>
             <RaisedButton labelStyle={styles.paperButtonStyle} style={styles.buttonStyle} primary={true} label='Share NPC' />
           </Link>
@@ -106,15 +113,11 @@ class EditNpc extends Component {
     const { type, id } = this.props.params;
     const npc = _.find(this.props.campaign.NPCs, ['name', this.props.params.npc]);
 
-    const regex1 = /^(\s+)|(\s+)$/g;
-    for (var value in values) {
-      // replace all excess white space in front and end of string
-      // replace excess white space in the middle of a string and replace with one empty space
-      values[value] = values[value].replace(regex1, '');
-    }
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+    values.bio = values.bio.replace(removeExcessWhiteSpace, '');
+    values.description = values.description.replace(removeExcessWhiteSpace, '');
     
     this.props.updateNPC({values, id: npc._id, campaignId: id});
-    this.props.reset();
   }
 
   render() {
@@ -159,7 +162,17 @@ function mapStateToProps(state) {
   }
 }
 
-export default reduxForm({
-  form: 'edit_npc',
+EditNpc = reduxForm({
+  form:'edit_npc',
   validate
-})(connect(mapStateToProps, { getCampaignData, updateNPC })(EditNpc));
+})(EditNpc)
+
+EditNpc = connect(
+  state => ({
+    initialValues: state.user.currentFormItem,
+    campaign: state.user.Campaign,
+    enableReinintialize: true
+  }), { getCampaignData, updateNPC, fetchNpc, resetInitialValues }
+)(EditNpc)
+
+export default EditNpc;

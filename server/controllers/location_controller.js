@@ -141,3 +141,17 @@ exports.shareLocation = function(req, res, next) {
       }
   });
 }
+
+exports.fetchLocation = function(req, res, next) {
+  User.findById({'_id': req.user.id}).exec((err, user) => {
+    const campaign = _.find(user.campaigns.DM, function(campaignToFind) {
+      return campaignToFind.campaignId = req.headers.id;
+    })
+    
+    const location = _.find(campaign.locations, function(location){
+      return location.name == req.headers.location;
+    });
+
+    res.json(location);
+  })
+}

@@ -9,15 +9,22 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, updateLore  } from '../../actions';
+import { getCampaignData, updateLore, fetchLoreItem, resetInitialValues } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class EditLore extends Component {
   componentWillMount() {
-    const { id, type } = this.props.params;
+    const { id, type, lore } = this.props.params;
     if (!this.props.campaign) {
       this.props.getCampaignData(id, type);
     }
+    if(type === 'dm') {
+      this.props.fetchLoreItem(id, lore);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetInitialValues();
   }
 
   renderLoreData() {
@@ -39,7 +46,7 @@ class EditLore extends Component {
     const { handleSubmit , params: { id, type, lore }} = this.props;
     if (type === 'dm') {
       return (
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)} >
           <div>
             <Field type='textarea' label='History' name='backstory' component={this.renderField} />
           </div>
@@ -102,15 +109,10 @@ class EditLore extends Component {
     const { type, id } = this.props.params;
     const lore = _.find(this.props.campaign.lore, ['title', this.props.params.lore]);
 
-    const regex1 = /^(\s+)|(\s+)$/g;
-    for (var value in values) {
-      // replace all excess white space in front and end of string
-      // replace excess white space in the middle of a string and replace with one empty space
-      values[value] = values[value].replace(regex1, '');
-    }
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+    values.title = values.title.replace(removeExcessWhiteSpace, '');
     
     this.props.updateLore({values, id: lore._id, campaignId: id});
-    this.props.reset();
   }
 
   render() {
@@ -149,13 +151,17 @@ function validate(values) {
   return errors;
 }
 
-function mapStateToProps(state) {
-  return {
-    campaign: state.user.Campaign
-  }
-}
-
-export default reduxForm({
+EditLore = reduxForm({
   form: 'edit_lore',
   validate
-})(connect(mapStateToProps, { getCampaignData, updateLore })(EditLore));
+})(EditLore)
+
+EditLore = connect(
+  state => ({
+    initialValues: state.user.currentFormItem,
+    campaign: state.user.Campaign,
+    enableReinintialize: true
+  }), { getCampaignData, updateLore, fetchLoreItem, resetInitialValues }
+)(EditLore)
+
+export default EditLore;
