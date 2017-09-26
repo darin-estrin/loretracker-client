@@ -9,15 +9,22 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, updateLocation  } from '../../actions';
+import { getCampaignData, updateLocation, fetchLocation, resetInitialValues } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class EditLocation extends Component {
   componentWillMount() {
-    const { id, type } = this.props.params;
+    const { id, type, location } = this.props.params;
     if (!this.props.campaign) {
       this.props.getCampaignData(id, type);
     }
+    if(type === 'dm') {
+      this.props.fetchLocation(id, location);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetInitialValues();
   }
 
   renderLocationData() {
@@ -112,16 +119,13 @@ class EditLocation extends Component {
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const location = _.find(this.props.campaign.locations, ['name', this.props.params.location]);
+    console.log(values);
     
-    const regex1 = /^(\s+)|(\s+)$/g;
-    for (var value in values) {
-      // replace all excess white space in front and end of string
-      // replace excess white space in the middle of a string and replace with one empty space
-      values[value] = values[value].replace(regex1, '');
-    }
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+    values.description = values.description.replace(removeExcessWhiteSpace, '');
+    values.history = values.history.replace(removeExcessWhiteSpace, '');
 
     this.props.updateLocation({values, id: location._id, campaignId: id});
-    this.props.reset();
   }
 
   render() {
@@ -168,13 +172,17 @@ function validate(values) {
   return errors;
 }
 
-function mapStateToProps(state) {
-  return {
-    campaign: state.user.Campaign
-  }
-}
-
-export default reduxForm({
-  form: 'edit_location',
+EditLocation = reduxForm({
+  form:'edit_location',
   validate
-})(connect(mapStateToProps, { getCampaignData, updateLocation })(EditLocation));
+})(EditLocation)
+
+EditLocation = connect(
+  state => ({
+    initialValues: state.user.currentFormItem,
+    campaign: state.user.Campaign,
+    enableReinintialize: true
+  }), { getCampaignData, updateLocation, fetchLocation, resetInitialValues }
+)(EditLocation)
+
+export default EditLocation;

@@ -11,3 +11,5 @@ export const FETCH_ERROR = 'fetch_error';
 export const SHARE_DATA = 'share_data';
 export const FETCH_PROFILE = 'fetch_profile';
 export const SHARE_ERROR = 'share_error';
+export const FETCH_FORM_ITEM = 'fetch_form_item';
+export const RESET_INITIAL_VALUES = 'reset_initial_values';
