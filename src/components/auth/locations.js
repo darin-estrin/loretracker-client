@@ -15,7 +15,11 @@ class Locations extends Component {
   }
 
   addLocationSubmit = ({ name,  image, history, description }) => {
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
     const { id } = this.props.params;
+    name = name.replace(removeExcessWhiteSpace, '');
+    history = history.replace(removeExcessWhiteSpace, '');
+    description = description.replace(removeExcessWhiteSpace, '');
     this.props.addLocation({ name, image, id, history, description});
     this.props.reset();
   }
@@ -144,9 +148,18 @@ class Locations extends Component {
 function validate(values) {
   const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
   const errors = {};
+  const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
 
-  if(!values.name) {
+  if(!values.name || values.name.replace(removeExcessWhiteSpace, '') === '') {
     errors.name = 'Location must have a name';
+  }
+
+  if (!values.description || values.description.replace(removeExcessWhiteSpace, '') === '') {
+    errors.description = 'Location must have a description';
+  }
+
+  if (!values.history || values.history.replace(removeExcessWhiteSpace, '') === '') {
+    errors.history = 'Location must have a history';
   }
 
   if (values.image && !urlRegex.test(values.image)) {
