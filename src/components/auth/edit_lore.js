@@ -142,7 +142,12 @@ class EditLore extends Component {
 
 function validate(values) {
   const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
+  const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
   const errors = {};
+
+  if (!values.backstory || values.backstory.replace(removeExcessWhiteSpace, '') === '') {
+    errors.backstory = 'Lore item must have a backstory';
+  }
 
   if (values.image && !urlRegex.test(values.image)) {
     errors.image = 'Please enter a valid URL';
