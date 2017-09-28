@@ -15,7 +15,10 @@ class Lore extends Component {
   }
 
   addLoreSubmit = ({ title, backstory, image }) => {
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
     const { id } = this.props.params;
+    title = title.replace(removeExcessWhiteSpace, '');
+    backstory = backstory.replace(removeExcessWhiteSpace, '');
     this.props.addLore({ title, backstory, image, id });
     this.props.reset();
   }
@@ -140,10 +143,15 @@ class Lore extends Component {
 
 function validate(values) {
   const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
+  const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
   const errors = {};
 
-  if(!values.title) {
+  if(!values.title || values.title.replace(removeExcessWhiteSpace, '') === '') {
     errors.title = 'Lore item must have a name';
+  }
+
+  if (!values.backstory || values.backstory.replace(removeExcessWhiteSpace, '') === '') {
+    errors.backstory = 'Lore item must have a history';
   }
 
   if (values.image && !urlRegex.test(values.image)) {

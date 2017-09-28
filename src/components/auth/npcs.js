@@ -15,7 +15,11 @@ class Npcs extends Component {
   }
 
   addNpcSubmit = ({ name,  image, bio, description }) => {
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
     const { id } = this.props.params;
+    name = name.replace(removeExcessWhiteSpace, '');
+    bio = bio.replace(removeExcessWhiteSpace, '');
+    description = description.replace(removeExcessWhiteSpace, '');
     this.props.addNPC({ name, image, id, bio, description});
     this.props.reset();
   }
@@ -145,8 +149,18 @@ function validate(values) {
   const urlRegex= /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
   const errors = {};
 
-  if(!values.name) {
+  const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+
+  if(!values.name || values.name.replace(removeExcessWhiteSpace, '') === '') {
     errors.name = 'NPC must have a name';
+  }
+
+  if (!values.bio || values.bio.replace(removeExcessWhiteSpace, '') === '') {
+    errors.bio = 'NPC must have a bio';
+  }
+
+  if (!values.description || values.description.replace(removeExcessWhiteSpace, '') === '') {
+    errors.description = 'NPC must have a description';
   }
 
   if (values.image && !urlRegex.test(values.image)){

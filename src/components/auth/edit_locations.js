@@ -119,7 +119,6 @@ class EditLocation extends Component {
   handleFormSubmit = (values) => {
     const { type, id } = this.props.params;
     const location = _.find(this.props.campaign.locations, ['name', this.props.params.location]);
-    console.log(values);
     
     const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
     values.description = values.description.replace(removeExcessWhiteSpace, '');
