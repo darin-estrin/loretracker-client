@@ -141,3 +141,16 @@ exports.shareNpc = function(req, res, next) {
       }
   });
 }
+
+exports.fetchNpc = function(req, res, next) {
+  User.findById({'_id': req.user.id}).exec((err, user) => {
+    const campaign = _.find(user.campaigns.DM, function(campaignToFind) {
+      return campaignToFind.campaignId = req.headers.id;
+    })
+    const npc = _.find(campaign.NPCs, function(npc){
+      return npc.name == req.headers.npc;
+    });
+    console.log('hi');
+    res.json(npc);
+  })
+}

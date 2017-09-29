@@ -6,7 +6,9 @@ import {
   FETCH_CAMPAIGN,
   UNAUTH_USER,
   SHARE_DATA,
-  SHARE_ERROR
+  SHARE_ERROR,
+  FETCH_FORM_ITEM,
+  RESET_INITIAL_VALUES
 } from '../actions/types'
 
 export default function(state= {}, action) {
@@ -27,6 +29,10 @@ export default function(state= {}, action) {
       return { ...state, name: '', DMCampaigns: '', PCCampaigns: '', error: '', Campaign: '', success: '' }
     case SHARE_ERROR:
       return { ...state, error: action.payload }
+    case FETCH_FORM_ITEM:
+      return { ...state, currentFormItem: action.payload }
+    case RESET_INITIAL_VALUES: 
+      return { ...state, currentFormItem: '' }
     default:
       return { ...state };
   }

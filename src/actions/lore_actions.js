@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { ADD_CAMPAIGN_DATA, SHARE_DATA, SHARE_ERROR } from './types';
+import { ADD_CAMPAIGN_DATA, SHARE_DATA, SHARE_ERROR, FETCH_FORM_ITEM, RESET_INITIAL_VALUES } from './types';
 
 const ROOT_URL = '/api';
 
@@ -63,5 +63,25 @@ export function shareLore(request) {
         payload: err.response.data.error
       })
     });
+  }
+}
+
+export function fetchLoreItem(id, lore) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/loreitem`, {
+      headers: { authorization: localStorage.getItem('token'), id, lore }
+    })
+    .then(response => {
+      dispatch({
+        type: FETCH_FORM_ITEM,
+        payload: response.data
+      })
+    });
+  }
+}
+
+export function resetInitialValues() {
+  return {
+    type: RESET_INITIAL_VALUES
   }
 }
