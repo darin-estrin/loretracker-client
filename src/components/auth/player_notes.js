@@ -59,6 +59,8 @@ class PlayerNotes extends Component {
 
   handleFormSubmit = ({ note }) => {
     const { type, id } = this.props.params;
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+    note = note.replace(removeExcessWhiteSpace, '');
     const player = _.find(this.props.campaign.players, ['characterName', this.props.params.player]);
     this.props.addPlayerNote({note, id: player._id, type, campaignId: id});
     this.props.reset();
@@ -92,6 +94,16 @@ class PlayerNotes extends Component {
   }
 }
 
+function validate(values) {
+  const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+  const errors = {};
+  if (!values.note || values.note.replace(removeExcessWhiteSpace, '') === '') {
+    errors.note = 'Note cannot be blank';
+  }
+
+  return errors;
+}
+
 function mapStateToProps(state) {
   return {
     campaign: state.user.Campaign
@@ -99,5 +111,6 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: 'player_notes'
+  form: 'player_notes',
+  validate
 })(connect(mapStateToProps, { getCampaignData, addPlayerNote })(PlayerNotes));
