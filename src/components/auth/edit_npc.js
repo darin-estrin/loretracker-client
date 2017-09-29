@@ -165,12 +165,6 @@ function validate(values) {
   return errors;
 }
 
-function mapStateToProps(state) {
-  return {
-    campaign: state.user.Campaign
-  }
-}
-
 EditNpc = reduxForm({
   form:'edit_npc',
   validate

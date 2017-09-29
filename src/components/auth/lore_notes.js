@@ -59,6 +59,8 @@ class LoreNotes extends Component {
 
   handleFormSubmit = ({ note }) => {
     const { type, id } = this.props.params;
+    const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+    note = note.replace(removeExcessWhiteSpace, '');
     const player = _.find(this.props.campaign.lore, ['title', this.props.params.lore]);
     this.props.addLoreNote({note, id: player._id, type, campaignId: id});
     this.props.reset();
@@ -93,10 +95,10 @@ class LoreNotes extends Component {
 }
 
 function validate(values) {
-  const errors = {}
-
-  if (!values.note) {
-    errors.note = 'Note cannot be empty'
+  const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
+  const errors = {};
+  if (!values.note || values.note.replace(removeExcessWhiteSpace, '') === '') {
+    errors.note = 'Note cannot be blank';
   }
 
   return errors;
