@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, addNpcNote } from '../../actions';
+import { getCampaignData, addNpcNote, editNote } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class NpcNotes extends Component {
+  state = {
+    editMode: false,
+    note: '',
+    id: ''
+  }
+
   componentWillMount() {
     const { id, type } = this.props.params;
     if (!this.props.campaign) {
@@ -42,6 +48,7 @@ class NpcNotes extends Component {
 
   renderNpcNotes() {
     var npc;
+    var self = this;
     const { campaign } = this.props;
     if (!campaign) { return; } 
     else { npc =_.find(campaign.NPCs, ['name', this.props.params.npc]); }
@@ -50,7 +57,7 @@ class NpcNotes extends Component {
     else {
       return notes.map(function(object) {
         return (
-          <ListItem style={styles.listItemStyle} key={object._id} primaryText={object.note}
+          <ListItem onClick={() => self.onNoteClick(object)} style={styles.listItemStyle} key={object._id} primaryText={object.note}
           leftIcon={<ActionNoteAdd/>} />
         );
       });
@@ -58,6 +65,10 @@ class NpcNotes extends Component {
   }
 
   handleFormSubmit = ({ note }) => {
+    if (this.state.editMode) {
+      this.onEditClick(note);
+      return;
+    }
     const { type, id } = this.props.params;
     const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
     note = note.replace(removeExcessWhiteSpace, '');
@@ -66,8 +77,67 @@ class NpcNotes extends Component {
     this.props.reset();
   }
 
+  onNoteClick(object) {
+    this.setState({ editMode: true, note: object.note, id: object._id });
+    this.props.dispatch(change('npc_notes', 'note', object.note));
+  }
+
+  onEditClick(note) {
+    const { id } = this.state;
+    const campaignId = this.props.params.id;
+    const type = this.props.params.type.toUpperCase();
+    const data = {
+      id,
+      campaignId,
+      type,
+      note,
+      dbArray: 'NPCs',
+    }
+    this.onCancelClick();
+    this.props.editNote(data);
+  }
+
+  onCancelClick() {
+    this.props.dispatch(change('npc_notes', 'note', ''));
+    this.setState({ editMode: false, note: '', id: '' });
+    this.props.reset();
+  }
+
+  renderButtons() {
+    const { npc, id, type } = this.props.params;
+    if (!this.state.editMode) {
+      return (
+        <div>
+          <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Add Note' />
+          <Link to={`/campaigns/${type}/${id}/npcs/${npc}`}>
+            <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
+            label={`Back to ${npc}`} />
+          </Link>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Edit Note' />
+          <Link to={`/campaigns/${type}/${id}/npcs/${npc}`}>
+            <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
+            label={`Back to ${npc}`} />
+          </Link>
+          <br />
+          <br />
+          <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} label='Delete Note' />
+          <RaisedButton
+            onTouchTap={() => this.onCancelClick()}
+            labelStyle={styles.paperButtonStyle} 
+            style={styles.buttonStyle}
+            label='Cancel' />
+        </div>
+      )
+    }
+  }
+
   render() {
-    const { handleSubmit, params: { type, id, npc }} = this.props;
+    const { handleSubmit, params: { npc }} = this.props;
     return(
       <div>
         <CampaignNav index={1} />
@@ -81,11 +151,7 @@ class NpcNotes extends Component {
               <div>
                 <Field label='Add a note' name='note' component={this.renderField} />
               </div>
-              <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Add Note' />
-              <Link to={`/campaigns/${type}/${id}/npcs/${npc}`}>
-                <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
-                label={`Back to ${npc}`} />
-              </Link>
+              {this.renderButtons()}
             </form>
           </Paper>
         </div>
@@ -113,4 +179,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'npc_notes',
   validate
-})(connect(mapStateToProps, { getCampaignData, addNpcNote })(NpcNotes));
+})(connect(mapStateToProps, { getCampaignData, addNpcNote, editNote })(NpcNotes));

@@ -6,7 +6,7 @@ import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, addPlayerNote, editPlayerNote, deletePlayerNote } from '../../actions';
+import { getCampaignData, addPlayerNote, editNote, deletePlayerNote } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class PlayerNotes extends Component {
@@ -15,6 +15,7 @@ class PlayerNotes extends Component {
     note: '',
     id: ''
   }
+
   componentWillMount() {
     const { id, type } = this.props.params;
     if (!this.props.campaign) {
@@ -85,18 +86,15 @@ class PlayerNotes extends Component {
     const { id } = this.state;
     const campaignId = this.props.params.id;
     const type = this.props.params.type.toUpperCase();
-    const name = this.props.params.player;
     const data = {
       id,
       campaignId,
       type,
-      name,
       note,
       dbArray: 'players',
-      
     }
     this.onCancelClick();
-    this.props.editPlayerNote(data);
+    this.props.editNote(data);
   }
 
   onCancelClick() {
@@ -106,7 +104,7 @@ class PlayerNotes extends Component {
   }
 
   renderButtons() {
-    const { params: { player, id, type }} = this.props;
+    const { player, id, type } = this.props.params;
     if (!this.state.editMode) {
       return (
         <div>
@@ -127,15 +125,15 @@ class PlayerNotes extends Component {
           <Link to={`/campaigns/${type}/${id}/roster/${player}`}>
             <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
             label={`Back to ${player}`} />
-            <br />
-            <br />
-            <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} label='Delete Note' />
-            <RaisedButton
-              onTouchTap={() => this.onCancelClick()}
-              labelStyle={styles.paperButtonStyle} 
-              style={styles.buttonStyle}
-              label='Cancel' />
           </Link>
+          <br />
+          <br />
+          <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} label='Delete Note' />
+          <RaisedButton
+            onTouchTap={() => this.onCancelClick()}
+            labelStyle={styles.paperButtonStyle} 
+            style={styles.buttonStyle}
+            label='Cancel' />
         </div>
       )
     }
@@ -184,4 +182,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'player_notes',
   validate
-})(connect(mapStateToProps, { getCampaignData, addPlayerNote, editPlayerNote, deletePlayerNote })(PlayerNotes));
+})(connect(mapStateToProps, { getCampaignData, addPlayerNote, editNote, deletePlayerNote })(PlayerNotes));

@@ -69,7 +69,7 @@ export function deletePlayer(campaign, player, id, type) {
   }
 }
 
-export function editPlayerNote(data) {
+export function editNote(data) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/editnote`, { data }, {
       headers: { authorization: localStorage.getItem('token') }

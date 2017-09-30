@@ -280,22 +280,13 @@ exports.leaveCampaign = function(req, res, next) {
 
 exports.editNote = function(req, res, next) {
   const { note, id, type, campaignId, dbArray, name } = req.body.data;
-  console.log('note: ', note);
-  console.log('id: ', id);
-  console.log('campaignId', campaignId);
-  console.log('type: ', type);
-  console.log('name: ', name)
-  console.log('dbArray: ', dbArray);
 
   User.findById({'_id': req.user.id}).exec((err, user) => {
-    console.log('user: ', user);
-    // for (var i = 0; i < user.campaigns[type].length; i++) {
-    //   console.log('campaigns: ', user.campaigns[type][i]._id);
-    // }
+
     let campaign = _.find(user.campaigns[type], function(campaign) {
       return campaign._id == campaignId;
     });
-    console.log('campaign: ', campaign)
+    
     var noteToUpdate;
     campaign[dbArray].forEach((entry) => {
       console.log('entry: ', entry.notes);
@@ -305,8 +296,6 @@ exports.editNote = function(req, res, next) {
        }
       }
     })
-    console.log('edited note: ', note);
-    console.log('note to update: ', noteToUpdate);
     noteToUpdate.note = note;
     user.save(function(err) {
       if (err) { return next(err); }
