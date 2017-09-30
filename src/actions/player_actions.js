@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { ADD_CAMPAIGN_DATA, FETCH_ERROR } from './types';
+import { ADD_CAMPAIGN_DATA, FETCH_ERROR, FETCH_FORM_ITEM } from './types';
 
 const ROOT_URL = '/api';
 
@@ -66,5 +66,33 @@ export function deletePlayer(campaign, player, id, type) {
         payload: response.data
       });
     });
+  }
+}
+
+export function editNote(data) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/editnote`, { data }, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      })
+    })
+  }
+}
+
+export function deleteNote(note, id, campaignId, type, dbArray) {
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/deletenote`, {
+      headers: { authorization: localStorage.getItem('token'), note, id, campaignId, type, dbArray }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      })
+    })
   }
 }
