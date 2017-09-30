@@ -83,6 +83,16 @@ export function editNote(data) {
   }
 }
 
-export function deletePlayerNote() {
-
+export function deleteNote(note, id, campaignId, type, dbArray) {
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/deletenote`, {
+      headers: { authorization: localStorage.getItem('token'), note, id, campaignId, type, dbArray }
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_CAMPAIGN_DATA,
+        payload: response.data
+      })
+    })
+  }
 }

@@ -41,4 +41,5 @@ module.exports = function(app) {
   app.put('/api/editnote', requireAuth, Player.editNote);
   app.put('/api/updateprofile', requireAuth, Authentication.updateProfile);
   app.put('/api/changepassword', requireAuth, Authentication.changePassword);
+  app.delete('/api/deletenote', requireAuth, Player.deleteNote);
 }

@@ -6,7 +6,7 @@ import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, addPlayerNote, editNote, deletePlayerNote } from '../../actions';
+import { getCampaignData, addPlayerNote, editNote, deleteNote } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class PlayerNotes extends Component {
@@ -103,6 +103,14 @@ class PlayerNotes extends Component {
     this.props.reset();
   }
 
+  onDeleteClick() {
+    const { note, id } = this.state;
+    const campaignId = this.props.params.id;
+    const type = this.props.params.type.toUpperCase();
+    this.onCancelClick();
+    this.props.deleteNote(note, id, campaignId, type, 'players');
+  }
+
   renderButtons() {
     const { player, id, type } = this.props.params;
     if (!this.state.editMode) {
@@ -128,7 +136,11 @@ class PlayerNotes extends Component {
           </Link>
           <br />
           <br />
-          <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} label='Delete Note' />
+          <RaisedButton
+            onTouchTap={() => this.onDeleteClick()}
+            labelStyle={styles.paperButtonStyle}
+            primary={true}
+            label='Delete Note' />
           <RaisedButton
             onTouchTap={() => this.onCancelClick()}
             labelStyle={styles.paperButtonStyle} 
@@ -182,4 +194,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'player_notes',
   validate
-})(connect(mapStateToProps, { getCampaignData, addPlayerNote, editNote, deletePlayerNote })(PlayerNotes));
+})(connect(mapStateToProps, { getCampaignData, addPlayerNote, editNote, deleteNote })(PlayerNotes));
