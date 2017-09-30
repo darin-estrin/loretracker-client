@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { TextField, RaisedButton, Paper, List, ListItem } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import CampaignNav from './campaign_nav';
-import { getCampaignData, addPlayerNote } from '../../actions';
+import { getCampaignData, addPlayerNote, editPlayerNote, deletePlayerNote } from '../../actions';
 import * as styles from '../../css/material_styles';
 
 class PlayerNotes extends Component {
+  state = {
+    editMode: false,
+    note: '',
+    id: ''
+  }
   componentWillMount() {
     const { id, type } = this.props.params;
     if (!this.props.campaign) {
@@ -42,6 +47,7 @@ class PlayerNotes extends Component {
 
   renderPlayerNotes() {
     var player;
+    const self = this;
     const { campaign } = this.props;
     if (!campaign) { return; } 
     else { player =_.find(campaign.players, ['characterName', this.props.params.player]); }
@@ -50,7 +56,7 @@ class PlayerNotes extends Component {
     else {
       return notes.map(function(object) {
         return (
-          <ListItem style={styles.listItemStyle} key={object._id} primaryText={object.note}
+          <ListItem onClick={() => self.onNoteClick(object)} style={styles.listItemStyle} key={object._id} primaryText={object.note}
           leftIcon={<ActionNoteAdd/>} />
         );
       });
@@ -58,6 +64,10 @@ class PlayerNotes extends Component {
   }
 
   handleFormSubmit = ({ note }) => {
+    if (this.state.editMode) {
+      this.onEditClick(note);
+      return;
+    }
     const { type, id } = this.props.params;
     const removeExcessWhiteSpace = /^(\s+)|(\s+)$/g;
     note = note.replace(removeExcessWhiteSpace, '');
@@ -66,8 +76,73 @@ class PlayerNotes extends Component {
     this.props.reset();
   }
 
+  onNoteClick(object) {
+    this.setState({ editMode: true, note: object.note, id: object._id });
+    this.props.dispatch(change('player_notes', 'note', object.note));
+  }
+
+  onEditClick(note) {
+    const { id } = this.state;
+    const campaignId = this.props.params.id;
+    const type = this.props.params.type.toUpperCase();
+    const name = this.props.params.player;
+    const data = {
+      id,
+      campaignId,
+      type,
+      name,
+      note,
+      dbArray: 'players',
+      
+    }
+    this.onCancelClick();
+    this.props.editPlayerNote(data);
+  }
+
+  onCancelClick() {
+    this.props.dispatch(change('player_notes', 'note', ''));
+    this.setState({ editMode: false, note: '', id: '' });
+    this.props.reset();
+  }
+
+  renderButtons() {
+    const { params: { player, id, type }} = this.props;
+    if (!this.state.editMode) {
+      return (
+        <div>
+          <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Add Note' />
+          <Link to={`/campaigns/${type}/${id}/roster/${player}`}>
+            <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
+            label={`Back to ${player}`} />
+          </Link>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <RaisedButton
+            type='submit'
+            labelStyle={styles.paperButtonStyle}
+            label='Edit Note' />
+          <Link to={`/campaigns/${type}/${id}/roster/${player}`}>
+            <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
+            label={`Back to ${player}`} />
+            <br />
+            <br />
+            <RaisedButton labelStyle={styles.paperButtonStyle} primary={true} label='Delete Note' />
+            <RaisedButton
+              onTouchTap={() => this.onCancelClick()}
+              labelStyle={styles.paperButtonStyle} 
+              style={styles.buttonStyle}
+              label='Cancel' />
+          </Link>
+        </div>
+      )
+    }
+  }
+
   render() {
-    const { handleSubmit, params: { type, id, player }} = this.props;
+    const { handleSubmit, params: { player }} = this.props;
     return(
       <div>
         <CampaignNav index={0} />
@@ -81,11 +156,7 @@ class PlayerNotes extends Component {
               <div>
                 <Field label='Add a note' name='note' component={this.renderField} />
               </div>
-              <RaisedButton labelStyle={styles.paperButtonStyle} type='submit' label='Add Note' />
-              <Link to={`/campaigns/${type}/${id}/roster/${player}`}>
-                <RaisedButton labelStyle={styles.paperButtonStyle} secondary={true} style={styles.buttonStyle} 
-                label={`Back to ${player}`} />
-              </Link>
+              {this.renderButtons()}
             </form>
           </Paper>
         </div>
@@ -113,4 +184,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'player_notes',
   validate
-})(connect(mapStateToProps, { getCampaignData, addPlayerNote })(PlayerNotes));
+})(connect(mapStateToProps, { getCampaignData, addPlayerNote, editPlayerNote, deletePlayerNote })(PlayerNotes));

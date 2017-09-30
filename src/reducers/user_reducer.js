@@ -11,7 +11,7 @@ import {
   RESET_INITIAL_VALUES
 } from '../actions/types'
 
-export default function(state= {}, action) {
+export default function(state = {}, action) {
   switch (action.type) {
     case GET_USER:
       return { ...state, name: action.payload.name, DMCampaigns: action.payload.campaigns.DM, PCCampaigns: action.payload.campaigns.PC, error: '', success: '' }
@@ -31,8 +31,8 @@ export default function(state= {}, action) {
       return { ...state, error: action.payload }
     case FETCH_FORM_ITEM:
       return { ...state, currentFormItem: action.payload }
-    case RESET_INITIAL_VALUES: 
-      return { ...state, currentFormItem: '' }
+    case RESET_INITIAL_VALUES:
+      return { ...state, currentFormItem: undefined }
     default:
       return { ...state };
   }
