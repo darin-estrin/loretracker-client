@@ -55,7 +55,6 @@ ReactDOM.render(
         <Route path='campaigns/:type/:id/roster/:player' component={RequireAuth(EditPlayer)} />
         <Route path='campaigns/:type/:id/roster/:player/notes'
         component={RequireAuth(PlayerNotes)} />
-        <Route path='campaigns/:type/:id/roster/:player/notes/:note' component={RequireAuth(PlayerNotes)} />
         <Route path='campaigns/:type/:id/npcs' component={RequireAuth(Npcs)} />
         <Route path='campaigns/:type/:id/npcs/:npc' component={RequireAuth(EditNpc)} />
         <Route path='campaigns/:type/:id/npcs/:npc/notes' component={RequireAuth(NpcNotes)} />
