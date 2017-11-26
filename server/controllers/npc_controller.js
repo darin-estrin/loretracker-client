@@ -150,7 +150,6 @@ exports.fetchNpc = function(req, res, next) {
     const npc = _.find(campaign.NPCs, function(npc){
       return npc.name == req.headers.npc;
     });
-    console.log('hi');
     res.json(npc);
   })
 }

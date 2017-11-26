@@ -277,3 +277,52 @@ exports.leaveCampaign = function(req, res, next) {
 
   });
 }
+
+exports.editNote = function(req, res, next) {
+  const { note, id, type, campaignId, dbArray } = req.body.data;
+
+  User.findById({'_id': req.user.id}).exec((err, user) => {
+
+    let campaign = _.find(user.campaigns[type], function(campaign) {
+      return campaign._id == campaignId;
+    });
+    
+    var noteToUpdate;
+    campaign[dbArray].forEach((entry) => {
+      for (var i = 0; i < entry.notes.length; i++) {
+       if (entry.notes[i]._id == id) {
+         noteToUpdate = entry.notes[i];
+       }
+      }
+    })
+    noteToUpdate.note = note;
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaign);
+    });
+  })
+}
+
+exports.deleteNote = function(req, res, next) {
+  const { note, id, campaignid, type, dbarray } = req.headers;
+
+  User.findById({'_id': req.user.id}).exec((err, user) => {
+    
+    let campaign = _.find(user.campaigns[type], function(campaign) {
+      return campaign._id == campaignid;
+    });
+   
+    campaign[dbarray].forEach((entry) => {
+      for (var i = 0; i < entry.notes.length; i++) {
+       if (entry.notes[i]._id == id) {
+         entry.notes.splice(i, 1);
+       }
+      }
+    })
+  
+    user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(campaign);
+    });
+  })
+}

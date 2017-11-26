@@ -38,6 +38,8 @@ module.exports = function(app) {
   app.put('/api/updatelore', requireAuth, Lore.updateLore);
   app.put('/api/addlorenote', requireAuth, Lore.addLoreNote);
   app.put('/api/sharelore', requireAuth, Lore.shareLore);
+  app.put('/api/editnote', requireAuth, Player.editNote);
   app.put('/api/updateprofile', requireAuth, Authentication.updateProfile);
   app.put('/api/changepassword', requireAuth, Authentication.changePassword);
+  app.delete('/api/deletenote', requireAuth, Player.deleteNote);
 }
