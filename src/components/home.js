@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Paper } from 'material-ui';
 import { grey900 } from 'material-ui/styles/colors';
+import { greetingStyle } from '../css/material_styles';
 
 const paperStyle = {
   backgroundColor: 'rgba(255, 255, 255, 0.75)',
@@ -19,11 +20,13 @@ const footerPapter = {
 }
 
 export default () => (
-  <div  className='greeting container'>
-    <h1>Do you play Dungeons & Dragons</h1>
-    <h2>or any other table top RPG?</h2>
-    <br />
-    <h3>Playing Dungeons & Dragons is always a great time, but sometimes keeping track of everything can leave you encumbered. With Lore Tracker you can easily look up the information you need. So why Lore Tracker?</h3>
+  <div  className='container greeting'>
+    <Paper style={greetingStyle} zDepth={4}>
+      <h1>Do you play Dungeons & Dragons</h1>
+      <h2>or any other table top RPG?</h2>
+      <br />
+      <h3>Playing Dungeons & Dragons is always a great time, but sometimes keeping track of everything can leave you encumbered. With Lore Tracker you can easily look up the information you need. So why Lore Tracker?</h3>
+    </Paper>
     
     <Paper className='main-paper' style={paperStyle} zDepth={4}>
       <div className='main'>

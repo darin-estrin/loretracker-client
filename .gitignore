@@ -2,3 +2,5 @@
 public
 npm-debug.log
 /server/config.js
+/server/client_secret.json
+/server/gmail-nodejs-quickstart.json
