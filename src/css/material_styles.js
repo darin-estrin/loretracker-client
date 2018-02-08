@@ -10,6 +10,16 @@ export const styles = {
   }
 }
 
+export const greetingStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  color: grey900,
+  padding: '2%',
+  display: 'flex',
+  margin: '1vh',
+  flexDirection: 'column',
+  flex: 1
+}
+
 export const paperStyle = {
   backgroundColor: 'rgba(255, 255, 255, 0.75)',
   color: grey900,
