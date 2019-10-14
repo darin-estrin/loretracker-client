@@ -1,9 +1,12 @@
 import React from 'react';
+import Navbar from './components/Navbar';
+import Router from './routes/index';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <h1>Testing</h1>
+      <Navbar brand='Lore Tracker' />
+      <Router />
     </div>
   );
 }
