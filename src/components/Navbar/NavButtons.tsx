@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+
 
 interface INavButtonsProps {
   authorized: boolean;
@@ -17,7 +18,7 @@ const NavButtons: React.FunctionComponent<INavButtonsProps> = ({ authorized }):J
     } else {
       return (
         <React.Fragment>
-          <Link to="/signin" className="button is-light">
+          <Link to='/login' className="button is-light">
             <strong>Log In</strong>
           </Link>
           <Link to="/register" className="button is-danger">

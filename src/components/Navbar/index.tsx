@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NavButtons from './NavButtons';
 
 interface Props {
+  authorized:boolean;
   brand:string;
 }
 
@@ -12,12 +13,15 @@ interface State {
 }
 
 class Navbar extends React.Component<Props, State> {
+  static defaultProps = {
+    authorized: false
+  }
 
   readonly state = {
     expanded: false
   }
 
-  private toggleNavmenu = (e:React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  private toggleNavMenu = (e:React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     const target = e.currentTarget;
     const navMenu = document.getElementById('navbar-menu');
 
@@ -36,7 +40,7 @@ class Navbar extends React.Component<Props, State> {
 
   public render():JSX.Element {
     return (
-      <nav className='navbar is-primary' role='navigation' aria-label='main navigation'>
+      <nav className='navbar is-primary is-fixed-top' role='navigation' aria-label='main navigation'>
         <div className="navbar-brand">
           <Link to="/" id='brand' className="navbar-item">{this.props.brand}</Link>
 
@@ -45,7 +49,7 @@ class Navbar extends React.Component<Props, State> {
             className="navbar-burger burger"
             aria-label="menu"
             aria-expanded="false"
-            onClick={this.toggleNavmenu}
+            onClick={this.toggleNavMenu}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -53,7 +57,7 @@ class Navbar extends React.Component<Props, State> {
           </a>
         </div>
 
-        <NavButtons authorized={true} />
+        <NavButtons authorized={this.props.authorized} />
       </nav>
     );
   }

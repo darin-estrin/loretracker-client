@@ -12,4 +12,4 @@ describe('NavBar', () => {
   it('should have a brand of Lore Tracker', () => {
     expect(wrapper.find('#brand').text()).toBe('Lore Tracker');
   });
-})
+});

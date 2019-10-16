@@ -11,11 +11,9 @@ class Router extends React.Component<Props,State> {
 
   public render():JSX.Element {
     return (
-      <div className='container'>
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path='/' component={HomePage} />
+      </Switch>
     );
   }
 }

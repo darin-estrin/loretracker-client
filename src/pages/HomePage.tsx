@@ -4,7 +4,20 @@ class HomePage extends React.Component {
   
   public render():JSX.Element {
     return (
-      <h3>Home Page</h3>
+      <div className='home-page'>
+        <section className="hero">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">
+                Primary title
+              </h1>
+              <h2 className="subtitle">
+                Primary subtitle
+              </h2>
+            </div>
+          </div>
+        </section>
+      </div>
     );
   }
 }
