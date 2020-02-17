@@ -1,0 +1,15 @@
+version: '2.4'
+
+services:
+  loretracker-client:
+    build:
+      context: .
+      target: dev
+    command: npm start
+    container_name: loretracker-client
+    ports:
+      - '3000:3000'
+    volumes:
+      - /node/app/node_modules
+      - .:/node/app
+    working_dir: /node/app
